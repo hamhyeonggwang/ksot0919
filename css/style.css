@@ -110,7 +110,7 @@
 .hero-bg-img {
   position: absolute; inset: 0;
   background: center / cover no-repeat;
-  opacity: 0.18;
+  opacity: 0.35;
   pointer-events: none;
   mix-blend-mode: luminosity;
 }
