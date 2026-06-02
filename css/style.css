@@ -1,3 +1,22 @@
+/* ===== 아이콘 mask-image ===== */
+.icon {
+  display: inline-block;
+  width: 1em; height: 1em;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+          mask: var(--icon) center / contain no-repeat;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
+.icon-clock        { --icon: url('../icons/clock.svg'); }
+.icon-location     { --icon: url('../icons/location.svg'); }
+.icon-microphone   { --icon: url('../icons/microphone.svg'); }
+.icon-presentation { --icon: url('../icons/presentation.svg'); }
+.icon-trophy       { --icon: url('../icons/trophy.svg'); }
+.icon-graduation   { --icon: url('../icons/graduation.svg'); }
+.icon-award        { --icon: url('../icons/award.svg'); }
+.icon-networking   { --icon: url('../icons/networking.svg'); }
+
 /* ===== 스크롤 reveal ===== */
 .reveal {
   opacity: 0;
@@ -85,6 +104,14 @@
     linear-gradient(160deg, var(--navy-deep) 0%, var(--navy-dark) 55%, #16194a 100%);
   overflow: hidden;
   padding: 120px 0 80px;
+}
+
+/* 배경 이미지 오버레이 */
+.hero-bg-img {
+  position: absolute; inset: 0;
+  background: var(--hero-bg) center / cover no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
 }
 
 /* 떠다니는 뉴런 그리드 */
@@ -815,9 +842,16 @@ section { padding: 90px 0; }
   padding: 30px 0;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.footer-org-item { display: flex; flex-direction: column; gap: 5px; }
+.footer-org-item { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
 .footer-org-item .role { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; }
 .footer-org-item .name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
+.footer-org-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
+}
 
 .footer-bottom {
   padding-top: 24px;
