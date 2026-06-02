@@ -9,6 +9,19 @@
   const COUNT = 55;
   const MAX_D = 105;
   const particles = [];
+  let nodePositions = [];
+
+  function updateNodePositions() {
+    const cr = canvas.getBoundingClientRect();
+    if (!cr.width) return;
+    nodePositions = Array.from(document.querySelectorAll('.node')).map(n => {
+      const r = n.getBoundingClientRect();
+      return {
+        x: (r.left + r.width / 2 - cr.left) * (W / cr.width),
+        y: (r.top + r.height / 2 - cr.top) * (H / cr.height)
+      };
+    });
+  }
 
   class Particle {
     constructor() { this.init(true); }
@@ -107,9 +120,35 @@
     ctx.fillText('AI', cx, cy);
   }
 
+  function drawNodeLines(t) {
+    const cx = W / 2, cy = H / 2;
+    nodePositions.forEach((pos, i) => {
+      const pulse = (Math.sin(t * 0.0009 + i * Math.PI / 2) + 1) / 2;
+      const alpha = 0.18 + pulse * 0.18;
+      const grad = ctx.createLinearGradient(cx, cy, pos.x, pos.y);
+      grad.addColorStop(0, `rgba(232,80,31,${alpha.toFixed(2)})`);
+      grad.addColorStop(1, `rgba(255,255,255,${(alpha * 0.4).toFixed(2)})`);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 8]);
+      ctx.lineDashOffset = -(t * 0.04) % 12;
+      ctx.stroke();
+      ctx.setLineDash([]);
+      // 노드 연결점 글로우
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 3 + pulse * 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(232,80,31,${(alpha * 0.8).toFixed(2)})`;
+      ctx.fill();
+    });
+  }
+
   function animate(t) {
     ctx.clearRect(0, 0, W, H);
     drawCenter(t);
+    drawNodeLines(t);
     drawLines();
     particles.forEach(p => { p.update(t); p.draw(t); });
     requestAnimationFrame(animate);
@@ -122,9 +161,10 @@
   });
   canvas.addEventListener('mouseleave', () => { mouse.x = mouse.y = -9999; });
 
-  new ResizeObserver(() => resize()).observe(canvas.parentElement);
+  new ResizeObserver(() => { resize(); setTimeout(updateNodePositions, 50); }).observe(canvas.parentElement);
   resize();
   for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+  setTimeout(updateNodePositions, 100);
   requestAnimationFrame(animate);
 })();
 

@@ -110,7 +110,7 @@
 .hero-bg-img {
   position: absolute; inset: 0;
   background: center / cover no-repeat;
-  opacity: 0.35;
+  opacity: 0.15;
   pointer-events: none;
   mix-blend-mode: luminosity;
 }
@@ -266,18 +266,26 @@
   border-radius: 50%;
 }
 
-/* 궤도 노드 */
+/* 궤도 노드 — 글래스모피즘 */
 .node {
   position: absolute;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 14px;
-  padding: 8px 12px;
+  padding: 8px 14px;
   font-size: 11px;
   font-weight: 700;
-  color: var(--navy);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  color: rgba(255,255,255,0.92);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
   white-space: nowrap;
   z-index: 2;
+  transition: background .3s, box-shadow .3s;
+}
+.node:hover {
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 0 22px rgba(232,80,31,0.35), 0 4px 20px rgba(0,0,0,0.25);
 }
 .node .ic { font-size: 13px; }
 .node.n1 { top: 6%;    left: 50%;  transform: translateX(-50%); }
