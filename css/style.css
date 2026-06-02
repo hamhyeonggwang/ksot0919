@@ -109,9 +109,10 @@
 /* 배경 이미지 오버레이 */
 .hero-bg-img {
   position: absolute; inset: 0;
-  background: var(--hero-bg) center / cover no-repeat;
-  opacity: 0.08;
+  background: center / cover no-repeat;
+  opacity: 0.18;
   pointer-events: none;
+  mix-blend-mode: luminosity;
 }
 
 /* 떠다니는 뉴런 그리드 */
