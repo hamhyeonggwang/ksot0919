@@ -6,19 +6,50 @@
 
   let W, H;
   const mouse = { x: -9999, y: -9999 };
-  const COUNT = 55;
-  const MAX_D = 105;
+  const COUNT = 38;   // 앰비언트 파티클 (배경)
+  const MAX_D = 95;
   const particles = [];
   let nodePositions = [];
+
+  // 도메인별 스트림 색상 (HTML DOM 순서 일치: practice, education, community, research)
+  const STREAM_COLORS = [
+    [61, 184, 112],   // practice  — 초록
+    [255, 122, 77],   // education — 오렌지
+    [167, 139, 250],  // community — 보라
+    [91, 143, 249],   // research  — 파랑
+  ];
+  const STREAM_N = 6; // 스트림당 파티클 수
+  const streams = STREAM_COLORS.map((_, si) =>
+    Array.from({ length: STREAM_N }, (__, j) => ({
+      t: j / STREAM_N,
+      speed: 0.0028 + Math.random() * 0.0018,
+      size: Math.random() * 1.6 + 0.7,
+      cpOff: (Math.random() - 0.5) * 65,
+    }))
+  );
+
+  function bezier(t, p0, cp, p2) {
+    const m = 1 - t;
+    return {
+      x: m * m * p0.x + 2 * m * t * cp.x + t * t * p2.x,
+      y: m * m * p0.y + 2 * m * t * cp.y + t * t * p2.y,
+    };
+  }
+  function ctrlPt(p0, p2, off) {
+    const mx = (p0.x + p2.x) / 2, my = (p0.y + p2.y) / 2;
+    const dx = p2.x - p0.x, dy = p2.y - p0.y;
+    const len = Math.hypot(dx, dy) || 1;
+    return { x: mx + (-dy / len) * off, y: my + (dx / len) * off };
+  }
 
   function updateNodePositions() {
     const cr = canvas.getBoundingClientRect();
     if (!cr.width) return;
-    nodePositions = Array.from(document.querySelectorAll('.node')).map(n => {
+    nodePositions = Array.from(document.querySelectorAll('.dn-core')).map(n => {
       const r = n.getBoundingClientRect();
       return {
         x: (r.left + r.width / 2 - cr.left) * (W / cr.width),
-        y: (r.top + r.height / 2 - cr.top) * (H / cr.height)
+        y: (r.top + r.height / 2 - cr.top) * (H / cr.height),
       };
     });
   }
@@ -42,20 +73,6 @@
         const f = ((90 - d) / 90) * 2.8;
         this.x += (dx / d) * f;
         this.y += (dy / d) * f;
-      }
-      // 노드 위치 약한 인력 (유기적 밀집)
-      if (nodePositions.length) {
-        let minD = Infinity, nearest = null;
-        nodePositions.forEach(p => {
-          const nd = Math.hypot(this.x - p.x, this.y - p.y);
-          if (nd < minD) { minD = nd; nearest = p; }
-        });
-        if (nearest && minD < 160 && minD > 25) {
-          this.vx += (nearest.x - this.x) / minD * 0.06;
-          this.vy += (nearest.y - this.y) / minD * 0.06;
-          const spd = Math.hypot(this.vx, this.vy);
-          if (spd > 0.8) { this.vx *= 0.8 / spd; this.vy *= 0.8 / spd; }
-        }
       }
       this.x += this.vx;
       this.y += this.vy;
@@ -135,9 +152,42 @@
     ctx.fillText('AI', cx, cy);
   }
 
+  function drawStreams() {
+    if (!nodePositions.length) return;
+    const src = { x: W / 2, y: H / 2 };
+    streams.forEach((stream, si) => {
+      const tgt = nodePositions[si];
+      if (!tgt) return;
+      const [r, g, b] = STREAM_COLORS[si];
+      stream.forEach(p => {
+        p.t += p.speed;
+        if (p.t > 1) {
+          p.t -= 1;
+          p.speed = 0.0028 + Math.random() * 0.0018;
+          p.size  = Math.random() * 1.6 + 0.7;
+          p.cpOff = (Math.random() - 0.5) * 65;
+        }
+        const cp  = ctrlPt(src, tgt, p.cpOff);
+        const a0  = p.t < 0.14 ? p.t / 0.14 : p.t > 0.86 ? (1 - p.t) / 0.14 : 1;
+        // 헤드 + 꼬리 3단
+        for (let k = 0; k < 4; k++) {
+          const tt = Math.max(0, p.t - k * 0.028);
+          const pos = bezier(tt, src, cp, tgt);
+          const a  = (a0 * (1 - k * 0.24)).toFixed(2);
+          const sz = p.size * (1 - k * 0.22);
+          ctx.beginPath();
+          ctx.arc(pos.x, pos.y, sz, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+          ctx.fill();
+        }
+      });
+    });
+  }
+
   function animate(t) {
     ctx.clearRect(0, 0, W, H);
     drawCenter(t);
+    drawStreams();
     drawLines();
     particles.forEach(p => { p.update(t); p.draw(t); });
     requestAnimationFrame(animate);

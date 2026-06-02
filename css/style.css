@@ -266,47 +266,100 @@
   border-radius: 50%;
 }
 
-/* 궤도 노드 — 글래스모피즘 */
-.node {
+/* ============================================================
+   도메인 노드 — AI Flow 비주얼
+============================================================ */
+.domain-node {
   position: absolute;
-  background: rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+.dn-top    { top: -8px;    left: 50%; transform: translateX(-50%); }
+.dn-right  { top: 50%;  right: -8px;  transform: translateY(-50%); }
+.dn-bottom { bottom: -8px; left: 50%; transform: translateX(-50%); }
+.dn-left   { top: 50%;   left: -8px;  transform: translateY(-50%); }
+
+/* 오브 래퍼 */
+.dn-orb {
+  position: relative;
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* 코어 원 */
+.dn-core {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  background: rgba(255,255,255,0.07);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 14px;
-  padding: 8px 14px;
+  border: 1.5px solid currentColor;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow .4s;
+}
+.domain-node:hover .dn-core { background: rgba(255,255,255,0.14); }
+
+/* 펄스 링 */
+.dn-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  animation: dn-pulse 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.dn-p2 { animation-delay: 1.3s; }
+
+@keyframes dn-pulse {
+  0%   { transform: scale(1);   opacity: 0.65; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* 라벨 */
+.dn-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.dn-en {
+  font-family: var(--display);
   font-size: 11px;
   font-weight: 700;
   color: rgba(255,255,255,0.92);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
-  white-space: nowrap;
-  z-index: 2;
-  transition: background .3s, box-shadow .3s;
+  letter-spacing: 0.3px;
 }
-.node:hover {
-  background: rgba(255,255,255,0.18);
-  box-shadow: 0 0 22px rgba(232,80,31,0.35), 0 4px 20px rgba(0,0,0,0.25);
-}
-.node .ic { font-size: 13px; }
-.node.n1 { top: 6%;    left: 50%;  transform: translateX(-50%); }
-.node.n2 { top: 50%;   right: -4%; transform: translateY(-50%); }
-.node.n3 { bottom: 6%; left: 50%;  transform: translateX(-50%); }
-.node.n4 { top: 50%;   left: -4%;  transform: translateY(-50%); }
+.dn-ko { font-size: 10px; color: rgba(255,255,255,0.5); }
 
-/* 노드 플로팅 */
-@keyframes node-float {
-  0%,100% { transform: translateY(0) scale(1); }
-  50%      { transform: translateY(-7px) scale(1.05); }
-}
-.node-inner {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  animation: node-float 3.6s ease-in-out infinite;
-}
-.node.n2 .node-inner { animation-duration: 4.1s;  animation-delay: -1.1s; }
-.node.n3 .node-inner { animation-duration: 3.9s;  animation-delay: -2.3s; }
-.node.n4 .node-inner { animation-duration: 4.4s;  animation-delay: -0.6s; }
+/* 도메인별 색상 */
+.dn-practice { color: #3db870; }
+.dn-practice .dn-core { box-shadow: 0 0 18px rgba(61,184,112,0.45); }
+
+.dn-education { color: #ff7a4d; }
+.dn-education .dn-core { box-shadow: 0 0 18px rgba(255,122,77,0.45); }
+
+.dn-community { color: #a78bfa; }
+.dn-community .dn-core { box-shadow: 0 0 18px rgba(167,139,250,0.45); }
+
+.dn-research { color: #5b8ff9; }
+.dn-research .dn-core { box-shadow: 0 0 18px rgba(91,143,249,0.45); }
+
+/* 펄스 딜레이 (도메인별 엇갈림) */
+.dn-practice .dn-pulse  { animation-delay: 0s; }
+.dn-practice .dn-p2     { animation-delay: 1.3s; }
+.dn-education .dn-pulse { animation-delay: 0.65s; }
+.dn-education .dn-p2    { animation-delay: 1.95s; }
+.dn-community .dn-pulse { animation-delay: 1.3s; }
+.dn-community .dn-p2    { animation-delay: 2.6s; }
+.dn-research .dn-pulse  { animation-delay: 1.95s; }
+.dn-research .dn-p2     { animation-delay: 3.25s; }
 
 /* 스크롤 인디케이터 */
 .scroll-hint {
