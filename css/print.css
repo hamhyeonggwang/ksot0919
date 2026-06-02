@@ -1,0 +1,27 @@
+@media print {
+  .nav, .scroll-hint, .hero-btns, .reg-btns,
+  .nav-cta, .venue-map-btn,
+  .timetable-toggle, .accordion-toggle { display: none !important; }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body { background: #fff; }
+  section { padding: 24px 0; break-inside: avoid; }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* 아코디언 본문은 인쇄 시 항상 펼침 */
+  .accordion-body,
+  .timetable-body { max-height: none !important; display: block !important; }
+
+  .highlight-card, .reg-card, .prog-card, .sched-card,
+  .core-card, .venue-card, .value-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+  }
+
+  @page { margin: 12mm; }
+}
