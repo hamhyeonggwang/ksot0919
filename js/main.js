@@ -35,12 +35,27 @@
       this.phase = Math.random() * Math.PI * 2;
     }
     update(t) {
+      // 마우스 반발
       const dx = this.x - mouse.x, dy = this.y - mouse.y;
       const d = Math.hypot(dx, dy);
       if (d < 90 && d > 0) {
         const f = ((90 - d) / 90) * 2.8;
         this.x += (dx / d) * f;
         this.y += (dy / d) * f;
+      }
+      // 노드 위치 약한 인력 (유기적 밀집)
+      if (nodePositions.length) {
+        let minD = Infinity, nearest = null;
+        nodePositions.forEach(p => {
+          const nd = Math.hypot(this.x - p.x, this.y - p.y);
+          if (nd < minD) { minD = nd; nearest = p; }
+        });
+        if (nearest && minD < 160 && minD > 25) {
+          this.vx += (nearest.x - this.x) / minD * 0.06;
+          this.vy += (nearest.y - this.y) / minD * 0.06;
+          const spd = Math.hypot(this.vx, this.vy);
+          if (spd > 0.8) { this.vx *= 0.8 / spd; this.vy *= 0.8 / spd; }
+        }
       }
       this.x += this.vx;
       this.y += this.vy;
@@ -120,35 +135,9 @@
     ctx.fillText('AI', cx, cy);
   }
 
-  function drawNodeLines(t) {
-    const cx = W / 2, cy = H / 2;
-    nodePositions.forEach((pos, i) => {
-      const pulse = (Math.sin(t * 0.0009 + i * Math.PI / 2) + 1) / 2;
-      const alpha = 0.18 + pulse * 0.18;
-      const grad = ctx.createLinearGradient(cx, cy, pos.x, pos.y);
-      grad.addColorStop(0, `rgba(232,80,31,${alpha.toFixed(2)})`);
-      grad.addColorStop(1, `rgba(255,255,255,${(alpha * 0.4).toFixed(2)})`);
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(pos.x, pos.y);
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 8]);
-      ctx.lineDashOffset = -(t * 0.04) % 12;
-      ctx.stroke();
-      ctx.setLineDash([]);
-      // 노드 연결점 글로우
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 3 + pulse * 2, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(232,80,31,${(alpha * 0.8).toFixed(2)})`;
-      ctx.fill();
-    });
-  }
-
   function animate(t) {
     ctx.clearRect(0, 0, W, H);
     drawCenter(t);
-    drawNodeLines(t);
     drawLines();
     particles.forEach(p => { p.update(t); p.draw(t); });
     requestAnimationFrame(animate);
