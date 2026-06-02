@@ -852,6 +852,14 @@ section { padding: 90px 0; }
   filter: brightness(0) invert(1);
   opacity: 0.75;
 }
+.footer-org-logo--bg {
+  filter: none;
+  opacity: 0.9;
+  background: rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 4px 8px;
+  height: 36px;
+}
 
 .footer-bottom {
   padding-top: 24px;
