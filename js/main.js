@@ -10,6 +10,9 @@
   let W, H;
   let mx = -999, my = -999, tx = -999, ty = -999;
   let lastSpawn = 0, lastX = -999, lastY = -999;
+  let rafId = null;
+  let heroVisible = true;
+  let tabVisible = true;
   const sparks = [];
   const MAX = 40;
 
@@ -52,21 +55,16 @@
     }
   }
 
-  hero.addEventListener('mousemove', (e) => {
-    const r = hero.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-    setCursor(x, y);
-    const now = performance.now();
-    if (now - lastSpawn > 28 && Math.hypot(x - lastX, y - lastY) > 3) {
-      spawn(x, y);
-      lastSpawn = now;
-      lastX = x;
-      lastY = y;
-    }
-  }, { passive: true });
+  function needsFrame() {
+    return heroVisible && tabVisible && (sparks.length > 0 || tx >= 0);
+  }
 
-  hero.addEventListener('mouseleave', clearCursor, { passive: true });
+  function stopLoop() {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
 
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
@@ -111,12 +109,63 @@
       }
     }
 
-    requestAnimationFrame(draw);
+    if (needsFrame()) {
+      rafId = requestAnimationFrame(draw);
+    } else {
+      rafId = null;
+    }
   }
+
+  function startLoop() {
+    if (rafId === null && needsFrame()) {
+      rafId = requestAnimationFrame(draw);
+    }
+  }
+
+  hero.addEventListener('mousemove', (e) => {
+    const r = hero.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    setCursor(x, y);
+    const now = performance.now();
+    if (now - lastSpawn > 28 && Math.hypot(x - lastX, y - lastY) > 3) {
+      spawn(x, y);
+      lastSpawn = now;
+      lastX = x;
+      lastY = y;
+    }
+    startLoop();
+  }, { passive: true });
+
+  hero.addEventListener('mouseleave', () => {
+    clearCursor();
+    startLoop();
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    tabVisible = !document.hidden;
+    if (!tabVisible) {
+      stopLoop();
+      ctx.clearRect(0, 0, W, H);
+    } else {
+      startLoop();
+    }
+  });
+
+  new IntersectionObserver(([entry]) => {
+    heroVisible = entry.isIntersecting;
+    if (!heroVisible) {
+      stopLoop();
+      ctx.clearRect(0, 0, W, H);
+      clearCursor();
+      sparks.length = 0;
+    } else {
+      startLoop();
+    }
+  }, { threshold: 0.05 }).observe(hero);
 
   new ResizeObserver(resize).observe(hero);
   resize();
-  requestAnimationFrame(draw);
 })();
 
 // 아코디언 토글

@@ -1,5 +1,5 @@
 @media print {
-  .nav, .nav-toggle, .nav-backdrop, .scroll-hint, .hero-btns, .reg-btns,
+  .nav, .nav-toggle, .nav-backdrop, .skip-link, .scroll-hint, .hero-btns, .reg-btns,
   .nav-cta, .venue-map-btn, .hero-sparkle,
   .timetable-toggle, .accordion-toggle { display: none !important; }
 
@@ -8,8 +8,20 @@
     print-color-adjust: exact !important;
   }
 
-  body { background: #fff; }
-  section { padding: 24px 0; break-inside: avoid; }
+  body { background: #fff; font-size: 11pt; }
+  .container { max-width: none; padding: 0 8mm; }
+
+  .hero {
+    min-height: auto !important;
+    padding: 16mm 0 10mm !important;
+    break-after: page;
+  }
+  .hero-bg { opacity: 0.35 !important; }
+  .hero-overlay { background: linear-gradient(180deg, rgba(9,20,40,0.55) 0%, rgba(9,20,40,0.75) 100%) !important; }
+  .hero-title .l1, .hero-title .l2, .hero-title .l3 { color: #fff !important; }
+  .hero-sub, .hero-desc { color: rgba(255,255,255,0.92) !important; }
+
+  section { padding: 18px 0; break-inside: avoid; }
 
   .reveal { opacity: 1 !important; transform: none !important; }
 
@@ -22,6 +34,16 @@
     box-shadow: none !important;
     border: 1px solid #ddd;
   }
+
+  .reg-qr-box img { max-width: 120px; }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+    word-break: break-all;
+  }
+  a[href^="#"]::after { content: none; }
 
   @page { margin: 12mm; }
 }

@@ -45,7 +45,7 @@ poster/
 | **3** | IA(섹션 순서·네비 앵커) 조정 | ✅ 완료 |
 | **4** | 자산·URL·QR 연결 | ✅ 완료 |
 | **5** | 아이콘 mask 전환 · 모바일 네비 | ✅ 완료 |
-| **6** | SEO · a11y · 성능 · 인쇄 QA | ⬜ 다음 |
+| **6** | SEO · a11y · 성능 · 인쇄 QA · 배포 | ✅ 완료 |
 
 기술 분리 작업 (CSS/JS 분리, print.css)는 **완료** — 상세는 `docs/TASKS.md` 참조.
 
@@ -72,9 +72,14 @@ poster/
 
 ---
 
-## 🚀 로컬 실행
+## 🚀 로컬 실행 · 배포
 
 ```bash
 python3 -m http.server 3400
 # http://localhost:3400
 ```
+
+**GitHub Pages:** `main` 푸시 시 Actions가 자동 배포  
+→ https://hamhyeonggwang.github.io/ksot0919/
+
+최초 1회: GitHub 저장소 **Settings → Pages → Build and deployment → Source: GitHub Actions**

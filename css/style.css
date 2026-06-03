@@ -29,6 +29,26 @@
 .icon-md { width: 1.125em; height: 1.125em; }
 .icon-lg { width: 28px; height: 28px; }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 200;
+  padding: 10px 16px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: top .2s;
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
 /* ===== 스크롤 reveal ===== */
 .reveal {
   opacity: 0;

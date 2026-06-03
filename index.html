@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 OT Beyond Borders | 제34회 대한작업치료학회 학술대회</title>
+<meta name="description" content="제34회 대한작업치료학회 학술대회 OT Beyond Borders — AI와 함께 여는 작업치료의 미래. 2026.9.19(토) 대전보건대학교 대강당. 사전등록·강의일정 안내.">
+<meta name="theme-color" content="#1B2E5E">
+<link rel="canonical" href="https://hamhyeonggwang.github.io/ksot0919/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="2026 OT Beyond Borders">
+<meta property="og:title" content="2026 OT Beyond Borders | 제34회 대한작업치료학회 학술대회">
+<meta property="og:description" content="AI와 함께 여는 작업치료의 미래 — 2026.9.19 대전보건대학교. 사전등록·당일 프로그램·강의일정 안내.">
+<meta property="og:url" content="https://hamhyeonggwang.github.io/ksot0919/">
+<meta property="og:image" content="https://hamhyeonggwang.github.io/ksot0919/images/background/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2026 OT Beyond Borders">
+<meta name="twitter:description" content="제34회 대한작업치료학회 학술대회 — 2026.9.19 대전보건대학교">
+<meta name="twitter:image" content="https://hamhyeonggwang.github.io/ksot0919/images/background/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/reset.css">
@@ -17,6 +32,8 @@
 -->
 </head>
 <body>
+
+<a class="skip-link" href="#main">본문 바로가기</a>
 
 <!-- ===== 네비게이션 ===== -->
 <nav class="nav" id="nav">
@@ -37,6 +54,8 @@
     </div>
   </div>
 </nav>
+
+<main id="main">
 
 <!-- ===== ① HERO ===== -->
 <header class="hero">
@@ -125,7 +144,7 @@
           9.19(토) 당일 세부 타임테이블 보기
           <span class="acc-arr">▾</span>
         </button>
-        <div class="timetable-body" id="tt-body" role="region">
+        <div class="timetable-body" id="tt-body" role="region" aria-labelledby="tt-toggle">
           <table class="tt-table">
             <thead>
               <tr>
@@ -295,10 +314,10 @@
           </div>
         </div>
         <div class="sched-venue"><span class="icon icon-laptop icon-md" aria-hidden="true"></span> 온라인 (실시간 · Zoom)</div>
-        <button class="accordion-toggle" aria-expanded="false" aria-controls="acc-online">
+        <button class="accordion-toggle" id="acc-online-toggle" aria-expanded="false" aria-controls="acc-online">
           강의 세부 내용 보기 <span class="acc-arr">▾</span>
         </button>
-        <div class="accordion-body" id="acc-online" role="region">
+        <div class="accordion-body" id="acc-online" role="region" aria-labelledby="acc-online-toggle">
           <div class="acc-detail">
             <div class="acc-session">
               <div class="acc-period-badge">1부 (2h)</div>
@@ -339,10 +358,10 @@
           </div>
         </div>
         <div class="sched-venue"><span class="icon icon-location icon-md" aria-hidden="true"></span> 국립정신건강센터 열린강당 (서울)</div>
-        <button class="accordion-toggle" aria-expanded="false" aria-controls="acc-child">
+        <button class="accordion-toggle" id="acc-child-toggle" aria-expanded="false" aria-controls="acc-child">
           강의 세부 내용 보기 <span class="acc-arr">▾</span>
         </button>
-        <div class="accordion-body" id="acc-child" role="region">
+        <div class="accordion-body" id="acc-child" role="region" aria-labelledby="acc-child-toggle">
           <div class="acc-detail">
             <div class="acc-session">
               <div class="acc-period-badge">1세션 (2h)</div>
@@ -395,10 +414,10 @@
           </div>
         </div>
         <div class="sched-venue"><span class="icon icon-location icon-md" aria-hidden="true"></span> 국립정신건강센터 열린강당 (서울)</div>
-        <button class="accordion-toggle" aria-expanded="false" aria-controls="acc-adult">
+        <button class="accordion-toggle" id="acc-adult-toggle" aria-expanded="false" aria-controls="acc-adult">
           강의 세부 내용 보기 <span class="acc-arr">▾</span>
         </button>
-        <div class="accordion-body" id="acc-adult" role="region">
+        <div class="accordion-body" id="acc-adult" role="region" aria-labelledby="acc-adult-toggle">
           <div class="acc-detail">
             <div class="acc-session">
               <div class="acc-period-badge">1세션 (2h)</div>
@@ -504,6 +523,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ===== 푸터 ===== -->
 <footer class="footer">

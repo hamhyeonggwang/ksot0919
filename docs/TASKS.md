@@ -79,19 +79,22 @@
 - [x] 모바일 햄버거 네비 (820px 이하 · 드로어 · backdrop)
 - [x] `hero.jpg` 최적화 (1.8MB PNG → ~122KB JPEG)
 
-### ⬜ 6단계 — QA · 배포
-- [ ] meta description, OG, favicon
-- [ ] a11y (아코디언 aria-labelledby)
-- [ ] hero sparkle rAF 최적화
-- [ ] print.css hero 보완
-- [ ] GitHub Pages / Vercel 배포
+### ✅ 6단계 — QA · 배포 (완료)
+- [x] meta description · OG · Twitter Card · favicon.svg
+- [x] skip-link · `<main id="main">` · 아코디언 `aria-labelledby`
+- [x] hero sparkle — 탭 비활성·뷰포트 이탈 시 rAF 중지
+- [x] print.css hero·외부 링크 URL 보완
+- [x] GitHub Pages workflow (`.github/workflows/pages.yml`)
+
+> **배포 URL:** https://hamhyeonggwang.github.io/ksot0919/  
+> 저장소 Settings → Pages → Source: **GitHub Actions** 확인
 
 ---
 
 ## 🔚 마무리 (자산 준비 후)
 
 - [x] `icons/*.svg` mask-image 치환 완료
-- [ ] CONTENT ↔ HTML 최종 대조
+- [x] CONTENT ↔ HTML 최종 대조
 - [ ] 모바일/데스크탑 QA
 
 ---

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="OT Beyond Borders">
+  <rect width="32" height="32" rx="8" fill="#1B2E5E"/>
+  <path fill="#E8501F" d="M8 22V10h3.2c2.4 0 4 1.4 4 3.4 0 1.2-.6 2.2-1.6 2.8L17 22h-3.4l-2.8-4.8H11V22H8zm3-7.2h.4c.9 0 1.4-.5 1.4-1.2s-.5-1.2-1.4-1.2H11v2.4z"/>
+  <path fill="#FF6B3A" d="M18.5 22l5-12h3.2l-5 12h-3.2z"/>
+</svg>

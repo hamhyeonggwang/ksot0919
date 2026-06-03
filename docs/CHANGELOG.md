@@ -4,6 +4,18 @@
 
 ---
 
+## [2026-06-03] Claude — 6단계 QA · SEO · 배포
+
+### 변경
+- `index.html` — meta description, OG/Twitter Card, canonical, `favicon.svg`, skip-link, `<main>`
+- 아코디언 4곳 `aria-labelledby` + toggle `id` 추가
+- `js/main.js` — sparkle rAF: 탭 hidden · hero viewport 이탈 시 중지
+- `css/print.css` — hero 인쇄 레이아웃, 외부 링크 URL 출력
+- `.github/workflows/pages.yml` — GitHub Pages 자동 배포
+- `favicon.svg`, `.nojekyll` 추가
+
+---
+
 ## [2026-06-03] Claude — 5단계 UI · 반응형 (아이콘 · 모바일 네비)
 
 ### 변경
