@@ -10,6 +10,7 @@
 | 파일 | 내용 | 권장 사양 |
 |------|------|----------|
 | `hong-youngil.png` | 홍영일 교수 프로필 사진 | 세로형, 최소 400×480px, 인물 중앙 |
+| `명사특강 강연자.jpeg` | 홍영일 강연자 사진 (현행 파일명) | ✅ 연결됨 |
 
 ### location/
 | 파일 | 내용 | 권장 사양 |
@@ -17,10 +18,11 @@
 | `daejeon-health-university.jpg` | 대전보건대학교 대강당/전경 | 가로형 16:9, 최소 800×450px |
 
 ### background/
-| 파일 | 내용 | 권장 사양 |
-|------|------|----------|
-| `skyline.png` | 도시 스카이라인 (선택, 히어로 보조) | 가로 와이드, 투명 PNG 권장 |
-| `community-silhouette.png` | 사람들 실루엣 (원본 포스터 하단) | 가로 와이드, 투명 PNG |
+| 파일 | 내용 | 권장 사양 | 상태 |
+|------|------|----------|------|
+| `hero.jpg` | Hero 전체 배경 (포스터 비주얼) | 가로 1400px+, JPEG, 용량 최적화 | ✅ 연결됨 |
+| `skyline.png` | 도시 스카이라인 (선택) | 가로 와이드, 투명 PNG | 미사용 |
+| `community-silhouette.png` | 사람들 실루엣 (선택) | 가로 와이드, 투명 PNG | 미사용 |
 
 ### programs/
 | 파일 | 내용 | 권장 사양 |
@@ -34,7 +36,7 @@
 ### qr/
 | 파일 | 내용 | 권장 사양 |
 |------|------|----------|
-| `preregister.png` | 사전등록 QR | 정사각, 최소 300×300px, 여백 포함 |
+| `preregister.png` | 사전등록 QR | 정사각, 최소 300×300px, 여백 포함 | ✅ 연결됨 |
 | `apply.png` | 참가신청 QR | 동일 |
 | `detail.png` | 상세일정 QR | 동일 |
 
@@ -63,7 +65,17 @@
 | `trophy.svg` | 우수논문 발표 | 트로피 |
 | `graduation.svg` | 캡스톤 디자인 발표 | 학사모 |
 | `award.svg` | 시상식 및 폐회식 | 메달/리본 |
-| `networking.svg` | 네트워킹 | 연결된 사람들 |
+| `networking.svg` | 네트워킹 · Community | 연결된 사람들 |
+| `handshake.svg` | Practice | 악수 |
+| `flask.svg` | Research · 연구 테마 | 플라스크 |
+| `book.svg` | Education | 책 |
+| `chip.svg` | AI와 통합 | 칩 |
+| `hospital.svg` | AI 임상 | 병원 |
+| `gear.svg` | Occupation Flow | 톱니 |
+| `clipboard.svg` | 일정·타임테이블 | 클립보드 |
+| `laptop.svg` | 온라인 강좌 | 노트북 |
+| `calendar.svg` | 등록 기간 | 달력 |
+| `pencil.svg` | 참가신청 | 편집 |
 
 > 무료 아이콘 소스 추천: Lucide, Heroicons, Tabler Icons (모두 MIT, 단색 SVG).
 > 다운로드 후 파일명만 위와 같이 맞추면 됨.

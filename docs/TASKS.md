@@ -4,37 +4,100 @@
 
 ---
 
-## ✅ 1단계 — CSS/JS 분리
+## ✅ 기술 분리 (완료)
 
-**목표:** `index.html`의 인라인 `<style>`/`<script>`를 외부 파일로 분리.
+| 단계 | 내용 | 상태 |
+|------|------|------|
+| 1 | CSS/JS 분리 | ✅ |
+| 4 | print.css 작성 | ✅ |
 
-### 절차
-1. `<style>` 내용 중 **리셋 부분**(`*`, `body`, `a`, `html` 기본 스타일)을 `css/reset.css`로 이동
-2. **나머지 전체**(`:root` 변수, 모든 컴포넌트, 미디어쿼리)를 `css/style.css`로 이동
-3. `index.html <head>`에 링크 추가:
-   ```html
-   <link rel="stylesheet" href="css/reset.css">
-   <link rel="stylesheet" href="css/style.css">
-   <link rel="stylesheet" href="css/print.css" media="print">
-   ```
-4. `<script>` 내용을 `js/main.js`로 이동, `</body>` 직전에:
-   ```html
-   <script src="js/main.js" defer></script>
-   ```
-5. `index.html`에서 인라인 `<style>`, `<script>` 블록 제거
-
-### 검증
-- [ ] 브라우저에서 레이아웃·애니메이션 1단계 전과 동일
-- [ ] 콘솔 에러 없음
-- [ ] 네비 스크롤 효과, reveal 애니메이션 정상 동작
+### 1단계 검증
+- [x] 외부 CSS/JS 링크
+- [x] 네비 스크롤, reveal, 아코디언 동작
+- [x] hero sparkle canvas
 
 ---
 
-## ✅ 2단계 — 아이콘 mask-image 전환
+## ✅ 2단계 — 아이콘 mask-image 전환 (완료)
 
-**목표:** 이모지 아이콘 → `icons/*.svg` 외부 파일 + CSS mask.
+**목표:** 이모지 → `icons/*.svg` + CSS mask
 
-### style.css에 추가
+- [x] `style.css` `.icon` 클래스 + SVG 연결
+- [x] 하이라이트 섹션 clock/location/프로그램 칩
+- [x] Values · 핵심 테마 · 일정·장소·등록 UI 아이콘
+- [x] SVG 18종 (`icons/*.svg`)
+
+---
+
+## ✅ 3단계 — 이미지 경로 (부분 완료)
+
+| 자산 | 경로 | 상태 |
+|------|------|------|
+| Hero 배경 | `images/background/hero.jpg` | ✅ (1400px · ~122KB) |
+| 명사특강 사진 | `images/speakers/명사특강 강연자.jpeg` | ✅ |
+| 장소 | `images/location/대전보건대학교전경.jpeg` | ✅ |
+| 푸터 로고 4종 | `images/logos/*.png` | ✅ |
+| QR | `images/qr/preregister.png` | ✅ |
+| AI 다이어그램 | `assets/ai-network.svg` | ❌ 미사용(빈 파일) |
+
+---
+
+## 📋 콘텐츠·IA 작업 (신규 — 권장 순서)
+
+### ✅ 1단계 — 정본·문서 (완료)
+- [x] `docs/CONTENT.md` 확장 (IA, 타임테이블, 확인 필요, 2단계 체크리스트)
+- [x] 루트 중복 문서 → `docs/` 안내 stub
+- [x] README 진행 상태 갱신
+
+### ✅ 2단계 — HTML 콘텐츠 동기화 (완료)
+- [x] `docs/CONTENT.md` 「확인 필요」7건 사용자 확인 반영
+- [x] `docs/CONTENT.md` 「HTML 대조 체크리스트」 강의·강사 항목 반영
+- [x] `index.html` — 9.12 날짜, 아동·성인 오전/오후 세션, 명사특강 표기
+- [x] Hero 부제 ↔ Values 톤 통일
+
+### ✅ 3단계 — IA · 네비 (완료)
+- [x] 섹션 순서 (Hero → Highlight → Values → Programs → Schedule → About → Register)
+- [x] `#register` · `#venue` · `#themes` 앵커 추가
+- [x] 네비: 당일 프로그램 · 장소 `#venue` · 사전등록 `#register`
+- [x] programs **당일 프로그램** / about **핵심 테마** 명칭 구분
+- [x] Hero CTA → `#register` · `#highlight`
+- [x] `scroll-padding-top` · `.core-eyebrow` · `.nav-logo` 링크 스타일
+- [x] `docs/CONTENT.md` IA 표 갱신
+
+### ✅ 4단계 — 자산 · URL (완료)
+- [x] QR `images/qr/preregister.png` 생성 (접수안내 URL)
+- [x] 참가신청 → 학술대회 접수안내 게시판
+- [x] 지도 → 네이버 지도 (대전보건대학교)
+- [x] `target="_blank"` 링크 `rel="noopener noreferrer"` 통일
+- [x] `docs/CONTENT.md` 링크 표 갱신
+
+> **후속:** 2026 전용 접수 폼(forms.gle 등) 공개 시 URL·QR 재생성
+
+### ✅ 5단계 — UI · 반응형 (완료)
+- [x] 이모지 → mask-image 전환 (Values·테마·일정·장소·등록)
+- [x] SVG 10종 추가 (handshake, flask, book, chip, hospital, gear, clipboard, laptop, calendar, pencil)
+- [x] 모바일 햄버거 네비 (820px 이하 · 드로어 · backdrop)
+- [x] `hero.jpg` 최적화 (1.8MB PNG → ~122KB JPEG)
+
+### ⬜ 6단계 — QA · 배포
+- [ ] meta description, OG, favicon
+- [ ] a11y (아코디언 aria-labelledby)
+- [ ] hero sparkle rAF 최적화
+- [ ] print.css hero 보완
+- [ ] GitHub Pages / Vercel 배포
+
+---
+
+## 🔚 마무리 (자산 준비 후)
+
+- [x] `icons/*.svg` mask-image 치환 완료
+- [ ] CONTENT ↔ HTML 최종 대조
+- [ ] 모바일/데스크탑 QA
+
+---
+
+## 아이콘 mask 스니펫 (참고)
+
 ```css
 .icon {
   display: inline-block;
@@ -42,101 +105,11 @@
   background-color: currentColor;
   -webkit-mask: var(--icon) center / contain no-repeat;
           mask: var(--icon) center / contain no-repeat;
-  vertical-align: -0.125em;
 }
+```
+
+```css
 .icon-clock        { --icon: url('../icons/clock.svg'); }
 .icon-location     { --icon: url('../icons/location.svg'); }
-.icon-microphone   { --icon: url('../icons/microphone.svg'); }
-.icon-presentation { --icon: url('../icons/presentation.svg'); }
-.icon-trophy       { --icon: url('../icons/trophy.svg'); }
-.icon-graduation   { --icon: url('../icons/graduation.svg'); }
-.icon-award        { --icon: url('../icons/award.svg'); }
-.icon-networking   { --icon: url('../icons/networking.svg'); }
+/* … docs/TASKS.md 이전 버전 또는 style.css 참조 */
 ```
-
-### 치환 대상 (이모지 → 클래스)
-| 위치 | 기존 이모지 | 새 클래스 |
-|------|-----------|----------|
-| 메인 행사 시간 | ⏰ | `icon-clock` |
-| 메인 행사 장소 | 📍 | `icon-location` |
-| 프로그램 칩 기조강연 | 🎤 | `icon-microphone` |
-| 프로그램 칩 학술발표 | 📊 | `icon-presentation` |
-| 프로그램 칩 우수논문 | 🏆 | `icon-trophy` |
-| 프로그램 칩 캡스톤 | 🎨 | (graduation 대용 또는 신규) |
-| 프로그램 칩 시상식 | 🏅 | `icon-award` |
-| 프로그램 칩 네트워킹 | 🤝 | `icon-networking` |
-
-> ⚠️ `icons/*.svg` 파일이 아직 없으면, 이 단계는 **파일 준비 후** 진행.
-> 파일 없을 동안은 이모지 임시 유지 가능.
-
-### 검증
-- [ ] 아이콘 색상이 부모 `color`를 따라감
-- [ ] 호버 시 색상 전환 정상
-
----
-
-## ✅ 3단계 — 이미지 경로 연결
-
-**목표:** placeholder 경로를 새 폴더 구조로 교체. `onerror` 폴백 유지.
-
-| 요소 | 기존 경로 | 새 경로 |
-|------|----------|---------|
-| 강사 사진 | `images/speaker_hong.jpg` | `images/speakers/hong-youngil.png` |
-| 장소 | `images/venue.jpg` | `images/location/daejeon-health-university.jpg` |
-| 배경 실루엣 | `images/bg_silhouette.png` | `images/background/community-silhouette.png` |
-| AI 다이어그램 | `images/ai_diagram.png` | `assets/ai-network.svg` |
-| QR 사전등록 | `images/qr_register.png` | `images/qr/preregister.png` |
-| QR 참가신청 | `images/qr_register.png` | `images/qr/apply.png` |
-| QR 상세일정 | `images/qr_schedule.png` | `images/qr/detail.png` |
-| 로고 주최 | `images/logo_ksot.png` | `images/logos/ksot.svg` |
-| 로고 주관 | `images/logo_couf.png` | `images/logos/couf.svg` |
-| 로고 후원 | `images/logo_mohw.png` | `images/logos/mohw.svg` |
-
-### 검증
-- [ ] 모든 `src` 새 경로로 교체
-- [ ] 파일 없을 때 `onerror` placeholder 정상 표시
-
----
-
-## ✅ 4단계 — print.css 작성
-
-**목표:** 인쇄/PDF 출력 시 깔끔하게. (A1 대규격은 별도 작업)
-
-### 기본 골격
-```css
-@media print {
-  .nav, .scroll-hint, .hero-btns, .reg-btns,
-  .nav-cta, .venue-map-btn { display: none !important; }
-
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  body { background: #fff; }
-  section { padding: 24px 0; break-inside: avoid; }
-  .reveal { opacity: 1 !important; transform: none !important; }
-
-  .highlight-card, .reg-card, .prog-card, .sched-card {
-    box-shadow: none;
-    border: 1px solid #ddd;
-  }
-
-  @page { margin: 12mm; }
-}
-```
-
-### 검증
-- [ ] 브라우저 인쇄 미리보기에서 네비·버튼 숨김
-- [ ] 색상·배경 유지
-- [ ] 카드가 페이지 경계서 잘리지 않음
-
----
-
-## 🔚 마무리 단계 (자산 준비 후)
-
-- [ ] 실제 이미지/QR/로고 파일 각 폴더에 배치 → `docs/ASSETS.md` 사양 준수
-- [ ] `icons/*.svg` 8종 준비 후 2단계 실행
-- [ ] 모든 `https://www.ksot.kr` placeholder → 실제 URL 교체
-- [ ] 모바일/데스크탑 최종 QA
-- [ ] Vercel 또는 GitHub Pages 배포

@@ -4,6 +4,46 @@
 
 ---
 
+## [2026-06-03] Claude — 5단계 UI · 반응형 (아이콘 · 모바일 네비)
+
+### 변경
+- 이모지 전부 → `icons/*.svg` mask-image (Values, 핵심 테마, 일정, 장소, 사전등록)
+- SVG 10종 추가: handshake, flask, book, chip, hospital, gear, clipboard, laptop, calendar, pencil
+- 모바일 햄버거 네비 (820px 이하 · 우측 드로어 · backdrop · Escape)
+- `js/main.js` — nav toggle / body scroll lock
+- Hero 배경 `hero.png`(1.8MB) → `hero.jpg`(1400px · ~122KB)
+
+---
+
+## [2026-06-03] Claude — 4단계 자산 · URL · QR 연결
+
+### 변경
+- `images/qr/preregister.png` — 학술대회 접수안내 URL QR 생성
+- `index.html` 참가신청·푸터 → `ksot.kr` 학술대회 접수안내 게시판
+- 지도 버튼 → 네이버 지도 (대전보건대학교)
+- QR 경로 `images/qr/preregister.png`로 통일
+- 외부 링크 `rel="noopener noreferrer"` 보완
+- `docs/CONTENT.md` · `docs/TASKS.md` · `README.md` 링크 표 갱신
+
+### 참고
+- 2026 전용 접수 폼(forms.gle 등) 미공개 — 학회 게시판 URL 사용 중
+
+---
+
+## [2026-06-03] Claude — 3단계 IA · 네비 재구성
+
+### 변경
+- `index.html` 섹션 순서: Hero → Highlight → Values → Programs → Schedule → About → Register
+- 앵커: `#register`, `#venue`, `#themes` 추가 · 네비·푸터 링크 정렬
+- 명칭 구분: **당일 프로그램** (`#programs`) vs **핵심 테마** (`#themes`)
+- Hero CTA: 사전등록 `#register` · 상세일정 `#highlight`
+- 사전등록 보조 CTA → `#schedule` (내부 앵커)
+- `css/reset.css` — `scroll-padding-top: 88px` (고정 네비 앵커 오프셋)
+- `css/style.css` — `.nav-logo` 링크 · `.core-eyebrow` 스타일
+- `docs/CONTENT.md` — IA 표·네비·푸터 바로가기 갱신
+
+---
+
 ## [2026-06-02] 초기 구조 — 프로젝트 셋업
 
 ### 추가
@@ -32,6 +72,40 @@
 - [ ] 2단계 아이콘 mask 전환
 - [ ] 3단계 이미지 경로 연결
 - [ ] 4단계 print.css
+
+---
+
+## [2026-06-03] Claude — Hero 부제 톤 통일
+
+### 변경
+- `index.html`, `docs/CONTENT.md` — Hero 부제를 Values「경계를 넘어서는 작업치료」톤과 맞춤
+
+---
+
+## [2026-06-03] Claude — 2단계 콘텐츠 확정·HTML 동기화
+
+### 변경
+- `docs/CONTENT.md` — 확인 필요 7건 사용자 확정 반영 (강사·소속·일정)
+- `index.html` — 9.12 날짜, 온라인·아동·성인 오전/오후 세션, 홍영일 대표(박사) 표기
+
+---
+
+## [2026-06-03] Claude — 1단계 정본·문서 정리
+
+### 변경
+- `docs/CONTENT.md` — IA·Hero·9.19 타임테이블·강의일정·확인 필요 7건·2단계 체크리스트로 확장
+- 루트 `CONTENT.md`, `TASKS.md`, `DESIGN-TOKENS.md`, `ASSETS.md`, `CHANGELOG.md` → `docs/` 안내 stub
+- `README.md` — 현재 구조·진행 상태·작업 순서表 갱신
+- `docs/TASKS.md` — 기술 분리 완료 반영 + 콘텐츠·IA 6단계 로드맵 추가
+- `docs/ASSETS.md` — `hero.png`, 명사특강 사진 현행 경로 반영
+
+---
+
+## [2026-06-03] Claude — Values 섹션 제목 변경
+
+### 변경
+- `index.html` — 「AI가 연결하는 작업치료의 네 가지 영역」→「경계를 넘어서는 작업치료」
+- `docs/CONTENT.md`, `CONTENT.md` — 섹션 제목 원본 반영
 
 ---
 

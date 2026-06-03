@@ -130,6 +130,34 @@ document.querySelectorAll('.accordion-toggle, .timetable-toggle').forEach(btn =>
   });
 });
 
+// 모바일 네비
+(function () {
+  const nav = document.getElementById('nav');
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const backdrop = document.querySelector('.nav-backdrop');
+  if (!nav || !toggle || !menu) return;
+
+  function setNavOpen(open) {
+    nav.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle.addEventListener('click', () => setNavOpen(!nav.classList.contains('nav-open')));
+  backdrop?.addEventListener('click', () => setNavOpen(false));
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setNavOpen(false));
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 820) setNavOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setNavOpen(false);
+  });
+})();
+
 // 네비 스크롤 효과
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {

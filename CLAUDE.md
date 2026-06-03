@@ -52,3 +52,6 @@
 | `docs/CONTENT.md` | 모든 텍스트 콘텐츠 원본 (강사·일정·주소) |
 | `docs/ASSETS.md` | 필요 이미지/아이콘 사양·목록 |
 | `docs/CHANGELOG.md` | 변경 이력 |
+| `README.md` | 디렉토리 구조, 파일 역할 |
+
+> **문서 정본은 `docs/`만 유지.** 루트 동명 `.md`는 `docs/`로 안내하는 stub입니다.

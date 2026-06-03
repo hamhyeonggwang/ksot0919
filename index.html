@@ -9,20 +9,31 @@
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/print.css" media="print">
+<!--
+  ✏️ 외부 URL
+  사전등록/참가신청 → https://www.ksot.kr/?bid=sympo_info&m=bbs (학술대회 접수안내)
+  지도 → https://map.naver.com/p/search/대전보건대학교
+  (2026 전용 접수 폼 공개 시 위 URL 교체)
+-->
 </head>
 <body>
 
 <!-- ===== 네비게이션 ===== -->
 <nav class="nav" id="nav">
+  <div class="nav-backdrop" aria-hidden="true"></div>
   <div class="container nav-inner">
-    <div class="nav-logo">OT <span>Beyond Borders</span></div>
-    <div class="nav-menu">
+    <a href="#" class="nav-logo">OT <span>Beyond Borders</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <div class="nav-menu" id="nav-menu">
       <a href="#highlight" class="nav-link">학술대회</a>
-      <a href="#programs" class="nav-link">프로그램</a>
+      <a href="#programs" class="nav-link">당일 프로그램</a>
       <a href="#schedule" class="nav-link">강의일정</a>
-      <a href="#about" class="nav-link">장소</a>
-      <!-- ✏️ 편집: URL 교체 -->
-      <a href="https://www.ksot.kr" class="nav-cta" target="_blank">사전등록</a>
+      <a href="#venue" class="nav-link">장소</a>
+      <a href="#register" class="nav-cta">사전등록</a>
     </div>
   </div>
 </nav>
@@ -32,7 +43,7 @@
   <!-- ✏️ 편집: hero 배경 이미지 -->
   <img
     class="hero-bg"
-    src="images/background/hero.png"
+    src="images/background/hero.jpg"
     alt=""
     aria-hidden="true"
     onerror="this.style.display='none'"
@@ -49,11 +60,10 @@
         <span class="l3">Borders</span>
       </h1>
       <div class="hero-sub">AI와 함께 여는 작업치료의 미래</div>
-      <div class="hero-desc">AI가 연결하는 Practice · Research · Education · Community</div>
+      <div class="hero-desc">경계를 넘어서는 Practice · Research · Education · Community</div>
       <div class="hero-btns">
-        <!-- ✏️ 편집: URL 교체 -->
-        <a href="https://www.ksot.kr" class="btn-primary" target="_blank">사전등록 바로가기 →</a>
-        <a href="#schedule" class="btn-ghost">상세일정 보기</a>
+        <a href="#register" class="btn-primary">사전등록 바로가기 →</a>
+        <a href="#highlight" class="btn-ghost">상세일정 보기</a>
       </div>
       <div class="hero-meta">
         <div class="hero-meta-item">
@@ -74,23 +84,7 @@
   </div>
 </header>
 
-<!-- ===== ② 4대 가치 ===== -->
-<section class="values">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="section-eyebrow">Core Values</span>
-      <h2 class="section-title">AI가 연결하는<br>작업치료의 네 가지 영역</h2>
-    </div>
-    <div class="values-grid">
-      <div class="value-card reveal"><div class="value-icon">🤝</div><div class="value-en">Practice</div><div class="value-ko">실천</div></div>
-      <div class="value-card reveal"><div class="value-icon">🔬</div><div class="value-en">Research</div><div class="value-ko">연구</div></div>
-      <div class="value-card reveal"><div class="value-icon">📖</div><div class="value-en">Education</div><div class="value-ko">교육</div></div>
-      <div class="value-card reveal"><div class="value-icon">👥</div><div class="value-en">Community</div><div class="value-ko">지역사회</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ③ 메인 행사 하이라이트 ===== -->
+<!-- ===== ② 메인 행사 하이라이트 ===== -->
 <section class="highlight" id="highlight">
   <div class="container">
     <div class="highlight-card reveal">
@@ -127,7 +121,8 @@
       <!-- 당일 세부 타임테이블 아코디언 -->
       <div class="timetable-wrap reveal">
         <button class="timetable-toggle" id="tt-toggle" aria-expanded="false" aria-controls="tt-body">
-          📋 &nbsp;9.19(토) 당일 세부 타임테이블 보기
+          <span class="icon icon-clipboard icon-md" aria-hidden="true"></span>
+          9.19(토) 당일 세부 타임테이블 보기
           <span class="acc-arr">▾</span>
         </button>
         <div class="timetable-body" id="tt-body" role="region">
@@ -194,13 +189,29 @@
   </div>
 </section>
 
-<!-- ===== ④ 프로그램 (보수교육 + 명사특강) ===== -->
+<!-- ===== ③ 4대 가치 ===== -->
+<section class="values" id="values">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Core Values</span>
+      <h2 class="section-title">「경계를 넘어서는 작업치료」</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="value-icon"><span class="icon icon-handshake icon-lg" aria-hidden="true"></span></div><div class="value-en">Practice</div><div class="value-ko">실천</div></div>
+      <div class="value-card reveal"><div class="value-icon"><span class="icon icon-flask icon-lg" aria-hidden="true"></span></div><div class="value-en">Research</div><div class="value-ko">연구</div></div>
+      <div class="value-card reveal"><div class="value-icon"><span class="icon icon-book icon-lg" aria-hidden="true"></span></div><div class="value-en">Education</div><div class="value-ko">교육</div></div>
+      <div class="value-card reveal"><div class="value-icon"><span class="icon icon-networking icon-lg" aria-hidden="true"></span></div><div class="value-en">Community</div><div class="value-ko">지역사회</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ④ 당일 프로그램 (보수교육 + 명사특강) ===== -->
 <section class="programs" id="programs">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Featured Programs</span>
-      <h2 class="section-title ko">주요 프로그램</h2>
-      <p class="section-desc">AI 시대의 작업치료를 위한 보수교육과 명사초청 특강</p>
+      <span class="section-eyebrow">Main Day · 9.19</span>
+      <h2 class="section-title ko">당일 프로그램</h2>
+      <p class="section-desc">메인 학술대회(9.19) 보수교육과 명사초청 특강</p>
     </div>
     <div class="prog-grid">
 
@@ -238,7 +249,7 @@
         <div class="keynote-top">
           <!-- ✏️ 편집: images/speaker_hong.jpg 교체 -->
           <div class="keynote-photo">
-            <img src="images/speakers/명사특강 강연자.jpeg" alt="홍영일 교수"
+            <img src="images/speakers/명사특강 강연자.jpeg" alt="홍영일 박사"
               onload="this.nextElementSibling.style.display='none';this.nextElementSibling.nextElementSibling.style.display='none'"
               onerror="this.style.display='none'">
             <div class="ph-ic">👤</div>
@@ -247,7 +258,7 @@
           <div>
             <!-- ✏️ 편집: 특강 제목/강사 -->
             <div class="keynote-title">AI와 돌봄</div>
-            <div class="keynote-name">홍영일 대표</div>
+            <div class="keynote-name">홍영일 대표 (박사)</div>
             <div class="keynote-desc">서울대학교 대학원 교육학과 교육공학 박사<br>재미와의미연구소 대표</div>
           </div>
         </div>
@@ -270,12 +281,12 @@
       <!-- 온라인 강좌 -->
       <div class="sched-card green reveal">
         <div class="sched-head">
-          <span class="sched-date">온라인</span>
+          <span class="sched-date">9.12 (토)</span>
           <span class="sched-type-badge">온라인 강좌</span>
         </div>
         <div class="sched-session">
           <span class="sched-period">오후 14:00 ~ 18:00 (4h) · 100인 정원</span>
-          <div class="sched-lec">발달장애인 지원사업의 이해와 실제</div>
+          <div class="sched-lec">성인 발달장애인 지원사업의 이해와 실제</div>
           <div class="sched-spk-list">
             <div class="sched-spk-item"><span class="n">1</span>박정은 · 대전발달장애인지원센터 센터장</div>
             <div class="sched-spk-item"><span class="n">2</span>권성애 · 동남보건대학교 아동발달지원센터</div>
@@ -283,7 +294,7 @@
             <div class="sched-spk-item"><span class="n">4</span>김시현 · 여울목 시설장</div>
           </div>
         </div>
-        <div class="sched-venue">💻 온라인 (실시간 · Zoom)</div>
+        <div class="sched-venue"><span class="icon icon-laptop icon-md" aria-hidden="true"></span> 온라인 (실시간 · Zoom)</div>
         <button class="accordion-toggle" aria-expanded="false" aria-controls="acc-online">
           강의 세부 내용 보기 <span class="acc-arr">▾</span>
         </button>
@@ -311,6 +322,14 @@
         </div>
         <div class="sched-session">
           <span class="sched-period">오전 09:00 ~ 13:00 (4h)</span>
+          <div class="sched-lec">아동 작업치료에서의 치료적 상호작용 전략: 참여 촉진을 위한 임상 적용</div>
+          <div class="sched-spk-list">
+            <div class="sched-spk-item"><span class="n">1</span>정미양 · 한국아동신경발달연구소</div>
+            <div class="sched-spk-item"><span class="n">2</span>주유미 교수 · 가천대학교</div>
+          </div>
+        </div>
+        <div class="sched-session">
+          <span class="sched-period">오후 14:00 ~ 18:00 (4h)</span>
           <div class="sched-lec">아동 작업치료의 실천 접근: 관계 형성을 위한 플로어 타임과 참여 촉진을 위한 OPC</div>
           <div class="sched-spk-list">
             <div class="sched-spk-item"><span class="n">1</span>박지훈 · 어울림아동발달연구소</div>
@@ -319,7 +338,7 @@
             <div class="sched-spk-item"><span class="n">4</span>조혜진 · 어바웃차일드</div>
           </div>
         </div>
-        <div class="sched-venue">📍 국립정신건강센터 열린강당 (서울)</div>
+        <div class="sched-venue"><span class="icon icon-location icon-md" aria-hidden="true"></span> 국립정신건강센터 열린강당 (서울)</div>
         <button class="accordion-toggle" aria-expanded="false" aria-controls="acc-child">
           강의 세부 내용 보기 <span class="acc-arr">▾</span>
         </button>
@@ -365,7 +384,17 @@
             <div class="sched-spk-item"><span class="n">4</span>이영오 · 수연복지재단 수연24시 어린이집</div>
           </div>
         </div>
-        <div class="sched-venue">📍 국립정신건강센터 열린강당 (서울)</div>
+        <div class="sched-session">
+          <span class="sched-period">오후 14:00 ~ 18:00 (4h)</span>
+          <div class="sched-lec">지역사회 통합돌봄과 작업치료: 지역별 사업모델과 실천사례</div>
+          <div class="sched-spk-list">
+            <div class="sched-spk-item"><span class="n">1</span>김영훈 · 아주대학교 요양병원</div>
+            <div class="sched-spk-item"><span class="n">2</span>유지애 · 청주성모병원</div>
+            <div class="sched-spk-item"><span class="n">3</span>황호성 · 건양대학교</div>
+            <div class="sched-spk-item"><span class="n">4</span>이영오 · 수연복지재단 수연24시 어린이집</div>
+          </div>
+        </div>
+        <div class="sched-venue"><span class="icon icon-location icon-md" aria-hidden="true"></span> 국립정신건강센터 열린강당 (서울)</div>
         <button class="accordion-toggle" aria-expanded="false" aria-controls="acc-adult">
           강의 세부 내용 보기 <span class="acc-arr">▾</span>
         </button>
@@ -399,47 +428,48 @@
   </div>
 </section>
 
-<!-- ===== ⑥ 핵심 프로그램 + 장소 ===== -->
+<!-- ===== ⑥ 핵심 테마 + 장소 ===== -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
 
-      <!-- 핵심 프로그램 -->
-      <div class="core-card reveal">
-        <h3>2026 <span class="em">핵심 프로그램</span></h3>
+      <!-- 핵심 테마 -->
+      <div class="core-card reveal" id="themes">
+        <div class="core-eyebrow">Conference Themes</div>
+        <h3>2026 <span class="em">핵심 테마</span></h3>
         <div class="core-items">
-          <!-- ✏️ 편집: 핵심 프로그램 -->
+          <!-- ✏️ 편집: 핵심 테마 -->
           <div class="core-item">
-            <div class="ci">🤖</div>
+            <div class="ci"><span class="icon icon-chip" aria-hidden="true"></span></div>
             <div class="ct"><strong>AI와 통합</strong><span>기술이 만드는 따뜻한 돌봄의 미래</span></div>
           </div>
           <div class="core-item">
-            <div class="ci">🏥</div>
+            <div class="ci"><span class="icon icon-hospital" aria-hidden="true"></span></div>
             <div class="ct"><strong>AI와 함께하는 작업치료</strong><span>임상 현장을 변화시키는 AI의 실제적 적용</span></div>
           </div>
           <div class="core-item">
-            <div class="ci">⚙️</div>
+            <div class="ci"><span class="icon icon-gear" aria-hidden="true"></span></div>
             <div class="ct"><strong>Occupation Flow</strong><span>참여 중심 작업치료를 위한 AI Workflow</span></div>
           </div>
           <div class="core-item">
-            <div class="ci">🔬</div>
+            <div class="ci"><span class="icon icon-flask" aria-hidden="true"></span></div>
             <div class="ct"><strong>Next OT Research Talk</strong><span>미래를 여는 연구, 작업치료의 새로운 지평</span></div>
           </div>
         </div>
       </div>
 
       <!-- 장소 -->
-      <div class="venue-card reveal">
+      <div class="venue-card reveal" id="venue">
         <!-- ✏️ 편집: images/venue.jpg 교체 -->
         <div class="venue-img">
           <img src="images/location/대전보건대학교전경.jpeg" alt="대전보건대학교 대강당" onerror="this.parentElement.innerHTML='장소 사진<br>images/venue.jpg'">
         </div>
         <div class="venue-body">
-          <div class="venue-label">📍 &nbsp;LOCATION</div>
+          <div class="venue-label"><span class="icon icon-location icon-md" aria-hidden="true"></span> LOCATION</div>
           <div class="venue-name">대전보건대학교 대강당</div>
           <div class="venue-addr">대전광역시 동구 충정로 21<br>(대전보건대학교)</div>
           <!-- ✏️ 편집: 지도 URL 교체 -->
-          <a href="https://www.ksot.kr" class="venue-map-btn" target="_blank">🗺 지도에서 보기</a>
+          <a href="https://map.naver.com/p/search/%EB%8C%80%EC%A0%84%EB%B3%B4%EA%B1%B4%EB%8C%80%ED%95%99%EA%B5%90" class="venue-map-btn" target="_blank" rel="noopener noreferrer"><span class="icon icon-location icon-md" aria-hidden="true"></span> 지도에서 보기</a>
         </div>
       </div>
 
@@ -448,7 +478,7 @@
 </section>
 
 <!-- ===== ⑦ 사전등록 CTA ===== -->
-<section class="register">
+<section class="register" id="register">
   <div class="container">
     <div class="reg-card reveal">
       <div class="reg-inner">
@@ -456,17 +486,17 @@
           <div class="reg-eyebrow">Pre-Registration</div>
           <div class="reg-title">지금 사전등록하고<br>혜택 받으세요!</div>
           <!-- ✏️ 편집: 등록 기간 -->
-          <div class="reg-period">📅 2026. 8. 17.(월) ~ 2026. 10. 2.(금)</div>
+          <div class="reg-period"><span class="icon icon-calendar icon-md" aria-hidden="true"></span> 2026. 8. 17.(월) ~ 2026. 10. 2.(금)</div>
           <div class="reg-btns">
             <!-- ✏️ 편집: URL 교체 -->
-            <a href="https://www.ksot.kr" class="reg-btn-white" target="_blank">📝 참가신청 바로가기</a>
-            <a href="https://www.ksot.kr" class="reg-btn-outline" target="_blank">📋 상세일정 확인</a>
+            <a href="https://www.ksot.kr/?bid=sympo_info&amp;m=bbs" class="reg-btn-white" target="_blank" rel="noopener noreferrer"><span class="icon icon-pencil icon-md" aria-hidden="true"></span> 참가신청 바로가기</a>
+            <a href="#schedule" class="reg-btn-outline"><span class="icon icon-clipboard icon-md" aria-hidden="true"></span> 상세일정 확인</a>
           </div>
         </div>
         <div class="reg-qr">
-          <!-- ✏️ 편집: images/qr_register.png 교체 -->
+          <!-- ✏️ 편집: images/qr/preregister.png 교체 -->
           <div class="reg-qr-box">
-            <img src="images/qr_register.png" alt="사전등록 QR" onerror="this.parentElement.innerHTML='QR 코드<br>images/<br>qr_register.png'">
+            <img src="images/qr/preregister.png" alt="사전등록 QR" onerror="this.parentElement.innerHTML='QR 코드<br>images/qr/<br>preregister.png'">
           </div>
           <div class="reg-qr-label">사전등록 바로가기</div>
         </div>
@@ -486,16 +516,17 @@
       <div class="footer-col">
         <h4>바로가기</h4>
         <a href="#highlight">학술대회 안내</a>
-        <a href="#programs">주요 프로그램</a>
+        <a href="#programs">당일 프로그램</a>
         <a href="#schedule">강의 일정</a>
-        <a href="#about">행사 장소</a>
+        <a href="#venue">행사 장소</a>
+        <a href="#register">사전등록</a>
       </div>
       <div class="footer-col">
         <h4>참가 안내</h4>
         <!-- ✏️ 편집: URL 교체 -->
-        <a href="https://www.ksot.kr" target="_blank">사전등록</a>
-        <a href="https://www.ksot.kr" target="_blank">참가신청</a>
-        <a href="https://www.ksot.kr" target="_blank">상세일정 확인</a>
+        <a href="#register">사전등록</a>
+        <a href="https://www.ksot.kr/?bid=sympo_info&amp;m=bbs" target="_blank" rel="noopener noreferrer">참가신청</a>
+        <a href="#schedule">상세일정 확인</a>
       </div>
     </div>
 
@@ -534,7 +565,7 @@
     <div class="footer-bottom">
       <div class="copy">© 2026 The Korean Society of Occupational Therapy. All rights reserved.</div>
       <!-- ✏️ 편집: URL 교체 -->
-      <div class="site">🌐 <a href="https://www.ksot.kr" target="_blank">https://www.ksot.kr</a></div>
+      <div class="site"><a href="https://www.ksot.kr" target="_blank" rel="noopener noreferrer">https://www.ksot.kr</a></div>
     </div>
   </div>
 </footer>
