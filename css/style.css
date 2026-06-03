@@ -98,56 +98,58 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background:
-    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(232,80,31,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 70% at 20% 80%, rgba(22,80,200,0.22) 0%, transparent 60%),
-    linear-gradient(160deg, var(--navy-deep) 0%, var(--navy-dark) 55%, #16194a 100%);
+  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy-dark) 55%, #16194a 100%);
   overflow: hidden;
   padding: 120px 0 80px;
 }
 
-/* 배경 이미지 오버레이 */
-.hero-bg-img {
-  position: absolute; inset: 0;
-  background: center / cover no-repeat;
-  opacity: 0.15;
-  pointer-events: none;
-  mix-blend-mode: luminosity;
-}
-
-/* 떠다니는 뉴런 그리드 */
-.hero-net {
-  position: absolute; inset: 0;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.10) 1px, transparent 0);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse 100% 80% at 50% 40%, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 40%, #000 30%, transparent 75%);
-  pointer-events: none;
-}
-
-/* 글로우 오브 */
-.orb {
+.hero-bg {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.5;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  --mx: -999px;
+  --my: -999px;
+  background:
+    radial-gradient(
+      circle 160px at var(--mx) var(--my),
+      rgba(255,255,255,0.11) 0%,
+      transparent 72%
+    ),
+    linear-gradient(
+      105deg,
+      rgba(9, 20, 40, 0.88) 0%,
+      rgba(9, 20, 40, 0.52) 48%,
+      rgba(9, 20, 40, 0.2) 100%
+    );
   pointer-events: none;
 }
-.orb-1 { width: 360px; height: 360px; background: var(--orange); top: -80px; right: -60px; animation: float 14s ease-in-out infinite; }
-.orb-2 { width: 300px; height: 300px; background: var(--blue); bottom: -60px; left: -40px; animation: float 18s ease-in-out infinite reverse; }
-@keyframes float {
-  0%,100% { transform: translate(0,0); }
-  50% { transform: translate(30px, -30px); }
+
+.hero-sparkle {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .hero-content {
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  max-width: 640px;
   width: 100%;
 }
 
@@ -247,119 +249,6 @@
 .hero-meta-item .label { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 3px; letter-spacing: 0.5px; }
 .hero-meta-item .value { font-size: 15px; font-weight: 700; color: #fff; }
 .hero-meta-item .value .accent { color: var(--orange-l); }
-
-/* 뉴럴 네트워크 캔버스 */
-.hero-visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 460px;
-  height: 460px;
-  flex-shrink: 0;
-}
-#neural-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-/* ============================================================
-   도메인 노드 — AI Flow 비주얼
-============================================================ */
-.domain-node {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 2;
-}
-.dn-top    { top: -8px;    left: 50%; transform: translateX(-50%); }
-.dn-right  { top: 50%;  right: -8px;  transform: translateY(-50%); }
-.dn-bottom { bottom: -8px; left: 50%; transform: translateX(-50%); }
-.dn-left   { top: 50%;   left: -8px;  transform: translateY(-50%); }
-
-/* 오브 래퍼 */
-.dn-orb {
-  position: relative;
-  width: 52px; height: 52px;
-  display: flex; align-items: center; justify-content: center;
-}
-
-/* 코어 원 */
-.dn-core {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid currentColor;
-  position: relative;
-  z-index: 1;
-  transition: box-shadow .4s;
-}
-.domain-node:hover .dn-core { background: rgba(255,255,255,0.14); }
-
-/* 펄스 링 */
-.dn-pulse {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1.5px solid currentColor;
-  animation: dn-pulse 2.6s ease-out infinite;
-  pointer-events: none;
-}
-.dn-p2 { animation-delay: 1.3s; }
-
-@keyframes dn-pulse {
-  0%   { transform: scale(1);   opacity: 0.65; }
-  100% { transform: scale(2.4); opacity: 0; }
-}
-
-/* 라벨 */
-.dn-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  text-align: center;
-}
-.dn-en {
-  font-family: var(--display);
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.92);
-  letter-spacing: 0.3px;
-}
-.dn-ko { font-size: 10px; color: rgba(255,255,255,0.5); }
-
-/* 도메인별 색상 */
-.dn-practice { color: #3db870; }
-.dn-practice .dn-core { box-shadow: 0 0 18px rgba(61,184,112,0.45); }
-
-.dn-education { color: #ff7a4d; }
-.dn-education .dn-core { box-shadow: 0 0 18px rgba(255,122,77,0.45); }
-
-.dn-community { color: #a78bfa; }
-.dn-community .dn-core { box-shadow: 0 0 18px rgba(167,139,250,0.45); }
-
-.dn-research { color: #5b8ff9; }
-.dn-research .dn-core { box-shadow: 0 0 18px rgba(91,143,249,0.45); }
-
-/* 펄스 딜레이 (도메인별 엇갈림) */
-.dn-practice .dn-pulse  { animation-delay: 0s; }
-.dn-practice .dn-p2     { animation-delay: 1.3s; }
-.dn-education .dn-pulse { animation-delay: 0.65s; }
-.dn-education .dn-p2    { animation-delay: 1.95s; }
-.dn-community .dn-pulse { animation-delay: 1.3s; }
-.dn-community .dn-p2    { animation-delay: 2.6s; }
-.dn-research .dn-pulse  { animation-delay: 1.95s; }
-.dn-research .dn-p2     { animation-delay: 3.25s; }
 
 /* 스크롤 인디케이터 */
 .scroll-hint {
@@ -1100,8 +989,14 @@ section { padding: 90px 0; }
    반응형
 ============================================================ */
 @media (max-width: 960px) {
-  .hero-content { grid-template-columns: 1fr; gap: 40px; }
-  .hero-visual { order: -1; width: 300px; height: 300px; }
+  .hero-content { max-width: 100%; }
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(9, 20, 40, 0.9) 0%,
+      rgba(9, 20, 40, 0.65) 100%
+    );
+  }
   .hero-title .l1 { font-size: 84px; }
   .hero-title .l2, .hero-title .l3 { font-size: 46px; }
   .values-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1123,7 +1018,6 @@ section { padding: 90px 0; }
   .values-grid { grid-template-columns: 1fr; }
   .highlight-card, .reg-card { padding: 32px 24px; }
   .hl-date { font-size: 60px; }
-  .hero-visual { width: 260px; height: 260px; }
   .keynote-top { flex-direction: column; align-items: flex-start; }
   .reg-title { font-size: 26px; }
 }

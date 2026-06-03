@@ -1,6 +1,6 @@
 @media print {
   .nav, .scroll-hint, .hero-btns, .reg-btns,
-  .nav-cta, .venue-map-btn,
+  .nav-cta, .venue-map-btn, .hero-sparkle,
   .timetable-toggle, .accordion-toggle { display: none !important; }
 
   * {

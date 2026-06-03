@@ -35,6 +35,50 @@
 
 ---
 
+## [2026-06-03] Claude — hero 마우스 따라 반짝임 효과
+
+### 변경
+- `index.html` — `.hero-sparkle` canvas 레이어 추가
+- `css/style.css` — overlay에 커서 위치 `--mx`/`--my` radial-gradient
+- `js/main.js` — 마우스 추적 글로우 + 스파클 파티클 (prefers-reduced-motion 시 비활성)
+- `css/print.css` — 인쇄 시 canvas 숨김
+
+---
+
+## [2026-06-03] Claude — hero.png 전체 배경 적용
+
+### 변경
+- `index.html` — hero-visual 제거, `.hero-bg` img + `.hero-overlay`로 전체 배경 처리
+- `css/style.css` — dot grid·orb 장식 제거, 텍스트 가독용 좌→우 그radient 오버레이, 단일 컬럼 레이아웃
+
+---
+
+## [2026-06-03] Claude — hero 비주얼 hero.png 이미지 전용으로 단순화
+
+### 변경
+- `index.html` — n8n/RAG 다이어그램 제거, `images/background/hero.png` img 적용
+- `index.html` — 중복 배경 오버레이(`.hero-bg-img`) 제거
+- `css/style.css` — flow-node 스타일 삭제, `.hero-img` 스타일 추가
+
+---
+
+## [2026-06-03] Claude — hero 비주얼 n8n + RAG 파이프라인으로 교체
+
+### 변경
+- `index.html` — 4대 가치 허브 → Trigger → n8n → AI → Output + RAG 지식베이스 루프 구조
+- `css/style.css` — flow-node 글래스 카드 스타일, Occupation Flow 강의 주제와 시각적 연계
+
+---
+
+## [2026-06-03] Claude — hero AI 허브 비주얼 정적 리디자인
+
+### 변경
+- `index.html` — Canvas 뉴럴 네트워크 제거, SVG 연결선 + 글래스 허브 DOM 구조로 교체
+- `css/style.css` — hero-visual을 hero-pill·value-card 톤(글래스·디자인 토큰 색)과 통일, 펄스·네온 글로우 제거
+- `js/main.js` — neural-canvas 애니메이션 IIFE 삭제 (정적 비주얼, JS 불필요)
+
+---
+
 ## [2026-06-03] Claude — 3단계 이미지 경로 연결 + 4단계 print.css
 
 ### 변경

@@ -29,10 +29,16 @@
 
 <!-- ===== ① HERO ===== -->
 <header class="hero">
-  <div class="hero-net"></div>
-  <div class="hero-bg-img" style="background-image: url('images/background/hero.png')"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
+  <!-- ✏️ 편집: hero 배경 이미지 -->
+  <img
+    class="hero-bg"
+    src="images/background/hero.png"
+    alt=""
+    aria-hidden="true"
+    onerror="this.style.display='none'"
+  >
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <canvas class="hero-sparkle" aria-hidden="true"></canvas>
 
   <div class="container hero-content">
     <div class="hero-text reveal">
@@ -58,42 +64,6 @@
           <div class="label">장소</div>
           <div class="value">대전보건대학교 대강당</div>
         </div>
-      </div>
-    </div>
-
-    <div class="hero-visual reveal">
-      <canvas id="neural-canvas"></canvas>
-
-      <div class="domain-node dn-top dn-practice">
-        <div class="dn-orb">
-          <div class="dn-pulse"></div><div class="dn-pulse dn-p2"></div>
-          <div class="dn-core">🤝</div>
-        </div>
-        <div class="dn-label"><span class="dn-en">Practice</span><span class="dn-ko">실천</span></div>
-      </div>
-
-      <div class="domain-node dn-right dn-education">
-        <div class="dn-orb">
-          <div class="dn-pulse"></div><div class="dn-pulse dn-p2"></div>
-          <div class="dn-core">📖</div>
-        </div>
-        <div class="dn-label"><span class="dn-en">Education</span><span class="dn-ko">교육</span></div>
-      </div>
-
-      <div class="domain-node dn-bottom dn-community">
-        <div class="dn-label"><span class="dn-en">Community</span><span class="dn-ko">지역사회</span></div>
-        <div class="dn-orb">
-          <div class="dn-pulse"></div><div class="dn-pulse dn-p2"></div>
-          <div class="dn-core">👥</div>
-        </div>
-      </div>
-
-      <div class="domain-node dn-left dn-research">
-        <div class="dn-orb">
-          <div class="dn-pulse"></div><div class="dn-pulse dn-p2"></div>
-          <div class="dn-core">🔬</div>
-        </div>
-        <div class="dn-label"><span class="dn-en">Research</span><span class="dn-ko">연구</span></div>
       </div>
     </div>
   </div>
