@@ -588,7 +588,7 @@ section { padding: 90px 0; }
   padding: 10px 20px;
   background: var(--blue);
   color: #fff;
-  font-family: var(--font-sans);
+  font-family: var(--body);
   font-size: 14px;
   font-weight: 700;
   border-radius: 8px;
