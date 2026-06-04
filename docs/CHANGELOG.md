@@ -4,6 +4,28 @@
 
 ---
 
+## [2026-06-04] Claude — 웹페이지 콘텐츠 HWP 기준 수정
+
+### 변경 (피그마 포스터 + 학술대회 계획_수정_260521.hwp 기준)
+- `index.html` — 9.13 오전/오후 강사 순서 교정
+  - 오전(치료적 상호작용): 박지훈·유애리·정희진·조혜진
+  - 오후(플로어타임 & OPC): 정미양·주유미 (기존과 swap)
+- `index.html` — 9.20 오전 강사 수정: 박요안·박예슬 (기존 김영훈·유지애·황호성·이영오 → 오후로 이동)
+- `index.html` — 9.12 아코디언 세부 주제 4개로 업데이트 (HWP 실제 강의 주제)
+- `index.html` — 9.19 당일 프로그램 섹션에 대학원생 워크샵 카드 추가
+  (연결에서 영감으로, Next OT Research Talk / 장정열 / ~50인)
+
+---
+
+## [2026-06-03] Claude — A2 게시판 포스터 Figma 브리프
+
+### 추가
+- `docs/POSTER-FIGMA-BRIEF.md` — A2 세로·풀 A·Editorial Tech · Figma Variables · Zone A–E 복붙 카피 · 작업 체크리스트
+- `docs/TASKS.md` · `README.md` · `docs/ASSETS.md` — 포스터 작업(P1–P5) 반영
+- `export/.gitkeep` — 최종 PDF 저장 위치
+
+---
+
 ## [2026-06-03] Claude — 6단계 QA · SEO · 배포
 
 ### 변경

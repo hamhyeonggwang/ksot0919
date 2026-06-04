@@ -29,6 +29,7 @@ poster/
     ├── TASKS.md            # 작업 절차
     ├── DESIGN-TOKENS.md
     ├── ASSETS.md
+    ├── POSTER-FIGMA-BRIEF.md  # A2 게시판 포스터 (Figma)
     └── CHANGELOG.md
 ```
 
@@ -46,8 +47,16 @@ poster/
 | **4** | 자산·URL·QR 연결 | ✅ 완료 |
 | **5** | 아이콘 mask 전환 · 모바일 네비 | ✅ 완료 |
 | **6** | SEO · a11y · 성능 · 인쇄 QA · 배포 | ✅ 완료 |
+| **P** | A2 게시판 포스터 (Figma) | ⬜ 진행 중 — `docs/POSTER-FIGMA-BRIEF.md` |
 
 기술 분리 작업 (CSS/JS 분리, print.css)는 **완료** — 상세는 `docs/TASKS.md` 참조.
+
+---
+
+## 📄 A2 게시판 포스터
+
+게시판 부착용 **A2 세로** 인쇄 포스터는 **Figma 단독** 제작.  
+제작 절차·복붙 카피·레이어 규칙 → **`docs/POSTER-FIGMA-BRIEF.md`**
 
 ---
 

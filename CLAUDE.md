@@ -50,6 +50,7 @@
 | `docs/TASKS.md` | 단계별 작업 체크리스트 + 코드 스니펫 |
 | `docs/DESIGN-TOKENS.md` | 색상·폰트·간격·radius 전체 토큰 |
 | `docs/CONTENT.md` | 모든 텍스트 콘텐츠 원본 (강사·일정·주소) |
+| `docs/POSTER-FIGMA-BRIEF.md` | A2 게시판 포스터 Figma 제작 가이드 |
 | `docs/ASSETS.md` | 필요 이미지/아이콘 사양·목록 |
 | `docs/CHANGELOG.md` | 변경 이력 |
 | `README.md` | 디렉토리 구조, 파일 역할 |

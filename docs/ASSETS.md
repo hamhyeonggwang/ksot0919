@@ -34,11 +34,17 @@
 > programs 이미지는 현재 디자인에서 미사용. 카드에 일러스트 추가 시 활용.
 
 ### qr/
+| 파일 | 내용 | 권장 사양 | 상태 |
+|------|------|----------|------|
+| `preregister.png` | 사전등록 QR | 정사각, 최소 300×300px, 여백 포함 | ✅ 연결됨 |
+| `apply.png` | 참가신청 QR | 동일 | 미사용 |
+| `detail.png` | 상세일정 QR | 동일 | 미사용 |
+
+### poster/ (Figma 산출물)
 | 파일 | 내용 | 권장 사양 |
 |------|------|----------|
-| `preregister.png` | 사전등록 QR | 정사각, 최소 300×300px, 여백 포함 | ✅ 연결됨 |
-| `apply.png` | 참가신청 QR | 동일 |
-| `detail.png` | 상세일정 QR | 동일 |
+| `export/poster-a2-final.pdf` | A2 게시판 최종 PDF | 420×594mm, 300dpi, 인쇄용 |
+| Figma 원본 | `OT-Beyond-Borders-2026-Poster.fig` | repo 외부 보관 가능 |
 
 ### logos/
 | 파일 | 내용 | 권장 사양 |

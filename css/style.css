@@ -1060,6 +1060,42 @@ section { padding: 90px 0; }
 .tt-tag.break{ background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
 .tt-parallel { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
 
+/* 동시진행 3열 레이아웃 */
+.tt-concurrent {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  width: 100%;
+}
+.tt-concurrent-col {
+  padding: 10px 14px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.tt-concurrent-col:last-child { border-right: none; }
+.tt-concurrent-col:first-child { background: rgba(255,255,255,0.03); }
+.tt-concurrent-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.90);
+  margin-top: 6px;
+  line-height: 1.45;
+}
+.tt-concurrent-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 3px;
+}
+.tt-concurrent-venue {
+  font-size: 10px;
+  color: var(--orange);
+  margin-top: 8px;
+  font-weight: 600;
+}
+@media (max-width: 560px) {
+  .tt-concurrent { grid-template-columns: 1fr; }
+  .tt-concurrent-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+}
+
 /* 강의 세부 아코디언 내부 */
 .acc-detail { padding: 16px 0 4px; }
 .acc-session {
@@ -1114,6 +1150,26 @@ section { padding: 90px 0; }
   background: var(--ivory-2);
   padding: 3px 10px; border-radius: 6px;
   margin-bottom: 10px;
+}
+.acc-period-head {
+  font-size: 12px; font-weight: 700;
+  color: var(--orange);
+  border-left: 3px solid var(--orange);
+  padding-left: 8px;
+  margin: 14px 0 8px;
+}
+.acc-instructor {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+.acc-spk {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin-left: 6px;
+  font-weight: 600;
 }
 
 /* ============================================================

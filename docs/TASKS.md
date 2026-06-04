@@ -91,6 +91,20 @@
 
 ---
 
+## 📄 A2 게시판 포스터 (Figma — 진행 중)
+
+**가이드:** `docs/POSTER-FIGMA-BRIEF.md`
+
+| 단계 | 내용 | 상태 |
+|------|------|------|
+| P1 | 기획·Figma 브리프 문서 | ✅ |
+| P2 | Figma Variables · Zone 와이어 | ⬜ |
+| P3 | 카피 붙여넣기 · CONTENT 대조 | ⬜ |
+| P4 | 트렌디 비주얼 · PDF export | ⬜ |
+| P5 | A2 시범 인쇄 · 게시판 부착 | ⬜ |
+
+---
+
 ## 🔚 마무리 (자산 준비 후)
 
 - [x] `icons/*.svg` mask-image 치환 완료
