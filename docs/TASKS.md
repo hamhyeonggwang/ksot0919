@@ -91,6 +91,63 @@
 
 ---
 
+## 📋 콘텐츠 수정 — 2026-06-06 수정사항 (HWP 기준)
+
+> 출처: `학술대회 포스터 및 홈페이지 수정사항-2.hwp`  
+> 승인 후 실행. 완료 항목은 ✅ 체크.
+
+### 프로그램 명칭 수정
+
+- [x] `우수논문 발표` → `구두논문 발표` (HL 프로그램 칩 · 타임테이블 · 아코디언 전체)
+- [x] HL 칩 `시상식 및 폐회식` 삭제
+- [x] 타임테이블 `포스터 관람 · 자유 네트워킹` 행(16:30~17:00) 삭제
+- [x] 타임테이블 시상식 행에서 `폐회식` 문구 제거
+
+### 대학원생 워크샵 명칭 확정
+
+- [x] `연결에서 영감으로, Next OT Research Talk` → `Next OT 톡톡 2026: Our Story & Study: Being & Doing`
+
+### 보수교육 학점 표기 추가
+
+- [x] 보수교육 카드에 `4학점 인정` 뱃지 추가
+
+### 강사 소속 변경
+
+- [x] `박예슬 · 청주성모병원` → `박예슬 · 연세송내과 재택의료센터`
+
+### 오타 수정
+
+- [x] `학술주관` → `학술주간` (index.html에 해당 문구 없음 — 이미 정상)
+
+### 주최·주관·후원 정리
+
+- [x] 푸터 `전국대학작업치료 교수협의회` 삭제
+- [x] 푸터 `보건복지부` 후원 삭제 (2026-06-06 결정)
+
+### 플로팅 CTA
+
+- [x] 하단 고정 floating 버튼 바 추가 (CSS + HTML + JS)
+
+### 프로그램별 신청 페이지
+
+- [x] `register/` 폴더 생성
+- [x] `register/poster.html` — 포스터 발표 신청
+- [x] `register/workshop.html` — 대학원생 워크샵 신청
+- [x] `register/oral.html` — 구두논문 발표 신청
+- [x] `register/capstone.html` — 캡스톤 디자인 발표 신청
+- [x] `register/ceu.html` — 보수교육 신청
+- [x] `register/register.css` — 공통 스타일
+- [x] `register/register.js` — Google Apps Script 연동 준비 (SCRIPT_URL 교체만 하면 즉시 동작)
+- [x] 메인 페이지에서 각 신청 페이지로 버튼 연결
+
+### 추가 논의 필요 (보류)
+
+- Google Apps Script 배포 URL 확정 → `register/register.js` SCRIPT_URL에 삽입
+- 신청 폼 필수 항목 확정 → 각 페이지 form 필드 조정
+- 컬러메일 HTML 삽입 여부 — 별도 검토
+
+---
+
 ## 📄 A2 게시판 포스터 (Figma — 진행 중)
 
 **가이드:** `docs/POSTER-FIGMA-BRIEF.md`

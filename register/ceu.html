@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>보수교육 신청 | 2026 OT Beyond Borders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <header class="reg-page-header">
+    <a href="../index.html" class="reg-back-btn">← 메인으로</a>
+    <span class="reg-site-title">2026 OT Beyond Borders</span>
+  </header>
+
+  <main class="reg-main">
+    <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">보수교육 · 4학점</span>
+    <h1 class="reg-page-title">보수교육 신청</h1>
+    <p class="reg-page-desc">9월 19일(토) 10:00~13:00 · 대강당<br>보수교육 4학점 인정 — 작업치료사 면허 소지자에 한함</p>
+
+    <div id="success-msg" class="success-msg">
+      <div class="success-icon">✅</div>
+      <div class="success-title">신청이 완료되었습니다</div>
+      <p class="success-desc">보수교육 신청이 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
+    </div>
+
+    <form id="reg-form">
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">신청자 정보</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>이름 <span class="req">*</span></label>
+            <input type="text" name="name" required placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label>소속 <span class="req">*</span></label>
+            <input type="text" name="affiliation" required placeholder="○○병원 / ○○센터">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>면허번호 <span class="req">*</span></label>
+            <input type="text" name="license_no" required placeholder="작업치료사 면허번호">
+          </div>
+          <div class="form-group">
+            <label>경력 연수 <span class="req">*</span></label>
+            <select name="career_years" required>
+              <option value="" disabled selected>선택</option>
+              <option>1년 미만</option>
+              <option>1~3년</option>
+              <option>3~5년</option>
+              <option>5~10년</option>
+              <option>10년 이상</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>연락처 <span class="req">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000">
+          </div>
+          <div class="form-group">
+            <label>이메일 <span class="req">*</span></label>
+            <input type="email" name="email" required placeholder="example@email.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">당일 참석 정보</div>
+        <div class="form-group">
+          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
+            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>오찬 참석 여부 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
+            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+        <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.<br>보수교육 이수증은 이메일로 발송됩니다.</p>
+      </div>
+    </form>
+  </main>
+
+  <script src="register.js"></script>
+</body>
+</html>

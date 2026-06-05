@@ -225,3 +225,15 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// 플로팅 CTA — 히어로 섹션 벗어나면 표시
+(function () {
+  const cta = document.getElementById('floating-cta');
+  if (!cta) return;
+  const hero = document.querySelector('.hero');
+  const observer = new IntersectionObserver(
+    ([entry]) => cta.classList.toggle('visible', !entry.isIntersecting),
+    { threshold: 0 }
+  );
+  if (hero) observer.observe(hero);
+})();

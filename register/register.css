@@ -1,0 +1,160 @@
+/* ===== 신청 페이지 공통 스타일 ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.reg-page-header {
+  background: var(--surface);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky; top: 0; z-index: 100;
+}
+.reg-back-btn {
+  display: flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.reg-back-btn:hover { color: #fff; }
+.reg-site-title {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-left: auto;
+}
+
+.reg-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.reg-prog-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 16px;
+}
+.reg-page-title {
+  font-family: var(--font-display);
+  font-size: 32px; font-weight: 700; line-height: 1.2;
+  margin-bottom: 8px;
+}
+.reg-page-desc {
+  font-size: 15px; color: rgba(255,255,255,0.55);
+  margin-bottom: 32px; line-height: 1.6;
+}
+
+.reg-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 32px 0;
+}
+
+.reg-form-section { margin-bottom: 32px; }
+.reg-form-section-title {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 8px; color: rgba(255,255,255,0.85);
+}
+.form-group label .req { color: var(--orange); margin-left: 2px; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  padding: 12px 14px;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+  background: rgba(255,255,255,0.09);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select option { background: #1a1a2e; color: #fff; }
+.form-group .hint {
+  font-size: 12px; color: rgba(255,255,255,0.35);
+  margin-top: 5px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+.radio-group { display: flex; gap: 12px; flex-wrap: wrap; }
+.radio-group label {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; font-weight: 400;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.radio-group input[type="radio"] { accent-color: var(--orange); }
+.radio-group label:has(input:checked) {
+  border-color: var(--orange);
+  background: rgba(232,80,31,0.12);
+}
+
+.submit-wrap { margin-top: 40px; }
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--orange);
+  color: #fff;
+  border: none; border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 16px; font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.15s;
+}
+.submit-btn:hover { filter: brightness(1.1); }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.form-notice {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  margin-top: 16px; line-height: 1.6; text-align: center;
+}
+
+/* 제출 완료 메시지 */
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 48px 24px;
+}
+.success-msg.visible { display: block; }
+.success-icon { font-size: 48px; margin-bottom: 16px; }
+.success-title {
+  font-family: var(--font-display);
+  font-size: 24px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.success-desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6; }

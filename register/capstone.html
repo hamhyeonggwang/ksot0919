@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캡스톤 디자인 발표 신청 | 2026 OT Beyond Borders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <header class="reg-page-header">
+    <a href="../index.html" class="reg-back-btn">← 메인으로</a>
+    <span class="reg-site-title">2026 OT Beyond Borders</span>
+  </header>
+
+  <main class="reg-main">
+    <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">캡스톤 디자인</span>
+    <h1 class="reg-page-title">캡스톤 디자인 발표 신청</h1>
+    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 캡스톤 디자인 발표 신청 양식입니다.<br>팀 대표자가 신청해 주세요.</p>
+
+    <div id="success-msg" class="success-msg">
+      <div class="success-icon">✅</div>
+      <div class="success-title">신청이 완료되었습니다</div>
+      <p class="success-desc">캡스톤 디자인 발표 신청이 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
+    </div>
+
+    <form id="reg-form">
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">대표자 정보</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>대표자 이름 <span class="req">*</span></label>
+            <input type="text" name="name" required placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label>소속 대학교 <span class="req">*</span></label>
+            <input type="text" name="affiliation" required placeholder="○○대학교">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>학년 <span class="req">*</span></label>
+            <select name="grade" required>
+              <option value="" disabled selected>선택</option>
+              <option>2학년</option>
+              <option>3학년</option>
+              <option>4학년</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>연락처 <span class="req">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>이메일 <span class="req">*</span></label>
+          <input type="email" name="email" required placeholder="example@email.com">
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">팀 및 발표 정보</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>팀명 <span class="req">*</span></label>
+            <input type="text" name="team_name" required placeholder="팀명을 입력하세요">
+          </div>
+          <div class="form-group">
+            <label>팀원 수 <span class="req">*</span></label>
+            <input type="number" name="team_size" required min="1" max="10" placeholder="명">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>팀원 전체 이름 <span class="req">*</span></label>
+          <input type="text" name="team_members" required placeholder="홍길동, 김철수, 이영희">
+        </div>
+        <div class="form-group">
+          <label>발표 제목 <span class="req">*</span></label>
+          <input type="text" name="title" required placeholder="캡스톤 디자인 작품 제목을 입력하세요">
+        </div>
+        <div class="form-group">
+          <label>지도교수 <span class="req">*</span></label>
+          <input type="text" name="advisor" required placeholder="○○○ 교수님">
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">당일 참석 정보</div>
+        <div class="form-group">
+          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
+            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>오찬 참석 여부 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
+            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+        <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
+      </div>
+    </form>
+  </main>
+
+  <script src="register.js"></script>
+</body>
+</html>
