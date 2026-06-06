@@ -555,14 +555,37 @@ section { padding: 90px 0; }
 /* ============================================================
    ④ 프로그램 — 보수교육 + 명사특강
 ============================================================ */
-.programs { background: var(--ivory); }
+.values { padding-bottom: 40px; }
+.programs { background: var(--ivory); padding-top: 48px; }
+.programs .section-eyebrow {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  font-family: var(--body);
+}
 .prog-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+}
+/* 2행: 워크숍·구두·캡스톤 3열 */
+.prog-card.row2 {
+  grid-column: auto;
+}
+.prog-grid .prog-row2-wrap {
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 @media (max-width: 960px) {
   .prog-grid { grid-template-columns: 1fr 1fr; }
+  .prog-grid .prog-row2-wrap { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .prog-grid { grid-template-columns: 1fr; }
+  .prog-grid .prog-row2-wrap { grid-template-columns: 1fr; }
 }
 .prog-card {
   background: #fff;
@@ -660,6 +683,11 @@ section { padding: 90px 0; }
    ⑤ 강의 일정 타임라인 카드
 ============================================================ */
 .schedule { background: var(--ivory-2); }
+/* 가시성 확보: 강의 일정 날짜·장소·기간 텍스트 */
+.schedule .sched-period { color: #1a1a1a; background: var(--ivory-3); }
+.schedule .sched-venue  { color: #1a1a1a; }
+.schedule .sched-spk    { color: #1a1a1a; }
+.sched-apply-btn { margin-top: 16px; margin-bottom: 4px; }
 .sched-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -701,6 +729,7 @@ section { padding: 90px 0; }
 .sched-card.green  .sched-type-badge { background: var(--green); }
 .sched-card.blue   .sched-type-badge { background: var(--blue); }
 .sched-card.purple .sched-type-badge { background: var(--purple); }
+.sched-type-badge.offline-badge { background: var(--blue); }
 
 .sched-session { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--ivory-3); }
 .sched-session:last-of-type { border-bottom: none; }
@@ -1093,17 +1122,27 @@ section { padding: 90px 0; }
 
 /* 동시진행 3열 레이아웃 */
 .tt-concurrent {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+}
+.tt-concurrent-row {
+  display: grid;
+  width: 100%;
+}
+.tt-concurrent-row.row-3col {
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.tt-concurrent-row.row-1col {
+  grid-template-columns: 1fr;
+  background: rgba(255,255,255,0.03);
 }
 .tt-concurrent-col {
   padding: 10px 14px;
   border-right: 1px solid rgba(255,255,255,0.08);
 }
 .tt-concurrent-col:last-child { border-right: none; }
-.tt-concurrent-col:first-child { background: rgba(255,255,255,0.03); }
 .tt-concurrent-title {
   font-size: 12px;
   font-weight: 600;
@@ -1123,7 +1162,7 @@ section { padding: 90px 0; }
   font-weight: 600;
 }
 @media (max-width: 560px) {
-  .tt-concurrent { grid-template-columns: 1fr; }
+  .tt-concurrent-row.row-3col { grid-template-columns: 1fr; }
   .tt-concurrent-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
 }
 

@@ -4,6 +4,30 @@
 
 ---
 
+## [2026-06-06] Claude — 수정 요청 사항 3차 (10건)
+
+### index.html
+- eyebrow 텍스트 `Main Day · 9.19` → `제34회 대한작업치료학회 학술대회`
+- `#programs .section-eyebrow` 폰트 크기 15px, 한글에 맞게 letter-spacing/text-transform 조정
+- OT Beyond Borders(values 섹션) ↔ 당일 프로그램 섹션 간 여백 축소
+- 당일 프로그램 카드 `.prog-grid` 2행 재배치 (1행: 보수교육 wide + 명사특강 / 2행: 워크숍·구두·캡스톤 3열)
+- 타임테이블 10:00–13:00 2행 재배치 (1행 3열: 워크숍·구두·캡스톤 / 2행 full: 보수교육 + 강좌명 2개)
+- 강의 일정 날짜·장소·강사 텍스트 매트 블랙(`#1a1a1a`)으로 가시성 확보
+- 9.13·9.20 카드에 "오프라인 강좌" 배지(파랑) 추가
+- 9.12·9.13·9.20 강좌 카드 하단 "보수교육 신청하기" 버튼 추가 (링크 `#` 임시)
+- 참가신청 버튼 3곳(`#register`, 푸터, 플로팅 CTA) → `register/index.html` 연결
+
+### register/index.html (신규)
+- 7종 프로그램 카드 체크박스 선택 → 하단 고정 "N개 신청하기" 바 → 통합 신청 폼 → 성공 메시지
+- `reset.css` 로드 추가로 CSS 변수 정상 작동
+
+### css/style.css
+- `.prog-grid` 2행 레이아웃 (`.prog-row2-wrap` 3열 서브그리드)
+- `.tt-concurrent` flex + `.tt-concurrent-row` 2행 구조
+- `.sched-apply-btn` 여백, `.offline-badge` 블루 색상
+
+---
+
 ## [2026-06-04] Claude — 웹페이지 콘텐츠 HWP 기준 수정
 
 ### 변경 (피그마 포스터 + 학술대회 계획_수정_260521.hwp 기준)
