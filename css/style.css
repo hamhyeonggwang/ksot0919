@@ -558,8 +558,11 @@ section { padding: 90px 0; }
 .programs { background: var(--ivory); }
 .prog-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+@media (max-width: 960px) {
+  .prog-grid { grid-template-columns: 1fr 1fr; }
 }
 .prog-card {
   background: #fff;
