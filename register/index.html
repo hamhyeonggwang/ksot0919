@@ -150,6 +150,12 @@
       height: 1px; background: var(--border);
     }
 
+    /* register.css 폰트 변수 호환 */
+    :root {
+      --font-sans: var(--body);
+      --font-display: var(--display);
+    }
+
     /* 라이트 테마 오버라이드 */
     body { background: var(--ivory); color: var(--black); }
     .reg-page-header { background: var(--navy); border-bottom-color: rgba(255,255,255,0.08); }
