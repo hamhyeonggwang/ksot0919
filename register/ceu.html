@@ -18,85 +18,327 @@
   </header>
 
   <main class="reg-main">
-    <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">보수교육 · 4학점</span>
+    <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">보수교육 접수</span>
     <h1 class="reg-page-title">보수교육 신청</h1>
-    <p class="reg-page-desc">9월 19일(토) 10:00~13:00 · 대강당<br>보수교육 4학점 인정 — 작업치료사 면허 소지자에 한함</p>
+    <p class="reg-page-desc">아래에서 신청 구분(임상가 / 학생)을 먼저 선택해 주세요.<br>구분에 따라 입력 항목이 달라집니다.</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
       <div class="success-title">신청이 완료되었습니다</div>
-      <p class="success-desc">보수교육 신청이 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
+      <p class="success-desc">보수교육 신청이 접수되었습니다.<br>교육비 입금 확인 후 최종 등록되며, 안내는 이메일로 발송됩니다.</p>
     </div>
 
     <form id="reg-form">
-      <div class="reg-form-section">
-        <div class="reg-form-section-title">신청자 정보</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>이름 <span class="req">*</span></label>
-            <input type="text" name="name" required placeholder="홍길동">
+
+      <!-- ===== 신청 구분 선택 ===== -->
+      <div class="role-select" id="role-select">
+        <label>
+          <input type="radio" name="form_type" value="임상가" required>
+          <span class="role-icon">🩺</span>
+          <span class="role-name">임상가</span>
+          <span class="role-desc">작업치료사 면허 소지자<br>보수교육 학점 인정 대상</span>
+        </label>
+        <label>
+          <input type="radio" name="form_type" value="학생" required>
+          <span class="role-icon">🎓</span>
+          <span class="role-name">학생</span>
+          <span class="role-desc">작업치료(학)과 재학생<br>학술대회 참가 이수증 발급 가능</span>
+        </label>
+      </div>
+
+      <div id="form-body" hidden>
+
+        <!-- ===== 신청자 정보 ===== -->
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">신청자 정보</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>성명 <span class="req">*</span></label>
+              <input type="text" name="name" required placeholder="홍길동">
+            </div>
+            <div class="form-group">
+              <label>핸드폰 번호 <span class="req">*</span></label>
+              <input type="tel" name="phone" required placeholder="010-0000-0000"
+                     pattern="01[016789]-?\d{3,4}-?\d{4}">
+              <p class="hint">보수교육 출석체크에 사용됩니다.</p>
+            </div>
           </div>
           <div class="form-group">
-            <label>소속 <span class="req">*</span></label>
-            <input type="text" name="affiliation" required placeholder="○○병원 / ○○센터">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>면허번호 <span class="req">*</span></label>
-            <input type="text" name="license_no" required placeholder="작업치료사 면허번호">
-          </div>
-          <div class="form-group">
-            <label>경력 연수 <span class="req">*</span></label>
-            <select name="career_years" required>
-              <option value="" disabled selected>선택</option>
-              <option>1년 미만</option>
-              <option>1~3년</option>
-              <option>3~5년</option>
-              <option>5~10년</option>
-              <option>10년 이상</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>연락처 <span class="req">*</span></label>
-            <input type="tel" name="phone" required placeholder="010-0000-0000">
-          </div>
-          <div class="form-group">
-            <label>이메일 <span class="req">*</span></label>
+            <label>이메일 주소 <span class="req">*</span></label>
             <input type="email" name="email" required placeholder="example@email.com">
+            <p class="hint">교육 안내가 이메일로 발송됩니다.</p>
+          </div>
+
+          <!-- 학생 전용: 생년월일 · 소속 -->
+          <fieldset class="role-section student-only" disabled hidden>
+            <div class="form-row">
+              <div class="form-group">
+                <label>생년월일 <span class="req">*</span></label>
+                <input type="text" name="birth" required placeholder="2000-01-01"
+                       pattern="\d{4}-\d{2}-\d{2}" inputmode="numeric">
+                <p class="hint">0000-00-00 형식으로 입력해 주세요.</p>
+              </div>
+              <div class="form-group">
+                <label>소속 <span class="req">*</span></label>
+                <input type="text" name="affiliation" required placeholder="○○대학교 작업치료(학)과">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="reg-divider"></div>
+
+        <!-- ===== 신청 교육명 ===== -->
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">신청 교육명</div>
+          <div class="form-group">
+            <label>수강할 교육을 모두 선택해 주세요 <span class="req">*</span></label>
+            <!-- ✏️ 편집: 강좌 추가/변경 시 아래 항목 수정 -->
+            <div class="check-group" data-min-check data-min-check-msg="신청할 교육을 1개 이상 선택해 주세요.">
+              <label>
+                <input type="checkbox" name="courses" value="9.12(토) 온라인 — 성인 발달장애인 지원사업의 이해와 실제">
+                <span>9.12(토) 온라인 강좌 — 성인 발달장애인 지원사업의 이해와 실제
+                  <span class="course-meta">14:00~18:00 (4시간) · 온라인 Zoom · 입금자명: <strong>12이름</strong></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" value="9.13(일) 오프라인 아동 — 아동 작업치료 치료적 상호작용 전략 / 플로어타임 & OPC">
+                <span>9.13(일) 오프라인 강좌 · 아동 — 치료적 상호작용 전략 / 플로어타임 &amp; OPC
+                  <span class="course-meta">09:00~18:00 (8시간) · 국립정신건강센터(서울) · 입금자명: <strong>13이름</strong></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" value="9.19(토) 학술대회 보수교육 — AI와 함께 하는 작업치료 임상과 전문역량">
+                <span>9.19(토) 학술대회 보수교육 — AI와 함께 하는 작업치료 임상과 전문역량
+                  <span class="course-meta">10:00~13:00 · 대강당 · 입금자명: <strong>19이름</strong></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" value="9.20(일) 오프라인 성인 — 회복기 재활·재택의료 / 지역사회 통합돌봄과 작업치료">
+                <span>9.20(일) 오프라인 강좌 · 성인 — 회복기 재활·재택의료 / 지역사회 통합돌봄과 작업치료
+                  <span class="course-meta">09:00~18:00 (8시간) · 국립정신건강센터(서울) · 입금자명: <strong>20이름</strong></span>
+                </span>
+              </label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="reg-divider"></div>
+        <!-- ===== 임상가 전용: 보수교육 · 회원 정보 ===== -->
+        <fieldset class="role-section clinician-only" disabled hidden>
+          <div class="reg-divider"></div>
+          <div class="reg-form-section">
+            <div class="reg-form-section-title">보수교육 · 회원 정보</div>
+            <div class="form-group">
+              <label>보수교육 신청 유무 <span class="req">*</span></label>
+              <div class="radio-group">
+                <label><input type="radio" name="ceu_apply" value="신청" required> 신청</label>
+                <label><input type="radio" name="ceu_apply" value="미신청"> 미신청</label>
+              </div>
+              <p class="hint warn-text">* 오기재로 인한 보수교육 불인정은 변경이 불가능합니다.</p>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>대한작업치료사협회 ID <span class="req">*</span></label>
+                <input type="text" name="kaot_id" required placeholder="협회 홈페이지 ID">
+              </div>
+              <div class="form-group">
+                <label>대한작업치료사협회 회원등급 <span class="req">*</span></label>
+                <select name="kaot_grade" required>
+                  <option value="" disabled selected>선택</option>
+                  <option>평생회원</option>
+                  <option>정회원</option>
+                  <option>준회원</option>
+                  <option>인증완료회원</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>작업치료사 면허번호 <span class="req">*</span></label>
+              <input type="text" name="license_no" required placeholder="면허번호">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>대한작업치료학회 ID <span class="req">*</span></label>
+                <input type="text" name="ksot_id" required placeholder="학회 홈페이지 ID">
+              </div>
+              <div class="form-group">
+                <label>대한작업치료학회 회원등급 <span class="req">*</span></label>
+                <select name="ksot_grade" required>
+                  <option value="" disabled selected>선택</option>
+                  <option>정회원</option>
+                  <option>일반회원</option>
+                  <option>준회원</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
 
-      <div class="reg-form-section">
-        <div class="reg-form-section-title">당일 참석 정보</div>
-        <div class="form-group">
-          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
+        <div class="reg-divider"></div>
+
+        <!-- ===== 환불 계좌 ===== -->
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">개인 환불 계좌</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>은행명 <span class="req">*</span></label>
+              <select name="refund_bank" required>
+                <option value="" disabled selected>선택</option>
+                <option>KB국민은행</option>
+                <option>신한은행</option>
+                <option>우리은행</option>
+                <option>하나은행</option>
+                <option>NH농협은행</option>
+                <option>IBK기업은행</option>
+                <option>SC제일은행</option>
+                <option>한국씨티은행</option>
+                <option>카카오뱅크</option>
+                <option>토스뱅크</option>
+                <option>케이뱅크</option>
+                <option>우체국</option>
+                <option>새마을금고</option>
+                <option>신협</option>
+                <option>수협은행</option>
+                <option>iM뱅크(대구)</option>
+                <option>부산은행</option>
+                <option>경남은행</option>
+                <option>광주은행</option>
+                <option>전북은행</option>
+                <option>제주은행</option>
+                <option>기타</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>계좌번호 <span class="req">*</span></label>
+              <input type="text" name="refund_account" required placeholder="'-' 없이 숫자만 입력" inputmode="numeric">
+              <p class="hint">환불이 필요한 경우에만 사용됩니다. (본인 명의 계좌)</p>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label>오찬 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
+
+        <div class="reg-divider"></div>
+
+        <!-- ===== 학술대회 참가 이수증 발급 신청 ===== -->
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">대한작업치료학회 학술대회 참가 이수증 발급 신청</div>
+          <div class="notice-box">
+            <ul>
+              <li>학회에서 발급되는 학술대회 이수증은 <strong>협회 보수교육 이수증과는 다릅니다.</strong></li>
+              <li>이수증은 신청자에 한해 <u><strong>학술대회 종료 이후 개별 메일로 발송</strong></u>됩니다. (종료 후 최대 2주 이내)</li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <label>이수증 발급 신청 여부 <span class="req">*</span></label>
+            <div class="radio-group">
+              <label><input type="radio" name="certificate" value="신청" required> 신청</label>
+              <label><input type="radio" name="certificate" value="미신청"> 미신청</label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
-        <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.<br>보수교육 이수증은 이메일로 발송됩니다.</p>
-      </div>
+        <div class="reg-divider"></div>
+
+        <!-- ===== 안내 및 동의 ===== -->
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">교육비 및 입금 절차 안내</div>
+
+          <!-- ✏️ 편집: 입금 절차는 변경될 수 있음 — 변경 시 아래 안내문 수정 -->
+          <div class="notice-box">
+            본 학술대회 교육 신청서 제출 후 <strong>교육비를 납부하여야 최종 등록</strong>된다는 것을 이해하였습니다.
+          </div>
+          <div class="agree-check">
+            <label>
+              <input type="checkbox" name="agree_payment" value="네. 확인했습니다." required>
+              네. 확인했습니다.
+            </label>
+          </div>
+
+          <div class="notice-box">
+            교육비 입금 시, 입금자명은 <strong>교육일자 + 이름</strong>으로 표기하며, 여러 교육을 신청할 경우
+            <strong>[강의별로 분리하여 교육비를 입금]</strong>합니다. 해당 내용을 이해하였습니다.
+            <ul>
+              <li>예시) 9.12 강좌 신청 시: <strong>12홍길동</strong></li>
+              <li>예시) 9.13 강좌 신청 시: <strong>13홍길동</strong></li>
+              <li>예시) 9.19 학술대회 보수교육 신청 시: <strong>19홍길동</strong></li>
+              <li>예시) 9.20 강좌 신청 시: <strong>20홍길동</strong></li>
+              <li>예시) 9.12 + 9.19 두 강좌 신청 시: <strong>12홍길동 / 19홍길동</strong> 분리하여 입금</li>
+            </ul>
+          </div>
+          <div class="agree-check">
+            <label>
+              <input type="checkbox" name="agree_deposit" value="네. 확인했습니다." required>
+              네. 확인했습니다.
+            </label>
+          </div>
+        </div>
+
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">환불 기준</div>
+          <div class="notice-box">
+            <ul>
+              <li>교육일 8일 전까지: <strong>100% 환불</strong></li>
+              <li>교육일 7일 전부터 ~ 교육 직전일 정오까지: <strong>60% 환불</strong></li>
+              <li>교육 직전일 정오 이후 ~ 교육 당일: <strong class="warn-text">환불 불가</strong></li>
+            </ul>
+            <br>
+            본 학술대회 온라인 교육의 경우, 강의별 일시가 상이하여 환불은 <strong>각 강의일을 기준</strong>으로 처리되어
+            환불 기준 인정기간이 다릅니다. 강의별 환불기간은 대한작업치료학회 홈페이지 &gt; 학술대회 &gt; 공지사항에서
+            확인 가능함을 인지하였습니다.
+          </div>
+          <div class="agree-check">
+            <label>
+              <input type="checkbox" name="agree_refund" value="네. 확인했습니다." required>
+              네. 확인했습니다.
+            </label>
+          </div>
+        </div>
+
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">개인정보 수집 동의</div>
+          <div class="notice-box">
+            개인정보 수집에 동의합니다. (보수교육 이후 수집된 개인정보는 모두 안전하게 폐기됩니다)
+          </div>
+          <div class="agree-check">
+            <label>
+              <input type="checkbox" name="agree_privacy" value="동의합니다." required>
+              동의합니다.
+            </label>
+          </div>
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+          <p class="form-notice">신청서 제출 후 교육비 입금이 확인되어야 최종 등록됩니다.<br>입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
+        </div>
+
+      </div><!-- /#form-body -->
     </form>
   </main>
 
   <script src="register.js"></script>
+  <script>
+    // 임상가/학생 구분에 따라 입력 섹션 전환
+    (function () {
+      const formBody = document.getElementById('form-body');
+      const clinicianSections = document.querySelectorAll('.clinician-only');
+      const studentSections = document.querySelectorAll('.student-only');
+
+      function setSections(sections, active) {
+        sections.forEach(fs => {
+          fs.disabled = !active;   // 비활성 섹션은 검증·전송에서 제외
+          fs.hidden = !active;
+        });
+      }
+
+      document.querySelectorAll('input[name="form_type"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          formBody.hidden = false;
+          const isClinician = radio.value === '임상가';
+          setSections(clinicianSections, isClinician);
+          setSections(studentSections, !isClinician);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

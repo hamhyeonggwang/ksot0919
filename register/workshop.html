@@ -20,7 +20,7 @@
   <main class="reg-main">
     <span class="reg-prog-badge" style="background:rgba(59,130,246,0.15);color:var(--blue)">대학원생 워크숍</span>
     <h1 class="reg-page-title">대학원생 워크숍 신청</h1>
-    <p class="reg-page-desc">Next OT 톡톡 2026: Our Story &amp; Study: Being &amp; Doing<br>9월 19일(토) 10:00~13:00 · 별도 강의실 (~50인)</p>
+    <p class="reg-page-desc">Next OT 톡톡 2026: Our Story &amp; Study: Being &amp; Doing<br>9월 19일(토) 10:00~13:00 · 별도 강의실 (약 50인)</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
@@ -29,77 +29,52 @@
     </div>
 
     <form id="reg-form">
+      <input type="hidden" name="form_type" value="대학원생 워크숍">
+
       <div class="reg-form-section">
         <div class="reg-form-section-title">신청자 정보</div>
         <div class="form-row">
           <div class="form-group">
-            <label>이름 <span class="req">*</span></label>
+            <label>성명 <span class="req">*</span></label>
             <input type="text" name="name" required placeholder="홍길동">
           </div>
           <div class="form-group">
-            <label>소속 대학원 <span class="req">*</span></label>
+            <label>소속(학교) <span class="req">*</span></label>
             <input type="text" name="affiliation" required placeholder="○○대학교 대학원">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>학위과정 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="degree" value="석사" required> 석사</label>
+            <label><input type="radio" name="degree" value="박사"> 박사</label>
+            <label><input type="radio" name="degree" value="석박통합"> 석박통합</label>
+            <label><input type="radio" name="degree" value="기타"> 기타</label>
+          </div>
+          <div class="form-group" id="degree-etc-wrap" hidden style="margin-top:10px">
+            <input type="text" name="degree_etc" placeholder="기타 과정을 입력해 주세요">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>학년 / 과정 <span class="req">*</span></label>
-            <select name="grade" required>
-              <option value="" disabled selected>선택</option>
-              <option>석사 1학기</option>
-              <option>석사 2학기</option>
-              <option>석사 3학기 이상</option>
-              <option>박사 1~2학기</option>
-              <option>박사 3학기 이상</option>
-              <option>석박사 통합</option>
-            </select>
+            <label>이메일 주소 <span class="req">*</span></label>
+            <input type="email" name="email" required placeholder="example@email.com">
           </div>
           <div class="form-group">
-            <label>연락처 <span class="req">*</span></label>
-            <input type="tel" name="phone" required placeholder="010-0000-0000">
+            <label>핸드폰 번호 <span class="req">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000"
+                   pattern="01[016789]-?\d{3,4}-?\d{4}">
           </div>
-        </div>
-        <div class="form-group">
-          <label>이메일 <span class="req">*</span></label>
-          <input type="email" name="email" required placeholder="example@email.com">
         </div>
       </div>
 
       <div class="reg-divider"></div>
 
       <div class="reg-form-section">
-        <div class="reg-form-section-title">연구 정보</div>
+        <div class="reg-form-section-title">관심 주제</div>
         <div class="form-group">
-          <label>연구 분야 / 관심 주제 <span class="req">*</span></label>
-          <input type="text" name="research_field" required placeholder="예: 감각통합, 지역사회 재활, AI 활용 등">
-        </div>
-        <div class="form-group">
-          <label>지도교수</label>
-          <input type="text" name="advisor" placeholder="○○○ 교수님">
-        </div>
-        <div class="form-group">
-          <label>워크숍 참가 동기 <span class="req">*</span></label>
-          <textarea name="motivation" required placeholder="워크숍에 참가하고 싶은 이유나 기대하는 점을 간략히 작성해 주세요."></textarea>
-        </div>
-      </div>
-
-      <div class="reg-divider"></div>
-
-      <div class="reg-form-section">
-        <div class="reg-form-section-title">당일 참석 정보</div>
-        <div class="form-group">
-          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>오찬 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
-          </div>
+          <label>관심 있는 주제 (작업치료 관련) <span class="req">*</span></label>
+          <textarea name="interest" required placeholder="작업치료와 관련해 관심 있는 주제를 자유롭게 기술해 주세요."></textarea>
         </div>
       </div>
 
@@ -111,5 +86,20 @@
   </main>
 
   <script src="register.js"></script>
+  <script>
+    // 학위과정 "기타" 선택 시 직접입력 칸 표시
+    (function () {
+      const etcWrap = document.getElementById('degree-etc-wrap');
+      const etcInput = etcWrap.querySelector('input');
+      document.querySelectorAll('input[name="degree"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const isEtc = radio.value === '기타';
+          etcWrap.hidden = !isEtc;
+          etcInput.required = isEtc;
+          if (!isEtc) etcInput.value = '';
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

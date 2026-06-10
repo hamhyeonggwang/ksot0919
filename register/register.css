@@ -1,16 +1,16 @@
-/* ===== 신청 페이지 공통 스타일 ===== */
+/* ===== 신청 페이지 공통 스타일 (라이트 테마 — reset.css 토큰 사용) ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg);
+  background: var(--ivory);
   color: var(--text);
   min-height: 100vh;
 }
 
 .reg-page-header {
-  background: var(--surface);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   padding: 16px 24px;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@ body {
 }
 .reg-back-btn {
   display: flex; align-items: center; gap: 6px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
   font-size: 14px;
   transition: color 0.2s;
@@ -46,23 +46,24 @@ body {
 .reg-page-title {
   font-family: var(--font-display);
   font-size: 32px; font-weight: 700; line-height: 1.2;
+  color: var(--navy);
   margin-bottom: 8px;
 }
 .reg-page-desc {
-  font-size: 15px; color: rgba(255,255,255,0.55);
+  font-size: 15px; color: var(--text-sub);
   margin-bottom: 32px; line-height: 1.6;
 }
 
 .reg-divider {
   height: 1px;
-  background: rgba(255,255,255,0.08);
+  background: var(--border);
   margin: 32px 0;
 }
 
 .reg-form-section { margin-bottom: 32px; }
 .reg-form-section-title {
   font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  text-transform: uppercase; color: var(--text-sub);
   margin-bottom: 16px;
 }
 
@@ -70,17 +71,17 @@ body {
 .form-group label {
   display: block;
   font-size: 14px; font-weight: 600;
-  margin-bottom: 8px; color: rgba(255,255,255,0.85);
+  margin-bottom: 8px; color: var(--black);
 }
 .form-group label .req { color: var(--orange); margin-left: 2px; }
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  color: #fff;
+  color: var(--black);
   font-family: var(--font-sans);
   font-size: 15px;
   padding: 12px 14px;
@@ -91,12 +92,11 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--orange);
-  background: rgba(255,255,255,0.09);
 }
 .form-group textarea { resize: vertical; min-height: 100px; }
-.form-group select option { background: #1a1a2e; color: #fff; }
+.form-group select option { background: #fff; color: var(--black); }
 .form-group .hint {
-  font-size: 12px; color: rgba(255,255,255,0.35);
+  font-size: 12px; color: var(--text-dim);
   margin-top: 5px;
 }
 
@@ -111,17 +111,118 @@ body {
 .radio-group label {
   display: flex; align-items: center; gap: 8px;
   cursor: pointer; font-weight: 400;
+  white-space: nowrap;
   padding: 10px 16px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 8px;
   transition: border-color 0.2s, background 0.2s;
 }
 .radio-group input[type="radio"] { accent-color: var(--orange); }
 .radio-group label:has(input:checked) {
   border-color: var(--orange);
-  background: rgba(232,80,31,0.12);
+  background: rgba(232,80,31,0.06);
 }
+
+/* 체크박스 그룹 (라디오 그룹과 동일 룩) */
+.check-group { display: flex; flex-direction: column; gap: 10px; }
+.check-group label {
+  display: flex; align-items: flex-start; gap: 10px;
+  cursor: pointer; font-weight: 400;
+  font-size: 14px; line-height: 1.5;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.check-group input[type="checkbox"] {
+  accent-color: var(--orange);
+  width: 17px; height: 17px;
+  margin-top: 2px; flex-shrink: 0;
+}
+.check-group label:has(input:checked) {
+  border-color: var(--orange);
+  background: rgba(232,80,31,0.06);
+}
+.check-group .course-meta {
+  display: block;
+  font-size: 12px; color: var(--text-sub);
+  margin-top: 3px;
+}
+
+/* 구분 선택 (임상가 / 학생) */
+.role-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+@media (max-width: 480px) { .role-select { grid-template-columns: 1fr; } }
+.role-select label {
+  display: block;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.role-select label:hover { transform: translateY(-2px); border-color: var(--orange); }
+.role-select input[type="radio"] {
+  position: absolute; opacity: 0; pointer-events: none;
+}
+.role-select label:has(input:checked) {
+  border-color: var(--orange);
+  background: rgba(232,80,31,0.05);
+}
+.role-select .role-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+.role-select .role-name { font-size: 16px; font-weight: 700; color: var(--black); display: block; margin-bottom: 4px; }
+.role-select .role-desc { font-size: 12.5px; color: var(--text-sub); line-height: 1.5; }
+
+/* 안내문 박스 */
+.notice-box {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 13.5px; line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.notice-box ul { margin: 6px 0 0 18px; }
+.notice-box li { margin-bottom: 3px; }
+.notice-box strong { color: var(--black); }
+.notice-box u { text-decoration-color: var(--orange); text-underline-offset: 3px; }
+.warn-text { color: #dc2626; font-weight: 600; }
+
+/* 동의 체크 (단일 필수 체크) */
+.agree-check { margin-bottom: 28px; }
+.agree-check label {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  font-size: 14.5px; font-weight: 600;
+  color: var(--black);
+  padding: 13px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.agree-check input[type="checkbox"] {
+  accent-color: var(--orange);
+  width: 18px; height: 18px; flex-shrink: 0;
+}
+.agree-check label:has(input:checked) {
+  border-color: var(--green);
+  background: rgba(42,122,75,0.06);
+}
+
+/* 역할별 섹션 fieldset 리셋 */
+fieldset.role-section { border: none; }
+fieldset.role-section[hidden] { display: none; }
 
 .submit-wrap { margin-top: 40px; }
 .submit-btn {
@@ -133,6 +234,7 @@ body {
   font-family: var(--font-sans);
   font-size: 16px; font-weight: 700;
   cursor: pointer;
+  box-shadow: var(--shadow-orange);
   transition: filter 0.2s, transform 0.15s;
 }
 .submit-btn:hover { filter: brightness(1.1); }
@@ -140,7 +242,7 @@ body {
 .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .form-notice {
-  font-size: 13px; color: rgba(255,255,255,0.4);
+  font-size: 13px; color: var(--text-dim);
   margin-top: 16px; line-height: 1.6; text-align: center;
 }
 
@@ -155,6 +257,7 @@ body {
 .success-title {
   font-family: var(--font-display);
   font-size: 24px; font-weight: 700;
+  color: var(--navy);
   margin-bottom: 8px;
 }
-.success-desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.success-desc { font-size: 15px; color: var(--text-sub); line-height: 1.6; }
