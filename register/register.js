@@ -3,7 +3,7 @@
  * ✏️ 편집: 아래 SCRIPT_URL을 배포된 Apps Script 웹 앱 URL로 교체
  *   배포 방법: docs/SHEETS-SETUP.md 참조
  */
-const SCRIPT_URL = '';  // ✏️ Google Apps Script 배포 URL (예: https://script.google.com/macros/s/.../exec)
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyPrbA8Ed1Ntc9-ItEsNUPaUBbE0flZ035NkCy8vWE3PDv0k3H5VbRW9I4DpmXeHxtIzg/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('reg-form');

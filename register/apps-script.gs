@@ -98,6 +98,8 @@ function getOrCreateSheet_(ss, name, headers) {
   let sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
+    // 계좌번호·생년월일 등이 숫자/날짜로 변환되지 않도록 전체를 일반 텍스트로
+    sheet.getRange(1, 1, sheet.getMaxRows(), headers.length).setNumberFormat('@');
     sheet.appendRow(headers);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#fde8df');
     sheet.setFrozenRows(1);
