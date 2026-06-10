@@ -65,6 +65,57 @@ const SHEET_CONFIG = {
       ['관심 주제',                'interest'],
     ],
   },
+  '포스터 발표': {
+    sheetName: '포스터_발표',
+    columns: [
+      ['제출시각',                 'timestamp'],
+      ['성명',                     'name'],
+      ['소속',                     'affiliation'],
+      ['직책',                     'position'],
+      ['연락처',                   'phone'],
+      ['이메일',                   'email'],
+      ['발표 제목',                'title'],
+      ['공동저자',                 'co_authors'],
+      ['발표 분야',                'field'],
+      ['본행사 참석',              'attend_main'],
+      ['오찬 참석',                'attend_lunch'],
+    ],
+  },
+  '구두논문 발표': {
+    sheetName: '구두논문_발표',
+    columns: [
+      ['제출시각',                 'timestamp'],
+      ['성명',                     'name'],
+      ['소속',                     'affiliation'],
+      ['직책',                     'position'],
+      ['연락처',                   'phone'],
+      ['이메일',                   'email'],
+      ['발표 제목',                'title'],
+      ['공동저자',                 'co_authors'],
+      ['발표 분야',                'field'],
+      ['발표 유형',                'oral_type'],
+      ['본행사 참석',              'attend_main'],
+      ['오찬 참석',                'attend_lunch'],
+    ],
+  },
+  '캡스톤 디자인': {
+    sheetName: '캡스톤_디자인',
+    columns: [
+      ['제출시각',                 'timestamp'],
+      ['대표자 성명',              'name'],
+      ['소속 대학교',              'affiliation'],
+      ['학년',                     'grade'],
+      ['연락처',                   'phone'],
+      ['이메일',                   'email'],
+      ['팀명',                     'team_name'],
+      ['팀원 수',                  'team_size'],
+      ['팀원 전체 이름',           'team_members'],
+      ['발표 제목',                'title'],
+      ['지도교수',                 'advisor'],
+      ['본행사 참석',              'attend_main'],
+      ['오찬 참석',                'attend_lunch'],
+    ],
+  },
 };
 
 function doPost(e) {
@@ -80,7 +131,7 @@ function doPost(e) {
       const sheet = getOrCreateSheet_(ss, config.sheetName, config.columns.map(c => c[0]));
       sheet.appendRow(config.columns.map(c => data[c[1]] || ''));
     } else {
-      // 정의되지 않은 폼(구두논문·포스터·캡스톤 등)은 기타 시트에 원본 저장
+      // SHEET_CONFIG에 없는 form_type은 기타 시트에 원본 JSON으로 저장
       const sheet = getOrCreateSheet_(ss, '기타_접수', ['제출시각', 'form_type', '원본 데이터(JSON)']);
       sheet.appendRow([data.timestamp, data.form_type || '', JSON.stringify(data)]);
     }

@@ -4,6 +4,19 @@
 
 ---
 
+## [2026-06-11] Claude — 발표 신청 3종 스프레드시트 연동
+
+### register/poster.html · oral.html · capstone.html
+- 각 폼에 `form_type` hidden 필드 추가 (포스터 발표 / 구두논문 발표 / 캡스톤 디자인)
+
+### register/apps-script.gs
+- `포스터_발표` · `구두논문_발표` · `캡스톤_디자인` 시트 구성(SHEET_CONFIG) 추가
+  → 발표 신청도 보수교육·워크숍과 동일하게 전용 시트에 행 단위 기록
+- ⚠️ 반영하려면 Apps Script에 갱신된 코드 재붙여넣기 + 새 버전 재배포 필요
+  (미반영 시 발표 신청은 기존 폴백대로 `기타_접수` 시트에 JSON으로 적재됨)
+
+---
+
 ## [2026-06-11] Claude — 접수 문항 전면 개편 + 구글 스프레드시트 연동
 
 ### register/ceu.html (보수교육 신청, 전면 개편)
