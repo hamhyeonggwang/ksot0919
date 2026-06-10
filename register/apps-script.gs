@@ -24,8 +24,6 @@ const SHEET_CONFIG = {
       ['협회 ID',                  'kaot_id'],
       ['협회 회원등급',            'kaot_grade'],
       ['면허번호',                 'license_no'],
-      ['학회 ID',                  'ksot_id'],
-      ['학회 회원등급',            'ksot_grade'],
       ['환불 은행',                'refund_bank'],
       ['환불 계좌번호',            'refund_account'],
       ['이수증 발급 신청',         'certificate'],

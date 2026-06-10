@@ -34,13 +34,11 @@
       <div class="role-select" id="role-select">
         <label>
           <input type="radio" name="form_type" value="임상가" required>
-          <span class="role-icon">🩺</span>
           <span class="role-name">임상가</span>
           <span class="role-desc">작업치료사 면허 소지자<br>보수교육 학점 인정 대상</span>
         </label>
         <label>
           <input type="radio" name="form_type" value="학생" required>
-          <span class="role-icon">🎓</span>
           <span class="role-name">학생</span>
           <span class="role-desc">작업치료(학)과 재학생<br>학술대회 참가 이수증 발급 가능</span>
         </label>
@@ -155,21 +153,6 @@
             <div class="form-group">
               <label>작업치료사 면허번호 <span class="req">*</span></label>
               <input type="text" name="license_no" required placeholder="면허번호">
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>대한작업치료학회 ID <span class="req">*</span></label>
-                <input type="text" name="ksot_id" required placeholder="학회 홈페이지 ID">
-              </div>
-              <div class="form-group">
-                <label>대한작업치료학회 회원등급 <span class="req">*</span></label>
-                <select name="ksot_grade" required>
-                  <option value="" disabled selected>선택</option>
-                  <option>정회원</option>
-                  <option>일반회원</option>
-                  <option>준회원</option>
-                </select>
-              </div>
             </div>
           </div>
         </fieldset>
