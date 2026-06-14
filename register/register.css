@@ -151,6 +151,20 @@ body {
   margin-top: 3px;
 }
 
+/* 강의 장소 강조 칩 — 회색 메타 줄에서 장소만 튀어 보이도록 */
+.venue {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 700;
+  color: var(--orange);
+  background: rgba(232,80,31,0.10);
+  padding: 1px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.venue::before { content: "📍"; font-size: 0.95em; line-height: 1; }
+
 /* 구분 선택 (임상가 / 학생) */
 .role-select {
   display: grid;
