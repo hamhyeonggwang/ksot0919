@@ -9,7 +9,7 @@
 신청 폼 제출 → Google Apps Script(웹 앱) → 스프레드시트에 행 추가
 ```
 
-- 접수 스프레드시트: https://docs.google.com/spreadsheets/d/1ULBG3ILsMKq5zzOqZyADBv_26vhjBm0ta-7Hw0VdDsc/edit
+- 접수 스프레드시트: https://docs.google.com/spreadsheets/d/1seHYNx8pjqmlHAME6FmPMiRGO-RzO91_8lIZcK8rN2Y/edit
 - 시트는 자동 생성됨: `보수교육_임상가` / `보수교육_학생` / `대학원생_워크숍` /
   `포스터_발표` / `구두논문_발표` / `캡스톤_디자인` / `기타_접수`
 - 헤더(1행)도 자동으로 채워지므로 시트를 미리 만들 필요 없음

@@ -78,13 +78,121 @@
         </div>
       </div>
 
+      <div class="reg-divider"></div>
+
+      <!-- ===== 교육비 및 입금 절차 안내 ===== -->
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">교육비 및 입금 절차 안내</div>
+
+        <!-- ✏️ 편집: 참가비·계좌는 변경될 수 있음 — 변경 시 아래 안내문 수정 -->
+        <div class="notice-box">
+          <ul>
+            <li>참가비: <strong>30,000원</strong></li>
+            <li>계좌이체: <strong>하나은행 907-910328-84207 (예금주: 대한작업치료학회)</strong></li>
+            <li>입금자명은 <strong>"이름/학교명"</strong> 형식으로 입금해 주세요. <span class="hint" style="display:inline">예) 홍길동/○○대학교</span></li>
+            <li>본 학술대회 신청서 접수 후 <strong>교육비를 납부하여야 최종 등록</strong>된다는 것을 이해하였습니다.</li>
+            <li>교육비 납부 관련 증빙서류 요청 및 문의: <strong>ksotoffice@nate.com</strong></li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label>입금자명 <span class="req">*</span></label>
+          <input type="text" name="payer_name" required placeholder="이름/학교명 (예: 홍길동/○○대학교)">
+          <p class="hint">입금 확인을 위해 <strong>"이름/학교명"</strong> 형식으로 기재해 주세요.</p>
+        </div>
+        <div class="agree-check">
+          <label>
+            <input type="checkbox" name="agree_payment" value="네. 확인하였습니다." required>
+            네. 확인하였습니다.
+          </label>
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <!-- ===== 환불 기준 ===== -->
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">환불 기준</div>
+        <div class="notice-box">
+          <ul>
+            <li>교육일 8일 전까지: <strong>100% 환불</strong></li>
+            <li>교육일 7일 전부터 ~ 교육 직전일 정오까지: <strong>60% 환불</strong></li>
+            <li>교육 직전일 정오 이후 ~ 교육 당일: <strong class="warn-text">환불 불가</strong></li>
+          </ul>
+        </div>
+        <div class="agree-check">
+          <label>
+            <input type="checkbox" name="agree_refund" value="네. 확인했습니다." required>
+            네. 확인했습니다.
+          </label>
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <!-- ===== 환불 계좌 ===== -->
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">개인 환불 계좌</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>은행명 <span class="req">*</span></label>
+            <select name="refund_bank" required>
+              <option value="" disabled selected>선택</option>
+              <option>KB국민은행</option>
+              <option>신한은행</option>
+              <option>우리은행</option>
+              <option>하나은행</option>
+              <option>NH농협은행</option>
+              <option>IBK기업은행</option>
+              <option>SC제일은행</option>
+              <option>한국씨티은행</option>
+              <option>카카오뱅크</option>
+              <option>토스뱅크</option>
+              <option>케이뱅크</option>
+              <option>우체국</option>
+              <option>새마을금고</option>
+              <option>신협</option>
+              <option>수협은행</option>
+              <option>iM뱅크(대구)</option>
+              <option>부산은행</option>
+              <option>경남은행</option>
+              <option>광주은행</option>
+              <option>전북은행</option>
+              <option>제주은행</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>계좌번호 <span class="req">*</span></label>
+            <input type="text" name="refund_account" required placeholder="'-' 없이 숫자만 입력" inputmode="numeric">
+            <p class="hint">환불이 필요한 경우에만 사용됩니다. (본인 명의 계좌)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <!-- ===== 개인정보 수집 동의 ===== -->
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">개인정보 수집 동의</div>
+        <div class="notice-box">
+          개인정보 수집에 동의합니다. (학술대회 이후 수집된 개인정보는 모두 안전하게 폐기됩니다)
+        </div>
+        <div class="agree-check">
+          <label>
+            <input type="checkbox" name="agree_privacy" value="동의합니다." required>
+            동의합니다.
+          </label>
+        </div>
+      </div>
+
       <div class="submit-wrap">
         <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
-        <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
+        <p class="form-notice">신청서 제출 후 교육비 납부가 확인되어야 최종 등록됩니다.<br>입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
       </div>
     </form>
   </main>
 
+  <script src="supabase-config.js"></script>
   <script src="register.js"></script>
   <script>
     // 학위과정 "기타" 선택 시 직접입력 칸 표시

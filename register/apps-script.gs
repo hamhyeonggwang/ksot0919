@@ -1,14 +1,14 @@
 /**
- * 2026 OT Beyond Borders — 신청 폼 → Google 스프레드시트 수집
+ * 2026 OT Beyond Borders — Google Sheets 동기화
  *
- * 사용법: docs/SHEETS-SETUP.md 참조
- * 1) 스프레드시트의 확장 프로그램 > Apps Script에 이 코드 전체를 붙여넣기
- * 2) 배포 > 새 배포 > 웹 앱 (액세스: 모든 사용자)
- * 3) 발급된 URL을 register/register.js 의 SCRIPT_URL에 입력
+ * Supabase Edge Function `submit` → doPost (source=supabase) → 시트 append
+ *
+ * 설정: docs/SUBMIT-SETUP.md
+ * Script Properties: WEBHOOK_SECRET
  */
 
 // ✏️ 편집: 접수용 스프레드시트 ID
-const SPREADSHEET_ID = '1ULBG3ILsMKq5zzOqZyADBv_26vhjBm0ta-7Hw0VdDsc';
+const SPREADSHEET_ID = '1seHYNx8pjqmlHAME6FmPMiRGO-RzO91_8lIZcK8rN2Y';
 
 // 폼 구분(form_type)별 시트 이름·열 구성
 const SHEET_CONFIG = {
@@ -24,13 +24,17 @@ const SHEET_CONFIG = {
       ['협회 ID',                  'kaot_id'],
       ['협회 회원등급',            'kaot_grade'],
       ['면허번호',                 'license_no'],
+      ['임상경력(년)',             'career_years'],
+      ['교육비 합계',              'fee_total'],
+      ['납부방법',                 'pay_method'],
+      ['기관납부 입금자명',        'payer_name'],
       ['환불 은행',                'refund_bank'],
       ['환불 계좌번호',            'refund_account'],
       ['이수증 발급 신청',         'certificate'],
       ['교육비 납부 확인',         'agree_payment'],
-      ['입금자명 안내 확인',       'agree_deposit'],
       ['환불기준 확인',            'agree_refund'],
       ['개인정보 동의',            'agree_privacy'],
+      ['Supabase ID',              'supabase_id'],
     ],
   },
   '학생': {
@@ -43,13 +47,16 @@ const SHEET_CONFIG = {
       ['핸드폰',                   'phone'],
       ['이메일',                   'email'],
       ['신청교육명',               'courses'],
+      ['교육비 합계',              'fee_total'],
+      ['납부방법',                 'pay_method'],
+      ['기관납부 입금자명',        'payer_name'],
       ['환불 은행',                'refund_bank'],
       ['환불 계좌번호',            'refund_account'],
       ['이수증 발급 신청',         'certificate'],
       ['교육비 납부 확인',         'agree_payment'],
-      ['입금자명 안내 확인',       'agree_deposit'],
       ['환불기준 확인',            'agree_refund'],
       ['개인정보 동의',            'agree_privacy'],
+      ['Supabase ID',              'supabase_id'],
     ],
   },
   '대학원생 워크숍': {
@@ -63,42 +70,65 @@ const SHEET_CONFIG = {
       ['이메일',                   'email'],
       ['핸드폰',                   'phone'],
       ['관심 주제',                'interest'],
+      ['입금자명',                 'payer_name'],
+      ['교육비 납부 확인',         'agree_payment'],
+      ['환불 은행',                'refund_bank'],
+      ['환불 계좌번호',            'refund_account'],
+      ['환불기준 확인',            'agree_refund'],
+      ['개인정보 동의',            'agree_privacy'],
+      ['Supabase ID',              'supabase_id'],
     ],
   },
-  '포스터 발표': {
-    sheetName: '포스터_발표',
+  '포스터 및 구두발표 접수': {
+    sheetName: '포스터_구두발표',
     columns: [
       ['제출시각',                 'timestamp'],
       ['성명',                     'name'],
       ['소속',                     'affiliation'],
-      ['직책',                     'position'],
-      ['연락처',                   'phone'],
+      ['핸드폰',                   'phone'],
       ['이메일',                   'email'],
-      ['발표 제목',                'title'],
-      ['공동저자',                 'co_authors'],
+      ['저자 구분',                'author_role'],
+      ['발표 종류',                'pres_type'],
+      ['포스터 개수',              'poster_count'],
+      ['논문 제목',                'title'],
+      ['공동 저자',                'co_authors'],
       ['발표 분야',                'field'],
-      ['본행사 참석',              'attend_main'],
-      ['오찬 참석',                'attend_lunch'],
+      ['초록양식 확인',            'abstract_format'],
+      ['접수비 확인',              'fee_confirm'],
+      ['개인정보 동의',            'agree_privacy'],
+      ['논문초록 URL',             'abstract_file_url'],
+      ['Supabase ID',              'supabase_id'],
     ],
   },
-  '구두논문 발표': {
-    sheetName: '구두논문_발표',
+  '우수 학위논문 접수': {
+    sheetName: '우수_학위논문',
     columns: [
       ['제출시각',                 'timestamp'],
       ['성명',                     'name'],
-      ['소속',                     'affiliation'],
-      ['직책',                     'position'],
+      ['생년월일',                 'birth'],
       ['연락처',                   'phone'],
-      ['이메일',                   'email'],
-      ['발표 제목',                'title'],
-      ['공동저자',                 'co_authors'],
+      ['소속대학원',               'grad_school'],
+      ['학위 취득(예정)일',        'degree_date'],
+      ['게재(예정) 학회지',        'journal_status'],
+      ['학회지명 권(호)',          'journal_detail'],
+      ['논문명',                   'title'],
+      ['언어',                     'thesis_language'],
+      ['취득학위',                 'degree_type'],
+      ['지도교수',                 'advisor'],
+      ['심사위원',                 'committee'],
       ['발표 분야',                'field'],
-      ['발표 유형',                'oral_type'],
-      ['본행사 참석',              'attend_main'],
-      ['오찬 참석',                'attend_lunch'],
+      ['연구내용 요약',            'summary_research'],
+      ['학문적 기여도',            'summary_contribution'],
+      ['학문적 중요도',            'summary_importance'],
+      ['개인정보 동의',            'agree_privacy'],
+      ['추천서 URL',               'recommendation_file_url'],
+      ['졸업증명서 URL',           'grad_cert_file_url'],
+      ['유사도검사 URL',           'similarity_file_url'],
+      ['논문 PDF URL',             'thesis_file_url'],
+      ['Supabase ID',              'supabase_id'],
     ],
   },
-  '캡스톤 디자인': {
+  '캡스톤 디자인 접수': {
     sheetName: '캡스톤_디자인',
     columns: [
       ['제출시각',                 'timestamp'],
@@ -111,45 +141,92 @@ const SHEET_CONFIG = {
       ['팀원 수',                  'team_size'],
       ['팀원 전체 이름',           'team_members'],
       ['발표 제목',                'title'],
-      ['지도교수',                 'advisor'],
-      ['본행사 참석',              'attend_main'],
-      ['오찬 참석',                'attend_lunch'],
+      ['지도교수 성함',            'advisor_name'],
+      ['지도교수 연락처',          'advisor_phone'],
+      ['지도교수 이메일',          'advisor_email'],
+      ['경진대회 동의',            'agree_competition'],
+      ['개인정보 동의',            'agree_privacy'],
+      ['결과물 URL',               'capstone_file_url'],
+      ['Supabase ID',              'supabase_id'],
     ],
   },
 };
 
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const config = SHEET_CONFIG[data.form_type];
+    const body = JSON.parse(e.postData.contents);
 
-    // 한국 시간 제출시각
-    data.timestamp = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
-
-    if (config) {
-      const sheet = getOrCreateSheet_(ss, config.sheetName, config.columns.map(c => c[0]));
-      sheet.appendRow(config.columns.map(c => data[c[1]] || ''));
-    } else {
-      // SHEET_CONFIG에 없는 form_type은 기타 시트에 원본 JSON으로 저장
-      const sheet = getOrCreateSheet_(ss, '기타_접수', ['제출시각', 'form_type', '원본 데이터(JSON)']);
-      sheet.appendRow([data.timestamp, data.form_type || '', JSON.stringify(data)]);
+    if (body.source !== 'supabase') {
+      throw new Error('Direct submission is disabled. Use Supabase submit function.');
     }
 
-    return ContentService.createTextOutput(JSON.stringify({ result: 'success' }))
-      .setMimeType(ContentService.MimeType.JSON);
+    verifyBodySecret_(body);
+    return handleSupabaseSync_(body);
   } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ result: 'error', message: String(err) }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonResponse_({ result: 'error', message: String(err) });
   }
+}
+
+/** Supabase submit → Sheets */
+function handleSupabaseSync_(body) {
+  const formType = body.form_type;
+  const config = SHEET_CONFIG[formType];
+  if (!config) throw new Error('Unknown form_type: ' + formType);
+
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const headers = config.columns.map(function(c) { return c[0]; });
+  const sheet = getOrCreateSheet_(ss, config.sheetName, headers);
+
+  const supabaseId = body.supabase_id || '';
+  if (supabaseId && rowExists_(sheet, 'Supabase ID', supabaseId)) {
+    return jsonResponse_({ result: 'success', skipped: true });
+  }
+
+  const data = Object.assign({}, body.record || {});
+  data.supabase_id = supabaseId;
+  if (!data.timestamp) {
+    data.timestamp = formatKST_(data.created_at || new Date());
+  }
+
+  sheet.appendRow(config.columns.map(function(c) { return data[c[1]] || ''; }));
+  return jsonResponse_({ result: 'success' });
+}
+
+/** body.secret 으로 webhook 인증 */
+function verifyBodySecret_(body) {
+  const expected = PropertiesService.getScriptProperties().getProperty('WEBHOOK_SECRET');
+  if (!expected || body.secret !== expected) throw new Error('Invalid webhook secret');
+}
+
+/** 시트에 Supabase ID 중복 여부 */
+function rowExists_(sheet, headerName, value) {
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const colIndex = headers.indexOf(headerName);
+  if (colIndex < 0 || sheet.getLastRow() < 2) return false;
+
+  const col = colIndex + 1;
+  const values = sheet.getRange(2, col, sheet.getLastRow() - 1, 1).getValues();
+  for (var i = 0; i < values.length; i++) {
+    if (String(values[i][0]) === String(value)) return true;
+  }
+  return false;
+}
+
+function formatKST_(dateInput) {
+  const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  return Utilities.formatDate(d, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+}
+
+function jsonResponse_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /** 시트가 없으면 만들고 1행에 헤더를 채움 */
 function getOrCreateSheet_(ss, name, headers) {
-  let sheet = ss.getSheetByName(name);
+  var sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
-    // 계좌번호·생년월일 등이 숫자/날짜로 변환되지 않도록 전체를 일반 텍스트로
     sheet.getRange(1, 1, sheet.getMaxRows(), headers.length).setNumberFormat('@');
     sheet.appendRow(headers);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#fde8df');

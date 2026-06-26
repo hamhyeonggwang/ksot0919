@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>캡스톤 디자인 발표 신청 | 2026 OT Beyond Borders</title>
+  <title>캡스톤 디자인 접수 | 2026 OT Beyond Borders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/reset.css">
@@ -19,17 +19,18 @@
 
   <main class="reg-main">
     <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">캡스톤 디자인</span>
-    <h1 class="reg-page-title">캡스톤 디자인 발표 신청</h1>
-    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 캡스톤 디자인 발표 신청 양식입니다.<br>팀 대표자가 신청해 주세요.</p>
+    <h1 class="reg-page-title">캡스톤 디자인 접수</h1>
+    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 캡스톤 디자인 접수 양식입니다.<br>팀 대표자가 신청해 주세요.</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
-      <div class="success-title">신청이 완료되었습니다</div>
-      <p class="success-desc">캡스톤 디자인 발표 신청이 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
+      <div class="success-title">접수가 완료되었습니다</div>
+      <p class="success-desc">캡스톤 디자인 접수가 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
     </div>
 
     <form id="reg-form">
-      <input type="hidden" name="form_type" value="캡스톤 디자인">
+      <input type="hidden" name="form_type" value="캡스톤 디자인 접수">
+
       <div class="reg-form-section">
         <div class="reg-form-section-title">대표자 정보</div>
         <div class="form-row">
@@ -54,7 +55,8 @@
           </div>
           <div class="form-group">
             <label>연락처 <span class="req">*</span></label>
-            <input type="tel" name="phone" required placeholder="010-0000-0000">
+            <input type="tel" name="phone" required placeholder="010-0000-0000"
+                   pattern="01[016789]-?\d{3,4}-?\d{4}">
           </div>
         </div>
         <div class="form-group">
@@ -85,39 +87,75 @@
           <label>발표 제목 <span class="req">*</span></label>
           <input type="text" name="title" required placeholder="캡스톤 디자인 작품 제목을 입력하세요">
         </div>
+        <div class="reg-form-section-title" style="margin-top:8px;margin-bottom:12px">지도교수</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>성함 <span class="req">*</span></label>
+            <input type="text" name="advisor_name" required placeholder="○○○ 교수">
+          </div>
+          <div class="form-group">
+            <label>연락처 <span class="req">*</span></label>
+            <input type="tel" name="advisor_phone" required placeholder="010-0000-0000">
+          </div>
+        </div>
         <div class="form-group">
-          <label>지도교수 <span class="req">*</span></label>
-          <input type="text" name="advisor" required placeholder="○○○ 교수님">
+          <label>이메일 <span class="req">*</span></label>
+          <input type="email" name="advisor_email" required placeholder="advisor@university.ac.kr">
         </div>
       </div>
 
       <div class="reg-divider"></div>
 
       <div class="reg-form-section">
-        <div class="reg-form-section-title">당일 참석 정보</div>
-        <div class="form-group">
-          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
-          </div>
+        <div class="reg-form-section-title">참가 신청 동의</div>
+        <div class="notice-box">
+          본 캡스톤디자인 과제 수행팀은 대한작업치료학회에서 시행하는 <strong>「제7회 2026 대학생 캡스톤디자인 경진대회」</strong>에
+          모든 참여자 및 지도교수가 참가 신청서 제출에 동의합니다.
         </div>
         <div class="form-group">
-          <label>오찬 참석 여부 <span class="req">*</span></label>
+          <label>동의 여부 <span class="req">*</span></label>
           <div class="radio-group">
-            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
+            <label><input type="radio" name="agree_competition" value="예" required> 예</label>
+            <label><input type="radio" name="agree_competition" value="아니오"> 아니오</label>
           </div>
         </div>
       </div>
 
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">파일 제출</div>
+        <div class="form-group">
+          <label>캡스톤 결과물 (PPT형식, 이름 및 소속 제거) <span class="req">*</span></label>
+          <input type="file" name="capstone_file" required accept=".ppt,.pptx,.pdf">
+          <p class="hint">PPT/PPTX/PDF, 이름·소속 제거, 10MB 이하</p>
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">개인정보 수집 동의</div>
+        <div class="notice-box">
+          개인정보 수집에 동의합니다. (학술대회 이후 수집된 개인정보는 모두 안전하게 폐기됩니다)
+        </div>
+        <div class="agree-check">
+          <label>
+            <input type="checkbox" name="agree_privacy" value="동의합니다." required>
+            동의합니다.
+          </label>
+        </div>
+      </div>
+
       <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+        <button type="submit" class="submit-btn" id="submit-btn">접수하기</button>
         <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
       </div>
     </form>
   </main>
 
+  <script src="supabase-config.js"></script>
+  <script src="forms-config.js"></script>
   <script src="register.js"></script>
 </body>
 </html>

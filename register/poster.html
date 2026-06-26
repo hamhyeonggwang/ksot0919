@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>포스터 발표 신청 | 2026 OT Beyond Borders</title>
+  <title>포스터 및 구두발표 접수 | 2026 OT Beyond Borders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/reset.css">
@@ -18,21 +18,21 @@
   </header>
 
   <main class="reg-main">
-    <span class="reg-prog-badge" style="background:rgba(232,80,31,0.15);color:var(--orange)">포스터 발표</span>
-    <h1 class="reg-page-title">포스터 발표 신청</h1>
-    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 포스터 발표 신청 양식입니다.<br>신청 항목을 빠짐없이 입력해 주세요.</p>
+    <span class="reg-prog-badge" style="background:rgba(232,80,31,0.15);color:var(--orange)">포스터 · 구두발표</span>
+    <h1 class="reg-page-title">포스터 및 구두발표 접수</h1>
+    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 포스터 및 구두발표 접수 양식입니다.<br>1저자 또는 교신저자가 신청해 주세요.</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
-      <div class="success-title">신청이 완료되었습니다</div>
-      <p class="success-desc">포스터 발표 신청이 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
+      <div class="success-title">접수가 완료되었습니다</div>
+      <p class="success-desc">포스터 및 구두발표 접수가 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
     </div>
 
     <form id="reg-form">
-      <input type="hidden" name="form_type" value="포스터 발표">
-      <!-- 신청자 정보 -->
+      <input type="hidden" name="form_type" value="포스터 및 구두발표 접수">
+
       <div class="reg-form-section">
-        <div class="reg-form-section-title">신청자 정보</div>
+        <div class="reg-form-section-title">신청자 정보 (1저자 또는 교신저자)</div>
         <div class="form-row">
           <div class="form-group">
             <label>이름 <span class="req">*</span></label>
@@ -45,31 +45,51 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>직책 <span class="req">*</span></label>
-            <input type="text" name="position" required placeholder="작업치료사 / 교수 / 대학원생">
+            <label>핸드폰 <span class="req">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000"
+                   pattern="01[016789]-?\d{3,4}-?\d{4}">
           </div>
           <div class="form-group">
-            <label>연락처 <span class="req">*</span></label>
-            <input type="tel" name="phone" required placeholder="010-0000-0000">
+            <label>이메일 <span class="req">*</span></label>
+            <input type="email" name="email" required placeholder="example@email.com">
           </div>
         </div>
         <div class="form-group">
-          <label>이메일 <span class="req">*</span></label>
-          <input type="email" name="email" required placeholder="example@email.com">
+          <label>저자 <span class="req">*</span></label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap">
+            <label style="flex:1;min-width:140px">
+              <input type="radio" name="author_role" value="1저자" required>
+              <span>1저자</span>
+            </label>
+            <label style="flex:1;min-width:140px">
+              <input type="radio" name="author_role" value="교신저자">
+              <span>교신저자</span>
+            </label>
+          </div>
         </div>
       </div>
 
       <div class="reg-divider"></div>
 
-      <!-- 발표 정보 -->
       <div class="reg-form-section">
         <div class="reg-form-section-title">발표 정보</div>
         <div class="form-group">
-          <label>발표 제목 <span class="req">*</span></label>
-          <input type="text" name="title" required placeholder="포스터 발표 제목을 입력하세요">
+          <label>발표 종류 선택 (택1) <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="pres_type" value="포스터 전시" required> 포스터 전시</label>
+            <label><input type="radio" name="pres_type" value="포스터 전시 및 구두 발표"> 포스터 전시 및 구두 발표</label>
+          </div>
         </div>
         <div class="form-group">
-          <label>공동저자</label>
+          <label>포스터 개수 <span class="req">*</span></label>
+          <input type="number" name="poster_count" required min="1" max="20" placeholder="편수">
+        </div>
+        <div class="form-group">
+          <label>논문 제목 <span class="req">*</span></label>
+          <input type="text" name="title" required placeholder="논문 제목">
+        </div>
+        <div class="form-group">
+          <label>공동 저자</label>
           <input type="text" name="co_authors" placeholder="홍길동, 김철수 (없으면 비워두세요)">
         </div>
         <div class="form-group">
@@ -85,36 +105,78 @@
             <option>기타</option>
           </select>
         </div>
+        <div class="form-group">
+          <label>대한작업치료학회의 논문초록 제출양식을 확인하여 작성하였음 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="abstract_format" value="예" required> 예</label>
+            <label><input type="radio" name="abstract_format" value="아니오"> 아니오</label>
+          </div>
+        </div>
       </div>
 
       <div class="reg-divider"></div>
 
-      <!-- 참석 정보 -->
       <div class="reg-form-section">
-        <div class="reg-form-section-title">당일 참석 정보</div>
-        <div class="form-group">
-          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
-          </div>
+        <div class="reg-form-section-title">접수비용 안내</div>
+        <div class="notice-box">
+          <ul>
+            <li><strong>포스터 전시:</strong> 주저자 또는 교신저자 기준 <strong>1편 접수 무료</strong>이며, 2편째부터는 1편당 <strong>5,000원</strong>의 접수비가 부과됩니다.</li>
+            <li><strong>논문 구두발표:</strong> 무료 (편수 제한 없음)</li>
+            <li>납부계좌: <strong>하나은행 907-910328-84207 (예금주: 대한작업치료학회)</strong></li>
+          </ul>
         </div>
         <div class="form-group">
-          <label>오찬 참석 여부 <span class="req">*</span></label>
+          <label>위 접수 비용을 확인하였습니다 <span class="req">*</span></label>
           <div class="radio-group">
-            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
+            <label><input type="radio" name="fee_confirm" value="예" required> 예</label>
+            <label><input type="radio" name="fee_confirm" value="아니오"> 아니오</label>
           </div>
         </div>
       </div>
 
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">접수 양식 다운로드</div>
+        <div class="download-list" id="form-downloads" data-form="poster"></div>
+        <p class="hint" style="margin-top:10px">양식을 작성한 뒤 아래에서 파일을 첨부해 주세요.</p>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">파일 제출</div>
+        <div class="form-group">
+          <label>논문초록 <span class="req">*</span></label>
+          <input type="file" name="abstract_file" required accept=".pdf,.hwp,.doc,.docx">
+          <p class="hint">PDF/HWP/DOC 형식, 10MB 이하</p>
+        </div>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">개인정보 수집 동의</div>
+        <div class="notice-box">
+          개인정보 수집에 동의합니다. (학술대회 이후 수집된 개인정보는 모두 안전하게 폐기됩니다)
+        </div>
+        <div class="agree-check">
+          <label>
+            <input type="checkbox" name="agree_privacy" value="동의합니다." required>
+            동의합니다.
+          </label>
+        </div>
+      </div>
+
       <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+        <button type="submit" class="submit-btn" id="submit-btn">접수하기</button>
         <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
       </div>
     </form>
   </main>
 
+  <script src="supabase-config.js"></script>
+  <script src="forms-config.js"></script>
   <script src="register.js"></script>
 </body>
 </html>

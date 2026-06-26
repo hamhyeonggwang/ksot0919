@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>보수교육 신청 | 2026 OT Beyond Borders</title>
+  <title>교육 신청 | 2026 OT Beyond Borders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/reset.css">
@@ -18,9 +18,9 @@
   </header>
 
   <main class="reg-main">
-    <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">보수교육 접수</span>
-    <h1 class="reg-page-title">보수교육 신청</h1>
-    <p class="reg-page-desc">아래에서 신청 구분(임상가 / 학생)을 먼저 선택해 주세요.<br>구분에 따라 입력 항목이 달라집니다.</p>
+    <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">교육 신청</span>
+    <h1 class="reg-page-title">교육 신청</h1>
+    <p class="reg-page-desc">아래에서 신청 구분(임상가 / 일반회원)을 먼저 선택해 주세요.<br>구분에 따라 입력 항목이 달라집니다.</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
@@ -38,9 +38,9 @@
           <span class="role-desc">작업치료사 면허 소지자<br>보수교육 학점 인정 대상</span>
         </label>
         <label>
-          <input type="radio" name="form_type" value="학생" required>
-          <span class="role-name">학생</span>
-          <span class="role-desc">작업치료(학)과 재학생<br>학술대회 참가 이수증 발급 가능</span>
+          <input type="radio" name="form_type" value="일반회원" required>
+          <span class="role-name">일반회원</span>
+          <span class="role-desc">비임상가, 관련 종사자, 학생<br>학술대회 참가 이수증 발급 가능</span>
         </label>
       </div>
 
@@ -86,44 +86,8 @@
 
         <div class="reg-divider"></div>
 
-        <!-- ===== 신청 교육명 ===== -->
-        <div class="reg-form-section">
-          <div class="reg-form-section-title">신청 교육명</div>
-          <div class="form-group">
-            <label>수강할 교육을 모두 선택해 주세요 <span class="req">*</span></label>
-            <!-- ✏️ 편집: 강좌 추가/변경 시 아래 항목 수정 -->
-            <div class="check-group" data-min-check data-min-check-msg="신청할 교육을 1개 이상 선택해 주세요.">
-              <label>
-                <input type="checkbox" name="courses" value="9.12(토) 온라인 — 성인 발달장애인 지원사업의 이해와 실제">
-                <span>9.12(토) 온라인 강좌 — 성인 발달장애인 지원사업의 이해와 실제
-                  <span class="course-meta">14:00~18:00 (4시간) · <span class="venue">온라인 Zoom</span> · 입금자명: <strong>12이름</strong></span>
-                </span>
-              </label>
-              <label>
-                <input type="checkbox" name="courses" value="9.13(일) 오프라인 아동 — 아동 작업치료 치료적 상호작용 전략 / 플로어타임 & OPC">
-                <span>9.13(일) 오프라인 강좌 · 아동 — 치료적 상호작용 전략 / 플로어타임 &amp; OPC
-                  <span class="course-meta">09:00~18:00 (8시간) · <span class="venue">국립정신건강센터(서울)</span> · 입금자명: <strong>13이름</strong></span>
-                </span>
-              </label>
-              <label>
-                <input type="checkbox" name="courses" value="9.19(토) 학술대회 보수교육 — AI와 함께 하는 작업치료 임상과 전문역량">
-                <span>9.19(토) 학술대회 보수교육 — AI와 함께 하는 작업치료 임상과 전문역량
-                  <span class="course-meta">10:00~13:00 · <span class="venue">대전보건대학교 8동 4층 대강당</span> · 입금자명: <strong>19이름</strong></span>
-                </span>
-              </label>
-              <label>
-                <input type="checkbox" name="courses" value="9.20(일) 오프라인 성인 — 회복기 재활·재택의료 / 지역사회 통합돌봄과 작업치료">
-                <span>9.20(일) 오프라인 강좌 · 성인 — 회복기 재활·재택의료 / 지역사회 통합돌봄과 작업치료
-                  <span class="course-meta">09:00~18:00 (8시간) · <span class="venue">국립정신건강센터(서울)</span> · 입금자명: <strong>20이름</strong></span>
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- ===== 임상가 전용: 보수교육 · 회원 정보 ===== -->
+        <!-- ===== 임상가 전용: 보수교육 · 회원 정보 (신청 교육명 위) ===== -->
         <fieldset class="role-section clinician-only" disabled hidden>
-          <div class="reg-divider"></div>
           <div class="reg-form-section">
             <div class="reg-form-section-title">보수교육 · 회원 정보</div>
             <div class="form-group">
@@ -150,12 +114,71 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label>작업치료사 면허번호 <span class="req">*</span></label>
-              <input type="text" name="license_no" required placeholder="면허번호">
+            <div class="form-row">
+              <div class="form-group">
+                <label>작업치료사 면허번호 <span class="req">*</span></label>
+                <input type="text" name="license_no" required placeholder="면허번호">
+              </div>
+              <div class="form-group">
+                <label>임상경력 <span class="req">*</span></label>
+                <div class="career-input">
+                  <span class="career-prefix">약</span>
+                  <input type="number" name="career_years" required placeholder="0" min="0" max="60" inputmode="numeric">
+                  <span class="career-suffix">년</span>
+                </div>
+                <p class="hint">반올림하여 연 단위로 입력해 주세요.</p>
+              </div>
             </div>
           </div>
+          <div class="reg-divider"></div>
         </fieldset>
+
+        <!-- ===== 신청 교육명 ===== -->
+        <div class="reg-form-section">
+          <div class="reg-form-section-title">신청 교육명</div>
+          <div class="form-group">
+            <label>수강할 교육을 모두 선택해 주세요 <span class="req">*</span></label>
+            <!-- ✏️ 편집: 강좌 추가/변경 시 아래 항목 수정 (강좌별 개별 선택) -->
+            <div class="check-group" data-min-check data-min-check-msg="신청할 교육을 1개 이상 선택해 주세요.">
+              <label>
+                <input type="checkbox" name="courses" class="course-check" value="9.12(토) 온라인 — 성인 발달장애인 지원사업의 이해와 실제">
+                <span>9.12(토) 온라인 강좌 — 성인 발달장애인 지원사업의 이해와 실제
+                  <span class="course-meta">14:00~18:00 (4시간) · <span class="venue">온라인 Zoom</span></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" class="course-check" value="9.13(일) 치료적 상호작용 전략">
+                <span>9.13(일) 치료적 상호작용 전략
+                  <span class="course-meta">09:00~13:00 (4시간) · <span class="venue">국립정신건강센터 지하1층 어울림홀(서울)</span></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" class="course-check" value="9.13(일) 플로어타임 & OPC">
+                <span>9.13(일) 플로어타임 &amp; OPC
+                  <span class="course-meta">14:00~18:00 (4시간) · <span class="venue">국립정신건강센터 지하1층 어울림홀(서울)</span></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" class="course-check" value="9.19(토) AI와 함께 하는 작업치료 임상과 전문역량">
+                <span>9.19(토) AI와 함께 하는 작업치료 임상과 전문역량
+                  <span class="course-meta">10:00~13:00 (3시간) · <span class="venue">대전보건대학교 8동 4층 대강당</span></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" class="course-check" value="9.20(일) 회복기 재활·재택의료">
+                <span>9.20(일) 회복기 재활·재택의료
+                  <span class="course-meta">09:00~13:00 (4시간) · <span class="venue">국립정신건강센터 지하1층 어울림홀(서울)</span></span>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="courses" class="course-check" value="9.20(일) 지역사회 통합돌봄과 작업치료">
+                <span>9.20(일) 지역사회 통합돌봄과 작업치료
+                  <span class="course-meta">14:00~18:00 (4시간) · <span class="venue">국립정신건강센터 지하1층 어울림홀(서울)</span></span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
 
         <div class="reg-divider"></div>
 
@@ -221,39 +244,73 @@
 
         <div class="reg-divider"></div>
 
-        <!-- ===== 안내 및 동의 ===== -->
+        <!-- ===== 교육비 납부방법 ===== -->
         <div class="reg-form-section">
-          <div class="reg-form-section-title">교육비 및 입금 절차 안내</div>
+          <div class="reg-form-section-title">교육비 납부방법 (선택)</div>
 
-          <!-- ✏️ 편집: 입금 절차·계좌는 변경될 수 있음 — 변경 시 아래 안내문 수정 -->
+          <!-- ✏️ 편집: 납부방법·계좌는 변경될 수 있음 — 변경 시 아래 항목 수정 -->
+          <div class="form-group">
+            <label>납부방법을 선택해 주세요 <span class="req">*</span></label>
+            <div class="pay-method-group">
+              <label class="pay-method">
+                <input type="radio" name="pay_method_primary" value="카드결제" required>
+                <span class="pay-method-body">
+                  <span class="pay-method-name">카드결제</span>
+                  <span class="pay-method-desc">개인 연락처로 결재링크 발송 (카카오톡 결재선생)<br>
+                    <strong class="warn-text">* 2일 이내 미결제 시 미수강으로 간주하여 다음 순번으로 넘어갑니다.</strong></span>
+                </span>
+              </label>
+              <label class="pay-method">
+                <input type="radio" name="pay_method_primary" value="계좌이체">
+                <span class="pay-method-body">
+                  <span class="pay-method-name">계좌이체</span>
+                  <span class="pay-method-desc">아래에서 개인납부 또는 기관납부를 선택해 주세요.</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 계좌이체 선택 시: 개인납부(기본) / 기관납부 -->
+          <div class="pay-method-sub" id="pay-transfer-sub" hidden>
+            <p class="pay-method-sub-label">계좌이체 세부 선택</p>
+            <div class="pay-method-group">
+              <label class="pay-method pay-method-sub-item">
+                <input type="radio" name="pay_method_sub" value="개인납부" checked disabled>
+                <span class="pay-method-body">
+                  <span class="pay-method-name">개인납부</span>
+                  <span class="pay-method-desc">개인 연락처로 결재링크 발송 (카카오톡 결재선생)<br>
+                    <strong class="warn-text">* 2일 이내 미결제 시 미수강으로 간주하여 다음 순번으로 넘어갑니다.</strong></span>
+                </span>
+              </label>
+              <label class="pay-method pay-method-sub-item">
+                <input type="radio" name="pay_method_sub" value="기관납부" disabled>
+                <span class="pay-method-body">
+                  <span class="pay-method-name">기관 납부</span>
+                  <span class="pay-method-desc">하나은행 <strong>907-910328-84207</strong> 대한작업치료학회</span>
+                </span>
+              </label>
+            </div>
+          </div>
+          <input type="hidden" name="pay_method" id="pay-method-value" value="">
+
+          <!-- 기관 납부 선택 시에만 노출 -->
+          <div class="form-group" id="payer-name-group" hidden>
+            <label>기관 납부 입금자명 <span class="req">*</span></label>
+            <input type="text" name="payer_name" placeholder="입금자(신청자)명" disabled>
+            <p class="hint">기관명으로 이체 시 확인이 어렵습니다. <strong>반드시 신청자명(또는 확인 가능한 입금자명)</strong>을 기재해 주세요.</p>
+          </div>
+
           <div class="notice-box">
-            본 학술대회 교육 신청서 제출 후 <strong>교육비를 납부하여야 최종 등록</strong>된다는 것을 이해하였습니다.
             <ul>
-              <li>입금 계좌: <strong>우리은행 1005-402-514024 (예금주: 대한작업치료학회)</strong></li>
+              <li>본 학술대회 교육 신청서 제출 후 <strong>교육비를 납부하여야 최종 등록</strong>된다는 것을 이해하였습니다.</li>
+              <li>교육비 납부 관련 증빙서류 요청 및 기타 문의: <strong>ksotoffice@naver.com</strong></li>
+              <li>학생 단체접수 시에는 메일 문의(<strong>ksotoffice@naver.com</strong>) 바랍니다.</li>
             </ul>
           </div>
           <div class="agree-check">
             <label>
-              <input type="checkbox" name="agree_payment" value="네. 확인했습니다." required>
-              네. 확인했습니다.
-            </label>
-          </div>
-
-          <div class="notice-box">
-            교육비 입금 시, 입금자명은 <strong>교육일자 + 이름</strong>으로 표기하며, 여러 교육을 신청할 경우
-            <strong>[강의별로 분리하여 교육비를 입금]</strong>합니다. 해당 내용을 이해하였습니다.
-            <ul>
-              <li>예시) 9.12 강좌 신청 시: <strong>12홍길동</strong></li>
-              <li>예시) 9.13 강좌 신청 시: <strong>13홍길동</strong></li>
-              <li>예시) 9.19 학술대회 보수교육 신청 시: <strong>19홍길동</strong></li>
-              <li>예시) 9.20 강좌 신청 시: <strong>20홍길동</strong></li>
-              <li>예시) 9.12 + 9.19 두 강좌 신청 시: <strong>12홍길동 / 19홍길동</strong> 분리하여 입금</li>
-            </ul>
-          </div>
-          <div class="agree-check">
-            <label>
-              <input type="checkbox" name="agree_deposit" value="네. 확인했습니다." required>
-              네. 확인했습니다.
+              <input type="checkbox" name="agree_payment" value="네. 확인하였습니다." required>
+              네. 확인하였습니다.
             </label>
           </div>
         </div>
@@ -294,20 +351,52 @@
 
         <div class="submit-wrap">
           <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
-          <p class="form-notice">신청서 제출 후 교육비 입금이 확인되어야 최종 등록됩니다.<br>입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
+          <p class="form-notice">신청서 제출 후 교육비 납부가 확인되어야 최종 등록됩니다.<br>입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
         </div>
+
+        <!-- ===== 교육비 장바구니 (데스크탑 우측 sticky / 모바일 하단 바) ===== -->
+        <aside class="fee-cart" id="fee-cart" aria-live="polite">
+          <div class="fee-cart-head">
+            <span class="fee-cart-title">교육비</span>
+            <span class="fee-cart-unit" id="fee-unit-label"></span>
+          </div>
+          <ul class="fee-cart-list" id="fee-cart-list">
+            <li class="fee-cart-empty">강좌를 선택하면 합계가 표시됩니다.</li>
+          </ul>
+          <div class="fee-cart-total">
+            <span>합계</span>
+            <strong id="fee-total">0원</strong>
+          </div>
+          <input type="hidden" name="fee_total" id="fee-total-input" value="">
+          <p class="fee-cart-note">실제 결제는 신청 후 안내(결재선생/기관납부)에 따라 진행됩니다.</p>
+        </aside>
 
       </div><!-- /#form-body -->
     </form>
   </main>
 
+  <script src="supabase-config.js"></script>
   <script src="register.js"></script>
   <script>
-    // 임상가/학생 구분에 따라 입력 섹션 전환
     (function () {
+      // ✏️ 편집: 교육비 단가 변경 시 아래 값만 수정
+      const STUDENT_FEE = 40000;            // 학생: 강좌당
+      const CLINICIAN_FEE = {               // 임상가: 회원등급별 강좌당
+        '정회원': 60000, '평생회원': 60000,
+        '준회원': 76000, '인증완료회원': 76000,
+      };
+
       const formBody = document.getElementById('form-body');
       const clinicianSections = document.querySelectorAll('.clinician-only');
       const studentSections = document.querySelectorAll('.student-only');
+      const gradeSelect = document.querySelector('select[name="kaot_grade"]');
+      const cart = document.getElementById('fee-cart');
+      const cartList = document.getElementById('fee-cart-list');
+      const unitLabel = document.getElementById('fee-unit-label');
+      const totalEl = document.getElementById('fee-total');
+      const totalInput = document.getElementById('fee-total-input');
+
+      const won = n => n.toLocaleString('ko-KR') + '원';
 
       function setSections(sections, active) {
         sections.forEach(fs => {
@@ -316,14 +405,114 @@
         });
       }
 
+      function getRole() {
+        return document.querySelector('input[name="form_type"]:checked')?.value || '';
+      }
+
+      // 역할·회원등급 기준 강좌 단가 반환
+      function getUnitFee() {
+        const role = getRole();
+        if (role === '일반회원') return { fee: STUDENT_FEE, ready: true };
+        if (role === '임상가') {
+          const fee = CLINICIAN_FEE[gradeSelect?.value];
+          return fee ? { fee, ready: true } : { fee: 0, ready: false };
+        }
+        return { fee: 0, ready: false };
+      }
+
+      function recalcCart() {
+        if (!cart) return;
+        const checked = [...document.querySelectorAll('.course-check:checked')];
+        const { fee, ready } = getUnitFee();
+
+        // 단가 라벨
+        unitLabel.textContent = ready ? `1강좌당 ${won(fee)}`
+          : (getRole() === '임상가' ? '회원등급 선택 필요' : '');
+
+        // 목록
+        cartList.innerHTML = '';
+        if (checked.length === 0) {
+          cartList.innerHTML = '<li class="fee-cart-empty">강좌를 선택하면 합계가 표시됩니다.</li>';
+        } else {
+          checked.forEach(cb => {
+            const li = document.createElement('li');
+            const name = document.createElement('span');
+            name.className = 'fee-item-name';
+            name.textContent = cb.value;
+            const price = document.createElement('span');
+            price.className = 'fee-item-price';
+            price.textContent = ready ? won(fee) : '—';
+            li.append(name, price);
+            cartList.append(li);
+          });
+        }
+
+        // 합계
+        if (ready) {
+          const total = fee * checked.length;
+          totalEl.textContent = won(total);
+          totalInput.value = checked.length ? won(total) : '';
+        } else {
+          totalEl.textContent = checked.length ? '등급 선택 필요' : won(0);
+          totalInput.value = '';
+        }
+      }
+
       document.querySelectorAll('input[name="form_type"]').forEach(radio => {
         radio.addEventListener('change', () => {
           formBody.hidden = false;
           const isClinician = radio.value === '임상가';
           setSections(clinicianSections, isClinician);
           setSections(studentSections, !isClinician);
+          recalcCart();
         });
       });
+      document.querySelectorAll('.course-check').forEach(cb => cb.addEventListener('change', recalcCart));
+      gradeSelect?.addEventListener('change', recalcCart);
+
+      // 납부방법: 1차(카드/계좌이체) + 계좌이체 하위(개인납부·기관납부) → pay_method hidden 동기화
+      const transferSub = document.getElementById('pay-transfer-sub');
+      const payerGroup = document.getElementById('payer-name-group');
+      const payerInput = payerGroup?.querySelector('input[name="payer_name"]');
+      const payMethodHidden = document.getElementById('pay-method-value');
+      const subRadios = document.querySelectorAll('input[name="pay_method_sub"]');
+
+      function syncPayMethod() {
+        const primary = document.querySelector('input[name="pay_method_primary"]:checked')?.value;
+        const sub = document.querySelector('input[name="pay_method_sub"]:checked')?.value;
+        const isTransfer = primary === '계좌이체';
+        const isInstitution = isTransfer && sub === '기관납부';
+
+        if (transferSub) transferSub.hidden = !isTransfer;
+        subRadios.forEach(r => {
+          r.disabled = !isTransfer;
+          r.required = isTransfer;
+        });
+        if (isTransfer && !document.querySelector('input[name="pay_method_sub"]:checked')) {
+          const personal = document.querySelector('input[name="pay_method_sub"][value="개인납부"]');
+          if (personal) personal.checked = true;
+        }
+
+        if (payerGroup) payerGroup.hidden = !isInstitution;
+        if (payerInput) {
+          payerInput.disabled = !isInstitution;
+          payerInput.required = isInstitution;
+          if (!isInstitution) payerInput.value = '';
+        }
+
+        let value = '';
+        if (primary === '카드결제') value = '카드결제 (결재선생)';
+        else if (primary === '계좌이체') {
+          const subVal = document.querySelector('input[name="pay_method_sub"]:checked')?.value;
+          if (subVal === '개인납부') value = '계좌이체 > 개인납부 (결재선생)';
+          else if (subVal === '기관납부') value = '계좌이체 > 기관납부 (하나은행 907-910328-84207)';
+        }
+        if (payMethodHidden) payMethodHidden.value = value;
+      }
+
+      document.querySelectorAll('input[name="pay_method_primary"]').forEach(r => r.addEventListener('change', syncPayMethod));
+      subRadios.forEach(r => r.addEventListener('change', syncPayMethod));
+      syncPayMethod();
     })();
   </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>구두논문 발표 신청 | 2026 OT Beyond Borders</title>
+  <title>우수 학위논문 접수 | 2026 OT Beyond Borders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/reset.css">
@@ -18,57 +18,94 @@
   </header>
 
   <main class="reg-main">
-    <span class="reg-prog-badge" style="background:rgba(232,80,31,0.15);color:var(--orange)">구두논문 발표</span>
-    <h1 class="reg-page-title">구두논문 발표 신청</h1>
-    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 구두논문 발표 신청 양식입니다.<br>신청 항목을 빠짐없이 입력해 주세요.</p>
+    <span class="reg-prog-badge" style="background:rgba(232,80,31,0.15);color:var(--orange)">우수 학위논문</span>
+    <h1 class="reg-page-title">우수 학위논문 접수</h1>
+    <p class="reg-page-desc">제34회 대한작업치료학회 학술대회 우수 학위논문 접수 양식입니다.<br>신청 항목을 빠짐없이 입력해 주세요.</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
-      <div class="success-title">신청이 완료되었습니다</div>
-      <p class="success-desc">구두논문 발표 신청이 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
+      <div class="success-title">접수가 완료되었습니다</div>
+      <p class="success-desc">우수 학위논문 접수가 접수되었습니다.<br>확인 후 이메일로 안내드리겠습니다.</p>
     </div>
 
     <form id="reg-form">
-      <input type="hidden" name="form_type" value="구두논문 발표">
+      <input type="hidden" name="form_type" value="우수 학위논문 접수">
+
+      <!-- ===== 기본 정보 ===== -->
       <div class="reg-form-section">
-        <div class="reg-form-section-title">신청자 정보</div>
+        <div class="reg-form-section-title">기본 정보</div>
         <div class="form-row">
           <div class="form-group">
-            <label>이름 <span class="req">*</span></label>
+            <label>성명 <span class="req">*</span></label>
             <input type="text" name="name" required placeholder="홍길동">
           </div>
           <div class="form-group">
-            <label>소속 <span class="req">*</span></label>
-            <input type="text" name="affiliation" required placeholder="○○병원 / ○○대학교">
+            <label>생년월일 <span class="req">*</span></label>
+            <input type="text" name="birth" required placeholder="1990-01-01"
+                   pattern="\d{4}-\d{2}-\d{2}" inputmode="numeric">
+            <p class="hint">0000-00-00 형식으로 입력해 주세요.</p>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>직책 <span class="req">*</span></label>
-            <input type="text" name="position" required placeholder="작업치료사 / 교수 / 대학원생">
+            <label>연락처 <span class="req">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000"
+                   pattern="01[016789]-?\d{3,4}-?\d{4}">
           </div>
           <div class="form-group">
-            <label>연락처 <span class="req">*</span></label>
-            <input type="tel" name="phone" required placeholder="010-0000-0000">
+            <label>소속대학원 <span class="req">*</span></label>
+            <input type="text" name="grad_school" required placeholder="○○대학교 대학원">
           </div>
         </div>
         <div class="form-group">
-          <label>이메일 <span class="req">*</span></label>
-          <input type="email" name="email" required placeholder="example@email.com">
+          <label>학위 취득(예정)일 <span class="req">*</span></label>
+          <input type="text" name="degree_date" required placeholder="2026-02-00"
+                 pattern="\d{4}-\d{2}-\d{2}" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label>게재(예정) 학회지 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="journal_status" value="투고 전(해당없음)" required> 투고 전(해당없음)</label>
+            <label><input type="radio" name="journal_status" value="게재(예정)"> 게재(예정)</label>
+          </div>
+        </div>
+        <div class="form-group" id="journal-detail-group" hidden>
+          <label>게재(예정) 학회지명 권(호) <span class="req">*</span></label>
+          <input type="text" name="journal_detail" placeholder="학회지명 ○권(○호)" disabled>
         </div>
       </div>
 
       <div class="reg-divider"></div>
 
+      <!-- ===== 학위논문 정보 ===== -->
       <div class="reg-form-section">
-        <div class="reg-form-section-title">발표 정보</div>
+        <div class="reg-form-section-title">학위논문 정보</div>
         <div class="form-group">
-          <label>발표 제목 <span class="req">*</span></label>
-          <input type="text" name="title" required placeholder="구두논문 발표 제목을 입력하세요">
+          <label>논문명(부제 포함) <span class="req">*</span></label>
+          <input type="text" name="title" required placeholder="논문명(부제 포함)">
         </div>
-        <div class="form-group">
-          <label>공동저자</label>
-          <input type="text" name="co_authors" placeholder="홍길동, 김철수 (없으면 비워두세요)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>언어 <span class="req">*</span></label>
+            <input type="text" name="thesis_language" required placeholder="한국어 / English">
+          </div>
+          <div class="form-group">
+            <label>취득학위 <span class="req">*</span></label>
+            <div class="radio-group">
+              <label><input type="radio" name="degree_type" value="석사" required> 석사</label>
+              <label><input type="radio" name="degree_type" value="박사"> 박사</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>지도교수 <span class="req">*</span></label>
+            <input type="text" name="advisor" required placeholder="○○○ 교수">
+          </div>
+          <div class="form-group">
+            <label>심사위원 <span class="req">*</span></label>
+            <input type="text" name="committee" required placeholder="심사위원 성명">
+          </div>
         </div>
         <div class="form-group">
           <label>발표 분야 <span class="req">*</span></label>
@@ -84,41 +121,98 @@
           </select>
         </div>
         <div class="form-group">
-          <label>발표 유형 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="oral_type" value="학술논문" required> 학술논문</label>
-            <label><input type="radio" name="oral_type" value="학위논문"> 학위논문</label>
-          </div>
+          <label>1) 연구내용을 1,000자 내외로 요약하시오. <span class="req">*</span></label>
+          <textarea name="summary_research" required maxlength="1000" rows="6"
+                    placeholder="연구내용 요약 (1,000자 이내)"></textarea>
+          <p class="hint">최대 1,000자</p>
+        </div>
+        <div class="form-group">
+          <label>2) 작업치료 학문적 기여도에 대해 1,000자 내외로 서술하시오. <span class="req">*</span></label>
+          <textarea name="summary_contribution" required maxlength="1000" rows="6"
+                    placeholder="학문적 기여도 (1,000자 이내)"></textarea>
+          <p class="hint">최대 1,000자</p>
+        </div>
+        <div class="form-group">
+          <label>3) 학문적 중요도에 대해 1,000자 내외로 서술하시오. <span class="req">*</span></label>
+          <textarea name="summary_importance" required maxlength="1000" rows="6"
+                    placeholder="학문적 중요도 (1,000자 이내)"></textarea>
+          <p class="hint">최대 1,000자</p>
         </div>
       </div>
 
       <div class="reg-divider"></div>
 
+      <!-- ✏️ 편집: 양식 경로 forms-config.js / Storage form-templates -->
       <div class="reg-form-section">
-        <div class="reg-form-section-title">당일 참석 정보</div>
+        <div class="reg-form-section-title">접수 양식 다운로드</div>
+        <div class="download-list" id="form-downloads" data-form="oral"></div>
+        <p class="hint" style="margin-top:10px">아래 4개 파일을 모두 작성·첨부해 주세요.</p>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">파일 제출</div>
         <div class="form-group">
-          <label>학술대회 본행사 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_main" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_main" value="불참"> 불참</label>
-          </div>
+          <label>지도교수 추천서(양식) <span class="req">*</span></label>
+          <input type="file" name="recommendation_file" required accept=".pdf,.hwp,.doc,.docx">
         </div>
         <div class="form-group">
-          <label>오찬 참석 여부 <span class="req">*</span></label>
-          <div class="radio-group">
-            <label><input type="radio" name="attend_lunch" value="참석" required> 참석</label>
-            <label><input type="radio" name="attend_lunch" value="불참"> 불참</label>
-          </div>
+          <label>졸업(예정) 증명서 <span class="req">*</span></label>
+          <input type="file" name="grad_cert_file" required accept=".pdf,.hwp,.doc,.docx">
+        </div>
+        <div class="form-group">
+          <label>논문 유사도 검사결과서 (KCI 또는 카피킬러) <span class="req">*</span></label>
+          <input type="file" name="similarity_file" required accept=".pdf,.hwp,.doc,.docx">
+        </div>
+        <div class="form-group">
+          <label>학위논문 PDF <span class="req">*</span></label>
+          <input type="file" name="thesis_file" required accept=".pdf">
+        </div>
+        <p class="hint">각 파일 PDF/HWP/DOC 형식, 10MB 이하 (논문 PDF는 PDF만)</p>
+      </div>
+
+      <div class="reg-divider"></div>
+
+      <div class="reg-form-section">
+        <div class="reg-form-section-title">개인정보 수집 동의</div>
+        <div class="notice-box">
+          개인정보 수집에 동의합니다. (학술대회 이후 수집된 개인정보는 모두 안전하게 폐기됩니다)
+        </div>
+        <div class="agree-check">
+          <label>
+            <input type="checkbox" name="agree_privacy" value="동의합니다." required>
+            동의합니다.
+          </label>
         </div>
       </div>
 
       <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+        <button type="submit" class="submit-btn" id="submit-btn">접수하기</button>
         <p class="form-notice">입력하신 정보는 학술대회 운영 목적으로만 사용됩니다.</p>
       </div>
     </form>
   </main>
 
+  <script src="supabase-config.js"></script>
+  <script src="forms-config.js"></script>
   <script src="register.js"></script>
+  <script>
+    (function () {
+      const detailGroup = document.getElementById('journal-detail-group');
+      const detailInput = detailGroup?.querySelector('input[name="journal_detail"]');
+      document.querySelectorAll('input[name="journal_status"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const isPlanned = radio.value === '게재(예정)' && radio.checked;
+          if (detailGroup) detailGroup.hidden = !isPlanned;
+          if (detailInput) {
+            detailInput.disabled = !isPlanned;
+            detailInput.required = isPlanned;
+            if (!isPlanned) detailInput.value = '';
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

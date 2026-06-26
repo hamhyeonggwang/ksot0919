@@ -13,7 +13,7 @@
     :root { --font-sans: var(--body); --font-display: var(--display); }
 
     .hub-main {
-      max-width: 720px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 48px 24px 100px;
     }
@@ -22,7 +22,17 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
-    @media (max-width: 560px) { .hub-grid { grid-template-columns: 1fr; } }
+    /* ✏️ 편집: 발표 신청 3카드 — 3열 그리드 */
+    .hub-grid--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 960px) {
+      .hub-grid--3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .hub-grid,
+      .hub-grid--3 { grid-template-columns: 1fr; }
+    }
 
     .hub-card {
       display: block;
@@ -103,23 +113,20 @@
     </div>
 
     <div class="hub-section-label"><span>발표 신청</span></div>
-    <div class="hub-grid">
+    <div class="hub-grid hub-grid--3">
       <a class="hub-card" href="oral.html">
-        <span class="hub-badge orange">구두논문 발표</span>
-        <div class="hub-title">학술논문 · 학위논문 구두 발표</div>
-        <div class="hub-meta">9.19(토) 10:00~13:00 · 현장 심사</div>
+        <span class="hub-badge orange">우수 학위논문</span>
+        <div class="hub-title">우수 학위논문 접수</div>
         <span class="hub-go">신청서 작성 →</span>
       </a>
       <a class="hub-card" href="poster.html">
-        <span class="hub-badge orange">포스터 발표</span>
-        <div class="hub-title">포스터 발표</div>
-        <div class="hub-meta">9.19(토) · 포스터 게시 및 심사</div>
+        <span class="hub-badge orange">포스터 · 구두발표</span>
+        <div class="hub-title">포스터 및 구두발표 접수</div>
         <span class="hub-go">신청서 작성 →</span>
       </a>
       <a class="hub-card" href="capstone.html">
         <span class="hub-badge teal">캡스톤 디자인</span>
-        <div class="hub-title">캡스톤 디자인 발표</div>
-        <div class="hub-meta">9.19(토) 10:00~13:00 · 팀 대표자 신청</div>
+        <div class="hub-title">캡스톤 디자인 접수</div>
         <span class="hub-go">신청서 작성 →</span>
       </a>
     </div>
