@@ -73,6 +73,10 @@
           <label>게재(예정) 학회지명 권(호) <span class="req">*</span></label>
           <input type="text" name="journal_detail" placeholder="학회지명 ○권(○호)" disabled>
         </div>
+        <div class="form-group" id="journal-title-group" hidden>
+          <label>게재된 논문명(게재 선택시)</label>
+          <input type="text" name="journal_title" placeholder="게재된 논문명" disabled>
+        </div>
       </div>
 
       <div class="reg-divider"></div>
@@ -201,6 +205,8 @@
     (function () {
       const detailGroup = document.getElementById('journal-detail-group');
       const detailInput = detailGroup?.querySelector('input[name="journal_detail"]');
+      const titleGroup = document.getElementById('journal-title-group');
+      const titleInput = titleGroup?.querySelector('input[name="journal_title"]');
       document.querySelectorAll('input[name="journal_status"]').forEach(radio => {
         radio.addEventListener('change', () => {
           const isPlanned = radio.value === '게재(예정)' && radio.checked;
@@ -209,6 +215,11 @@
             detailInput.disabled = !isPlanned;
             detailInput.required = isPlanned;
             if (!isPlanned) detailInput.value = '';
+          }
+          if (titleGroup) titleGroup.hidden = !isPlanned;
+          if (titleInput) {
+            titleInput.disabled = !isPlanned;
+            if (!isPlanned) titleInput.value = '';
           }
         });
       });

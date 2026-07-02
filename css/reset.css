@@ -5,8 +5,9 @@
   --navy:        #1B2E5E;
   --navy-dark:   #0F1D3E;
   --navy-deep:   #091428;
-  --orange:      #E8501F;
-  --orange-l:    #FF6B3A;
+  --orange:      #E8501F;   /* 배경·버튼·외곽선 전용 (흰 글자 위) */
+  --orange-l:    #FF6B3A;   /* 어두운 배경 위 텍스트·아이콘 */
+  --orange-text: #B83A0D;   /* 밝은(흰/아이보리) 배경 위 주황 텍스트 — WCAG AA 대비 확보 */
   --green:       #2A7A4B;
   --purple:      #5C2E99;
   --blue:        #1650C8;

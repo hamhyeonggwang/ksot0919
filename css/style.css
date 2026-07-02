@@ -94,7 +94,8 @@
   text-decoration: none;
 }
 .nav.scrolled .nav-logo { color: var(--navy); }
-.nav-logo span { color: var(--orange); }
+.nav-logo span { color: var(--orange-l); }
+.nav.scrolled .nav-logo span { color: var(--orange-text); }
 
 .nav-menu {
   display: flex;
@@ -102,20 +103,21 @@
   align-items: center;
 }
 .nav-menu a {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.85);
   transition: color .2s;
 }
 .nav.scrolled .nav-menu a { color: var(--text-sub); }
-.nav-menu a:hover { color: var(--orange); }
+.nav-menu a:hover { color: var(--orange-l); }
+.nav.scrolled .nav-menu a:hover { color: var(--orange-text); }
 
 .nav-cta {
   background: var(--orange);
   color: #fff !important;
-  padding: 9px 20px;
+  padding: 11px 24px;
   border-radius: 100px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   transition: background .2s, transform .2s;
 }
@@ -193,7 +195,7 @@
     color: var(--text-sub) !important;
     border-bottom: 1px solid var(--border);
   }
-  .nav-menu .nav-link:hover { color: var(--orange) !important; }
+  .nav-menu .nav-link:hover { color: var(--orange-text) !important; }
   .nav-menu .nav-cta {
     margin-top: 20px;
     text-align: center;
@@ -279,11 +281,11 @@
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.18);
   backdrop-filter: blur(10px);
-  padding: 7px 16px;
+  padding: 8px 18px;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.9);
   margin-bottom: 26px;
   letter-spacing: 0.3px;
 }
@@ -332,9 +334,9 @@
 .btn-primary {
   background: var(--orange);
   color: #fff;
-  padding: 15px 32px;
+  padding: 17px 36px;
   border-radius: 100px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   display: inline-flex; align-items: center; gap: 8px;
   transition: background .2s, transform .2s, box-shadow .2s;
@@ -347,9 +349,9 @@
   border: 1px solid rgba(255,255,255,0.25);
   backdrop-filter: blur(10px);
   color: #fff;
-  padding: 15px 28px;
+  padding: 17px 32px;
   border-radius: 100px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   display: inline-flex; align-items: center; gap: 8px;
   transition: background .2s, transform .2s;
@@ -404,11 +406,11 @@ section { padding: 90px 0; }
 .section-eyebrow {
   display: inline-block;
   font-family: var(--display);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--orange-text);
   margin-bottom: 12px;
 }
 .section-title {
@@ -461,7 +463,7 @@ section { padding: 90px 0; }
 .value-card:nth-child(2) .value-icon { background: rgba(22,80,200,0.12); }
 .value-card:nth-child(2) .value-icon .icon { color: var(--blue); }
 .value-card:nth-child(3) .value-icon { background: rgba(232,80,31,0.12); }
-.value-card:nth-child(3) .value-icon .icon { color: var(--orange); }
+.value-card:nth-child(3) .value-icon .icon { color: var(--orange-text); }
 .value-card:nth-child(4) .value-icon { background: rgba(92,46,153,0.12); }
 .value-card:nth-child(4) .value-icon .icon { color: var(--purple); }
 .value-en {
@@ -677,7 +679,7 @@ section { padding: 90px 0; }
   letter-spacing: -1px;
 }
 .keynote-name { font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 5px; }
-.keynote-desc { font-size: 12px; color: var(--text-sub); line-height: 1.7; }
+.keynote-desc { font-size: 13.5px; color: var(--text-sub); line-height: 1.75; }
 
 /* ============================================================
    ⑤ 강의 일정 타임라인 카드
@@ -742,13 +744,13 @@ section { padding: 90px 0; }
   margin-bottom: 8px;
 }
 .sched-lec { font-size: 14px; font-weight: 700; color: var(--black); line-height: 1.45; margin-bottom: 6px; }
-.sched-spk { font-size: 12px; color: var(--text-sub); line-height: 1.5; }
+.sched-spk { font-size: 13px; color: var(--text-sub); line-height: 1.55; }
 .sched-spk strong { color: var(--text); }
 
 .sched-spk-list { margin-top: 6px; }
 .sched-spk-item {
   display: flex; align-items: baseline; gap: 7px;
-  font-size: 12px; color: var(--text); margin-bottom: 4px;
+  font-size: 13px; color: var(--text); margin-bottom: 4px;
 }
 .sched-spk-item .n {
   width: 17px; height: 17px; border-radius: 50%;
@@ -758,7 +760,7 @@ section { padding: 90px 0; }
   flex-shrink: 0;
 }
 .sched-venue {
-  font-size: 12px; color: var(--text-dim);
+  font-size: 13px; color: var(--text-sub);
   margin-top: 16px; padding-top: 14px;
   border-top: 1px dashed var(--border);
   display: flex; align-items: center; gap: 5px;
@@ -797,9 +799,9 @@ section { padding: 90px 0; }
 }
 .core-eyebrow {
   font-family: var(--display);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--orange-l);
   margin-bottom: 10px;
@@ -843,7 +845,7 @@ section { padding: 90px 0; }
 .venue-body { padding: 26px; flex: 1; }
 .venue-label {
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: 12px; font-weight: 700; color: var(--orange);
+  font-size: 13px; font-weight: 700; color: var(--orange-text);
   margin-bottom: 10px;
 }
 .venue-name { font-size: 19px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
@@ -890,8 +892,8 @@ section { padding: 90px 0; }
 .reg-left { }
 .reg-eyebrow {
   font-family: var(--display);
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
   color: rgba(255,255,255,0.8);
   margin-bottom: 14px;
 }
@@ -912,10 +914,10 @@ section { padding: 90px 0; }
 }
 .reg-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 .reg-btn-white {
-  background: #fff; color: var(--orange);
-  padding: 15px 30px;
+  background: #fff; color: var(--orange-text);
+  padding: 16px 34px;
   border-radius: 100px;
-  font-size: 15px; font-weight: 700;
+  font-size: 16px; font-weight: 700;
   display: inline-flex; align-items: center; gap: 8px;
   transition: transform .2s, box-shadow .2s;
 }
@@ -924,9 +926,9 @@ section { padding: 90px 0; }
   background: transparent;
   border: 2px solid rgba(255,255,255,0.6);
   color: #fff;
-  padding: 13px 28px;
+  padding: 14px 32px;
   border-radius: 100px;
-  font-size: 15px; font-weight: 700;
+  font-size: 16px; font-weight: 700;
   display: inline-flex; align-items: center; gap: 8px;
   transition: background .2s;
 }
@@ -981,7 +983,7 @@ section { padding: 90px 0; }
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .footer-org-item { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
-.footer-org-item .role { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; }
+.footer-org-item .role { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; }
 .footer-org-item .name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
 .footer-org-logo {
   height: 32px;
@@ -1081,12 +1083,12 @@ section { padding: 90px 0; }
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .tt-table th {
   padding: 9px 14px;
   text-align: left;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   color: rgba(255,255,255,0.5);
   letter-spacing: 0.5px;
@@ -1105,20 +1107,20 @@ section { padding: 90px 0; }
   font-weight: 700;
   color: var(--orange-l);
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 15px;
 }
 .tt-tag {
   display: inline-block;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: 100px;
   margin-bottom: 4px;
 }
 .tt-tag.main { background: rgba(232,80,31,0.3); color: var(--orange-l); }
 .tt-tag.sub  { background: rgba(22,80,200,0.25); color: #7ea8f8; }
 .tt-tag.break{ background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
-.tt-parallel { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+.tt-parallel { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 3px; }
 
 /* 동시진행 3열 레이아웃 */
 .tt-concurrent {
@@ -1144,20 +1146,20 @@ section { padding: 90px 0; }
 }
 .tt-concurrent-col:last-child { border-right: none; }
 .tt-concurrent-title {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
-  color: rgba(255,255,255,0.90);
+  color: rgba(255,255,255,0.92);
   margin-top: 6px;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 .tt-concurrent-sub {
-  font-size: 11px;
-  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
   margin-top: 3px;
 }
 .tt-concurrent-venue {
-  font-size: 10px;
-  color: var(--orange);
+  font-size: 12px;
+  color: var(--orange-l);
   margin-top: 8px;
   font-weight: 600;
 }
@@ -1181,9 +1183,9 @@ section { padding: 90px 0; }
   line-height: 1.5;
 }
 .acc-session-sub {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .acc-session-sub li {
   margin-left: 14px;
@@ -1199,7 +1201,7 @@ section { padding: 90px 0; }
   display: flex;
   align-items: baseline;
   gap: 8px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text);
 }
 .acc-speaker-item .n {
@@ -1215,7 +1217,7 @@ section { padding: 90px 0; }
 .sched-card.purple .acc-speaker-item .n { background: var(--purple); }
 .acc-period-badge {
   display: inline-block;
-  font-size: 11px; font-weight: 700;
+  font-size: 12px; font-weight: 700;
   color: var(--text-sub);
   background: var(--ivory-2);
   padding: 3px 10px; border-radius: 6px;
@@ -1223,20 +1225,20 @@ section { padding: 90px 0; }
 }
 .acc-period-head {
   font-size: 12px; font-weight: 700;
-  color: var(--orange);
-  border-left: 3px solid var(--orange);
+  color: var(--orange-text);
+  border-left: 3px solid var(--orange-text);
   padding-left: 8px;
   margin: 14px 0 8px;
 }
 .acc-instructor {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-top: 6px;
   padding-top: 6px;
   border-top: 1px solid var(--border);
 }
 .acc-spk {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-left: 6px;
   font-weight: 600;
@@ -1283,11 +1285,11 @@ section { padding: 90px 0; }
 .tt-apply-link {
   display: inline-block;
   margin-top: 8px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--orange);
+  color: var(--orange-l);
   text-decoration: none;
-  opacity: 0.85;
+  opacity: 0.95;
   transition: opacity 0.2s;
 }
 .tt-apply-link:hover { opacity: 1; text-decoration: underline; }

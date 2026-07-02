@@ -6,5 +6,6 @@ alter table submissions_workshop enable row level security;
 alter table submissions_poster enable row level security;
 alter table submissions_oral enable row level security;
 alter table submissions_capstone enable row level security;
+alter table submissions_vip enable row level security;
 
 -- 정책 없음 = anon/authenticated 모두 차단 (service_role은 RLS 우회)

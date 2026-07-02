@@ -12,7 +12,11 @@ const FORM_TABLE: Record<string, string> = {
   '포스터 및 구두발표 접수': 'submissions_poster',
   '우수 학위논문 접수': 'submissions_oral',
   '캡스톤 디자인 접수': 'submissions_capstone',
+  'VIP 참석 확인': 'submissions_vip',
 };
+
+// Google Sheets 동기화를 건너뛰고 Supabase에만 저장하는 폼
+const SHEETS_SKIP = new Set(['VIP 참석 확인']);
 
 const REQUIRED_FILES: Record<string, string[]> = {
   '포스터 및 구두발표 접수': ['abstract_file'],
@@ -132,6 +136,16 @@ Deno.serve(async (req) => {
     const { error: insertErr } = await admin.from(table).insert({ id: rowId, ...row });
     if (insertErr) throw new Error(`DB 저장 실패: ${insertErr.message}`);
     inserted = true;
+
+    // Supabase 전용 폼: Google Sheets 동기화 없이 완료 처리
+    if (SHEETS_SKIP.has(formType)) {
+      await admin.from(table).update({
+        status: 'complete',
+        synced_at: new Date().toISOString(),
+        sync_error: null,
+      }).eq('id', rowId);
+      return json({ ok: true, id: rowId }, 200);
+    }
 
     const gasRes = await fetch(gasUrl, {
       method: 'POST',

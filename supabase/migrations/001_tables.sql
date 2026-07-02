@@ -106,6 +106,7 @@ create table if not exists submissions_oral (
   degree_date text,
   journal_status text,
   journal_detail text,
+  journal_title text,
   title text not null,
   thesis_language text,
   degree_type text,
@@ -124,6 +125,23 @@ create table if not exists submissions_oral (
   similarity_file_url text,
   thesis_file_path text,
   thesis_file_url text,
+  status text not null default 'pending',
+  synced_at timestamptz,
+  sync_error text,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists submissions_vip (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  position text,
+  affiliation text not null,
+  phone text not null,
+  email text,
+  attend_main text,
+  attend_lunch text,
+  note text,
+  agree_privacy text,
   status text not null default 'pending',
   synced_at timestamptz,
   sync_error text,

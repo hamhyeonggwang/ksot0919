@@ -1,3 +1,18 @@
+## [2026-07-02] — 가독성 개선: 주황 텍스트 대비 + 폰트/버튼 크기 상향
+
+메인 페이지(index.html) UX/UI 가독성 강화. 특히 밝은 배경 위 주황 글자 판독성 문제 해결.
+
+| 변경 | 내용 |
+|------|------|
+| `css/reset.css` | `--orange-text: #B83A0D` 신규 토큰 (밝은 배경 텍스트용, WCAG AA ≥4.5:1). `--orange`=배경/버튼 전용, `--orange-l`=어두운 배경 텍스트로 용도 분리 |
+| `css/style.css` | 밝은 배경 위 주황 텍스트 8곳(section-eyebrow, venue-label, reg-btn-white, acc-period-head, nav 호버/로고 스크롤 상태, value-icon 등)을 `--orange-text`로 교체 |
+| `css/style.css` | 어두운 배경인데 `--orange`로 잘못 쓰인 tt-concurrent-venue·tt-apply-link → `--orange-l`로 교정 |
+| `css/style.css` | 본문·설명·라벨 폰트 11~12px → 13~13.5px 상향(keynote/sched/acc/tt 계열), eyebrow 자간 완화 |
+| `css/style.css` | 버튼 확대: nav-cta·btn-primary·btn-ghost·reg-btn-white/outline 패딩·폰트 증가 |
+| `docs/DESIGN-TOKENS.md` | 주황 토큰 3종 용도 명시 |
+
+---
+
 ## [2026-06-18] — 단일 submit 게이트웨이로 접수 아키텍처 전환
 
 오류 최소화: 브라우저 1회 POST → Edge Function `submit` → DB + Storage + GAS → Sheets (동기).

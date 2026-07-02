@@ -10,9 +10,6 @@
 // ✏️ 편집: 접수용 스프레드시트 ID
 const SPREADSHEET_ID = '1seHYNx8pjqmlHAME6FmPMiRGO-RzO91_8lIZcK8rN2Y';
 
-// VIP RSVP 직접 제출 시 사용하는 시크릿 (Script Properties에 VIP_SECRET 설정)
-// ✏️ 편집: Script Properties > VIP_SECRET 값을 vip-config.js의 VIP_SECRET과 동일하게 설정
-
 // 폼 구분(form_type)별 시트 이름·열 구성
 const SHEET_CONFIG = {
   '임상가': {
@@ -114,6 +111,7 @@ const SHEET_CONFIG = {
       ['학위 취득(예정)일',        'degree_date'],
       ['게재(예정) 학회지',        'journal_status'],
       ['학회지명 권(호)',          'journal_detail'],
+      ['게재된 논문명',            'journal_title'],
       ['논문명',                   'title'],
       ['언어',                     'thesis_language'],
       ['취득학위',                 'degree_type'],
@@ -159,11 +157,6 @@ function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
 
-    // VIP RSVP 직접 제출 경로
-    if (body.source === 'vip-direct') {
-      return handleVipDirect_(body);
-    }
-
     if (body.source !== 'supabase') {
       throw new Error('Direct submission is disabled. Use Supabase submit function.');
     }
@@ -173,32 +166,6 @@ function doPost(e) {
   } catch (err) {
     return jsonResponse_({ result: 'error', message: String(err) });
   }
-}
-
-/** VIP RSVP 직접 제출 처리 */
-function handleVipDirect_(body) {
-  const expected = PropertiesService.getScriptProperties().getProperty('VIP_SECRET');
-  if (!expected || body.secret !== expected) throw new Error('Invalid VIP secret');
-
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const headers = ['제출시각', '성함', '소속', '직책', '핸드폰', '이메일', '학술대회 참석', '오찬 참석', '비고'];
-  const sheet = getOrCreateSheet_(ss, 'VIP_참석확인', headers);
-
-  sheet.appendRow([
-    formatKST_(new Date()),
-    body.name        || '',
-    body.affiliation || '',
-    body.position    || '',
-    body.phone       || '',
-    body.email       || '',
-    body.attend_main  || '',
-    body.attend_lunch || '',
-    body.note        || '',
-  ]);
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ result: 'success' }))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /** Supabase submit → Sheets */
