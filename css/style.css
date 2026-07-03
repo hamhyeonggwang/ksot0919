@@ -1168,6 +1168,8 @@ section { padding: 90px 0; }
   font-weight: 500;
 }
 @media (max-width: 560px) {
+  /* 카드형 세로 스택은 데스크톱 표보다 훨씬 길어 max-height 상향 (2000px에서 잘림 방지) */
+  .timetable-body.open { max-height: 5000px; }
   /* 표를 카드형(세로 스택)으로 전환 — 고정폭 3열 붕괴 방지 */
   .tt-table, .tt-table tbody { display: block; }
   .tt-table thead { display: none; }

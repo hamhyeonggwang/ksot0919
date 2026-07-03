@@ -10,6 +10,7 @@
 | `css/style.css` | `.tt-apply-link`(신청하기)는 기존 주황 텍스트 링크(`--orange-l`) 유지 |
 | `css/style.css` | `.row-4col` 데스크톱 그리드 규칙 신규(4등분). 기존엔 정의 누락으로 1열 붕괴 |
 | `css/style.css` | 560px 이하: 표를 **카드형 세로 스택**으로 전환(thead 숨김, tr=카드, td=블록). 고정폭 3열(시간150·장소90)에서 한글 세로쪼개짐 해소 |
+| `css/style.css` | 560px 이하 `.timetable-body.open` max-height 2000px→5000px. 카드형(높이 ~3000px)이 아코디언 한계에 잘려 15:40 이후 카드가 안 보이던 문제 해결 |
 | `index.html` | 장소 셀 8곳에 `.tt-loc` 클래스 부여(모바일 `장소 · ` 라벨 표기용) |
 | `index.html` | 명사초청 특강 행 인라인 `color:var(--orange)`·`background:var(--orange)` 제거(신규 배지/시간 스타일로 대체) |
 | `index.html` | 명사초청 특강 행 `background:rgba(232,80,31,0.08)`(주황 틴트) 제거 — 다른 행과 동일한 투명 배경으로 통일 |
