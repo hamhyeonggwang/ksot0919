@@ -20,7 +20,7 @@
   <main class="reg-main">
     <span class="reg-prog-badge" style="background:rgba(16,185,129,0.15);color:var(--green)">교육 신청</span>
     <h1 class="reg-page-title">교육 신청</h1>
-    <p class="reg-page-desc">아래에서 신청 구분(임상가 / 일반회원)을 먼저 선택해 주세요.<br>구분에 따라 입력 항목이 달라집니다.</p>
+    <p class="reg-page-desc">아래에서 신청 구분(작업치료사 / 일반참가자 / 학생)을 먼저 선택해 주세요.<br>구분에 따라 입력 항목이 달라집니다.</p>
 
     <div id="success-msg" class="success-msg">
       <div class="success-icon">✅</div>
@@ -33,14 +33,19 @@
       <!-- ===== 신청 구분 선택 ===== -->
       <div class="role-select" id="role-select">
         <label>
-          <input type="radio" name="form_type" value="임상가" required>
-          <span class="role-name">임상가</span>
+          <input type="radio" name="form_type" value="작업치료사" required>
+          <span class="role-name">작업치료사</span>
           <span class="role-desc">작업치료사 면허 소지자<br>보수교육 학점 인정 대상</span>
         </label>
         <label>
-          <input type="radio" name="form_type" value="일반회원" required>
-          <span class="role-name">일반회원</span>
-          <span class="role-desc">비임상가, 관련 종사자, 학생<br>학술대회 참가 이수증 발급 가능</span>
+          <input type="radio" name="form_type" value="일반참가자" required>
+          <span class="role-name">일반참가자</span>
+          <span class="role-desc">작업치료사 면허 미소지자, 보건·복지·교육 분야 종사자, 일반인<br>보수교육 학점 인정대상 아님 · 학술대회 참가 이수증 발급 가능</span>
+        </label>
+        <label>
+          <input type="radio" name="form_type" value="학생" required>
+          <span class="role-name">학생</span>
+          <span class="role-desc">작업치료(학)과 재학생<br>학술대회 참가 이수증 발급 가능</span>
         </label>
       </div>
 
@@ -67,8 +72,8 @@
             <p class="hint">교육 안내가 이메일로 발송됩니다.</p>
           </div>
 
-          <!-- 학생 전용: 생년월일 · 소속 -->
-          <fieldset class="role-section student-only" disabled hidden>
+          <!-- 비면허 신청자 전용(일반참가자·학생 공통): 생년월일 · 소속 -->
+          <fieldset class="role-section noncert-only" disabled hidden>
             <div class="form-row">
               <div class="form-group">
                 <label>생년월일 <span class="req">*</span></label>
@@ -86,7 +91,7 @@
 
         <div class="reg-divider"></div>
 
-        <!-- ===== 임상가 전용: 보수교육 · 회원 정보 (신청 교육명 위) ===== -->
+        <!-- ===== 작업치료사 전용: 보수교육 · 회원 정보 (신청 교육명 위) ===== -->
         <fieldset class="role-section clinician-only" disabled hidden>
           <div class="reg-form-section">
             <div class="reg-form-section-title">보수교육 · 회원 정보</div>
@@ -381,14 +386,15 @@
     (function () {
       // ✏️ 편집: 교육비 단가 변경 시 아래 값만 수정
       const STUDENT_FEE = 40000;            // 학생: 강좌당
-      const CLINICIAN_FEE = {               // 임상가: 회원등급별 강좌당
+      const GENERAL_FEE = 76000;            // 일반참가자: 강좌당 (준회원 등급 가격 적용)
+      const CLINICIAN_FEE = {               // 작업치료사: 회원등급별 강좌당
         '정회원': 60000, '평생회원': 60000,
         '준회원': 76000, '인증완료회원': 76000,
       };
 
       const formBody = document.getElementById('form-body');
       const clinicianSections = document.querySelectorAll('.clinician-only');
-      const studentSections = document.querySelectorAll('.student-only');
+      const noncertSections = document.querySelectorAll('.noncert-only');
       const gradeSelect = document.querySelector('select[name="kaot_grade"]');
       const cart = document.getElementById('fee-cart');
       const cartList = document.getElementById('fee-cart-list');
@@ -412,8 +418,9 @@
       // 역할·회원등급 기준 강좌 단가 반환
       function getUnitFee() {
         const role = getRole();
-        if (role === '일반회원') return { fee: STUDENT_FEE, ready: true };
-        if (role === '임상가') {
+        if (role === '학생') return { fee: STUDENT_FEE, ready: true };
+        if (role === '일반참가자') return { fee: GENERAL_FEE, ready: true };
+        if (role === '작업치료사') {
           const fee = CLINICIAN_FEE[gradeSelect?.value];
           return fee ? { fee, ready: true } : { fee: 0, ready: false };
         }
@@ -427,7 +434,7 @@
 
         // 단가 라벨
         unitLabel.textContent = ready ? `1강좌당 ${won(fee)}`
-          : (getRole() === '임상가' ? '회원등급 선택 필요' : '');
+          : (getRole() === '작업치료사' ? '회원등급 선택 필요' : '');
 
         // 목록
         cartList.innerHTML = '';
@@ -461,9 +468,9 @@
       document.querySelectorAll('input[name="form_type"]').forEach(radio => {
         radio.addEventListener('change', () => {
           formBody.hidden = false;
-          const isClinician = radio.value === '임상가';
+          const isClinician = radio.value === '작업치료사';
           setSections(clinicianSections, isClinician);
-          setSections(studentSections, !isClinician);
+          setSections(noncertSections, !isClinician);
           recalcCart();
         });
       });

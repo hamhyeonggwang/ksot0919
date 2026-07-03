@@ -179,6 +179,17 @@ document.querySelectorAll('.accordion-toggle, .timetable-toggle').forEach(btn =>
   });
 });
 
+// 모바일 초기 상태: 당일 세부 타임테이블은 접어서 시작 (데스크톱은 기본 펼침 유지)
+(function () {
+  const toggle = document.getElementById('tt-toggle');
+  const body = document.getElementById('tt-body');
+  if (!toggle || !body) return;
+  if (window.matchMedia('(max-width: 560px)').matches) {
+    toggle.setAttribute('aria-expanded', 'false');
+    body.classList.remove('open');
+  }
+})();
+
 // 모바일 네비
 (function () {
   const nav = document.getElementById('nav');
