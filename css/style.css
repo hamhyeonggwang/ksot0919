@@ -1105,7 +1105,7 @@ section { padding: 90px 0; }
 .tt-time {
   font-family: var(--display);
   font-weight: 700;
-  color: var(--orange-l);
+  color: #fff;
   white-space: nowrap;
   font-size: 15px;
 }
@@ -1113,13 +1113,13 @@ section { padding: 90px 0; }
   display: inline-block;
   font-size: 12px;
   font-weight: 700;
-  padding: 3px 9px;
+  padding: 4px 11px;
   border-radius: 100px;
   margin-bottom: 4px;
 }
-.tt-tag.main { background: rgba(232,80,31,0.3); color: var(--orange-l); }
-.tt-tag.sub  { background: rgba(22,80,200,0.25); color: #7ea8f8; }
-.tt-tag.break{ background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+.tt-tag.main { background: var(--blue-l); color: #fff; }
+.tt-tag.sub  { background: var(--blue-l); color: #fff; }
+.tt-tag.break{ background: rgba(255,255,255,0.16); color: rgba(255,255,255,0.9); }
 .tt-parallel { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 3px; }
 
 /* 동시진행 3열 레이아웃 */
@@ -1134,6 +1134,10 @@ section { padding: 90px 0; }
 }
 .tt-concurrent-row.row-3col {
   grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.tt-concurrent-row.row-4col {
+  grid-template-columns: repeat(4, 1fr);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .tt-concurrent-row.row-1col {
@@ -1159,13 +1163,51 @@ section { padding: 90px 0; }
 }
 .tt-concurrent-venue {
   font-size: 12px;
-  color: var(--orange-l);
+  color: rgba(255,255,255,0.62);
   margin-top: 8px;
-  font-weight: 600;
+  font-weight: 500;
 }
 @media (max-width: 560px) {
-  .tt-concurrent-row.row-3col { grid-template-columns: 1fr; }
-  .tt-concurrent-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  /* 표를 카드형(세로 스택)으로 전환 — 고정폭 3열 붕괴 방지 */
+  .tt-table, .tt-table tbody { display: block; }
+  .tt-table thead { display: none; }
+  .tt-table tr {
+    display: block;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .tt-table tr:last-child td { border-bottom: none; }
+  .tt-table td {
+    display: block;
+    border: none !important;
+    padding: 0;
+  }
+  .tt-time { font-size: 17px; margin-bottom: 10px; white-space: normal; }
+  /* 프로그램 셀이 동시진행 그리드가 아닐 때 여백 */
+  .tt-table td:not(:first-child):not(.tt-loc) { line-height: 1.6; }
+  /* 장소 셀 라벨 표기 */
+  .tt-loc {
+    margin-top: 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+  .tt-loc::before {
+    content: "장소 · ";
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+  /* 동시진행 컬럼 1열 세로 배치 */
+  .tt-concurrent-row.row-3col,
+  .tt-concurrent-row.row-4col { grid-template-columns: 1fr; }
+  .tt-concurrent-col {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 12px 0;
+  }
+  .tt-concurrent-col:last-child { border-bottom: none; }
 }
 
 /* 강의 세부 아코디언 내부 */
