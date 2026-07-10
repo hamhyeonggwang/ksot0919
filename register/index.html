@@ -45,6 +45,68 @@
       transition: border-color 0.2s, transform 0.15s;
     }
     .hub-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+    /* ✏️ 편집: 접수 오픈 전 잠김 상태 */
+    .hub-card.is-locked {
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: none;
+      filter: grayscale(0.35);
+    }
+    .hub-card.is-locked .hub-go { color: var(--text-dim); }
+
+    /* ===== D-day 카운트다운 배너 ===== */
+    .reg-countdown {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .reg-countdown.is-open { background: var(--green); }
+    .rc-left { display: flex; flex-direction: column; gap: 5px; }
+    .rc-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--orange-l);
+    }
+    .rc-badge::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 0 currentColor;
+      animation: rc-pulse 1.8s ease-out infinite;
+    }
+    .reg-countdown.is-open .rc-badge { color: #fff; }
+    @keyframes rc-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(255,107,58,0.6); }
+      70%  { box-shadow: 0 0 0 8px rgba(255,107,58,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,107,58,0); }
+    }
+    .rc-date { font-size: 13.5px; color: rgba(255,255,255,0.72); }
+    .rc-main {
+      margin-left: auto; text-align: right;
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; justify-content: flex-end;
+    }
+    .rc-dday {
+      font-family: var(--display);
+      font-size: 42px; font-weight: 800; line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .rc-dday .num { color: var(--orange-l); }
+    .reg-countdown.is-open .rc-dday { font-size: 28px; color: #fff; }
+    .rc-timer {
+      font-family: var(--display);
+      font-variant-numeric: tabular-nums;
+      font-size: 15px; font-weight: 600;
+      color: rgba(255,255,255,0.88);
+    }
+    @media (max-width: 560px) {
+      .reg-countdown { flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px; }
+      .rc-main { margin-left: 0; text-align: left; justify-content: flex-start; }
+      .rc-dday { font-size: 38px; }
+    }
     .hub-badge {
       display: inline-flex; align-items: center;
       font-size: 11px; font-weight: 700; color: #fff;
@@ -96,6 +158,18 @@
     <h1 class="reg-page-title">참가 신청</h1>
     <p class="reg-page-desc">신청하실 항목을 선택하면 해당 신청서로 이동합니다.<br>여러 항목 신청 시 각 신청서를 따로 제출해 주세요.</p>
 
+    <!-- ✏️ 편집: 접수 오픈 카운트다운 (오픈일 8/17 00:00 이후 자동 해제) -->
+    <div class="reg-countdown" id="reg-countdown" role="status" aria-live="polite">
+      <div class="rc-left">
+        <span class="rc-badge" id="rc-badge">접수 시작 예정</span>
+        <span class="rc-date">2026년 8월 17일(월) 00:00 접수 시작</span>
+      </div>
+      <div class="rc-main">
+        <span class="rc-dday" id="rc-dday">D<span class="num">-00</span></span>
+        <span class="rc-timer" id="rc-timer">남은 시간을 계산 중…</span>
+      </div>
+    </div>
+
     <div class="hub-section-label"><span>교육 신청</span></div>
     <div class="hub-grid">
       <a class="hub-card" href="ceu.html">
@@ -131,5 +205,88 @@
       </a>
     </div>
   </main>
+
+  <!-- ✏️ 편집: 접수 오픈 게이팅 + D-day 카운트다운 -->
+  <script>
+    (function () {
+      // 접수 오픈 시각 (KST 고정 — 접속자 시간대와 무관)
+      var OPEN_TS = new Date('2026-08-17T00:00:00+09:00').getTime();
+
+      var banner = document.getElementById('reg-countdown');
+      var elBadge = document.getElementById('rc-badge');
+      var elDday = document.getElementById('rc-dday');
+      var elTimer = document.getElementById('rc-timer');
+      var cards = document.querySelectorAll('.hub-card');
+      if (!banner) return;
+
+      var opened = false;
+
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+      // KST 기준 '달력 날짜 번호' (자정 경계로 D-day 계산)
+      function kstDayNum(ts) {
+        return Math.floor((ts + 9 * 3600000) / 86400000);
+      }
+
+      function setLocked() {
+        cards.forEach(function (c) {
+          c.classList.add('is-locked');
+          c.setAttribute('aria-disabled', 'true');
+          c.setAttribute('tabindex', '-1');
+          var go = c.querySelector('.hub-go');
+          if (go) {
+            if (!go.dataset.orig) go.dataset.orig = go.textContent;
+            go.textContent = '8월 17일 접수 시작';
+          }
+        });
+      }
+
+      function setOpen() {
+        if (opened) return;
+        opened = true;
+        banner.classList.add('is-open');
+        elBadge.textContent = '접수 진행 중';
+        elDday.textContent = 'OPEN';
+        elTimer.textContent = '지금 신청하실 수 있습니다';
+        cards.forEach(function (c) {
+          c.classList.remove('is-locked');
+          c.removeAttribute('aria-disabled');
+          c.removeAttribute('tabindex');
+          var go = c.querySelector('.hub-go');
+          if (go && go.dataset.orig) go.textContent = go.dataset.orig;
+        });
+      }
+
+      // 잠김 상태에서 카드 클릭 차단 (pointer-events 보조 안전장치)
+      cards.forEach(function (c) {
+        c.addEventListener('click', function (e) {
+          if (c.classList.contains('is-locked')) e.preventDefault();
+        });
+      });
+
+      function tick() {
+        var diff = OPEN_TS - Date.now();
+        if (diff <= 0) { setOpen(); return; }
+
+        var dday = kstDayNum(OPEN_TS) - kstDayNum(Date.now());
+        elDday.innerHTML = 'D<span class="num">-' + dday + '</span>';
+
+        var s = Math.floor(diff / 1000);
+        var days = Math.floor(s / 86400);
+        var h = Math.floor((s % 86400) / 3600);
+        var m = Math.floor((s % 3600) / 60);
+        var sec = s % 60;
+        elTimer.textContent =
+          (days > 0 ? days + '일 ' : '') + pad(h) + ':' + pad(m) + ':' + pad(sec) + ' 남음';
+      }
+
+      setLocked();          // 기본 잠김 (fail-closed)
+      tick();
+      var timer = setInterval(function () {
+        tick();
+        if (opened) clearInterval(timer);
+      }, 1000);
+    })();
+  </script>
 </body>
 </html>
