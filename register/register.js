@@ -53,7 +53,66 @@ function validateFiles(form, formType) {
   }
 }
 
+/* ===== 접수 오픈 게이팅 (register/index.html 허브와 동일 기준시각) =====
+ * 허브 링크를 거치지 않고 개별 폼 URL로 직접 들어와도 동일하게 잠기도록
+ * register.js(공통 스크립트)에 둔다. */
+const REG_OPEN_TS = new Date('2026-08-17T00:00:00+09:00').getTime();
+
+function isRegistrationOpen() {
+  return Date.now() >= REG_OPEN_TS;
+}
+
+function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+function kstDayNum(ts) { return Math.floor((ts + 9 * 3600000) / 86400000); }
+
+function applyRegistrationGate(form, btn) {
+  if (isRegistrationOpen()) return;
+
+  const banner = document.createElement('div');
+  banner.className = 'reg-form-lock-banner';
+  banner.setAttribute('role', 'status');
+  banner.setAttribute('aria-live', 'polite');
+  banner.innerHTML =
+    '<span class="rlb-badge">접수 시작 예정</span>' +
+    '<span class="rlb-text">이 신청서는 <strong>2026년 8월 17일(월) 00:00</strong>부터 제출하실 수 있습니다.</span>' +
+    '<span class="rlb-timer"></span>';
+  form.parentNode.insertBefore(banner, form);
+
+  form.classList.add('is-locked');
+  btn.disabled = true;
+  btn.textContent = '8월 17일 접수 시작';
+
+  const timerEl = banner.querySelector('.rlb-timer');
+
+  const timer = setInterval(tick, 1000);
+  tick();
+
+  function tick() {
+    if (isRegistrationOpen()) {
+      clearInterval(timer);
+      banner.remove();
+      form.classList.remove('is-locked');
+      btn.disabled = false;
+      btn.textContent = defaultBtnLabel(btn);
+      return;
+    }
+    const diff = REG_OPEN_TS - Date.now();
+    const s = Math.floor(diff / 1000);
+    const days = Math.floor(s / 86400);
+    const h = Math.floor((s % 86400) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    const dday = kstDayNum(REG_OPEN_TS) - kstDayNum(Date.now());
+    timerEl.textContent =
+      'D-' + dday + ' · ' + (days > 0 ? days + '일 ' : '') + pad2(h) + ':' + pad2(m) + ':' + pad2(sec) + ' 남음';
+  }
+}
+
 async function submitForm(form) {
+  if (!isRegistrationOpen()) {
+    throw new Error('접수는 2026년 8월 17일(월) 00:00부터 시작됩니다.');
+  }
   if (!isSubmitReady()) {
     throw new Error('현재 신청 시스템을 준비 중입니다.\n잠시 후 다시 시도해 주세요.');
   }
@@ -121,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form || !btn) return;
 
   btn.dataset.defaultLabel = btn.textContent.trim();
+  applyRegistrationGate(form, btn);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

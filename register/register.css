@@ -364,6 +364,47 @@ fieldset.role-section[hidden] { display: none; }
   .fee-cart-total strong { font-size: 22px; }
 }
 
+/* ===== 접수 오픈 전 폼 잠금 (register.js applyRegistrationGate) ===== */
+.reg-form-lock-banner {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+.rlb-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--orange-l);
+  white-space: nowrap;
+}
+.rlb-badge::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: currentColor;
+}
+.rlb-text { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.9); }
+.rlb-text strong { color: #fff; }
+.rlb-timer {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px; font-weight: 700;
+  color: var(--orange-l);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .reg-form-lock-banner { flex-direction: column; align-items: flex-start; }
+  .rlb-timer { margin-left: 0; }
+}
+
+#reg-form.is-locked {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(0.3);
+}
+
 /* 제출 완료 메시지 */
 .success-msg {
   display: none;

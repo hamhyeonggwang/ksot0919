@@ -10,7 +10,20 @@
 | `register/index.html` | 오픈 시각 도달 시 자동 전환: 배너 초록(`.is-open`)·`OPEN`·"지금 신청하실 수 있습니다", 카드 잠금 해제 + 원래 CTA 복원 |
 | `register/index.html` | 배너 스타일 인라인 추가(네이비 배경+오렌지 강조 — 다크 배경 대비 안전). 560px 이하 세로 스택 반응형 |
 
-> ⚠️ 게이팅은 허브(`register/index.html`)에만 적용됨. 개별 폼(`ceu.html`·`poster.html` 등)으로의 직접 링크는 우회 가능 — 필요 시 공통 가드 스크립트로 확장 검토.
+---
+
+## [2026-07-10] — 개별 신청서 직접 링크 우회 차단
+
+허브(`register/index.html`)를 거치지 않고 `ceu.html`·`poster.html` 등 개별 폼 URL로 바로 들어오면 접수 게이팅이 우회되던 문제 해결.
+
+| 변경 | 내용 |
+|------|------|
+| `register/register.js` | `REG_OPEN_TS`(허브와 동일 기준시각) + `isRegistrationOpen()` + `applyRegistrationGate()` 추가. 5개 폼(ceu·workshop·oral·poster·capstone)이 공유하는 스크립트라 한 곳 수정으로 전체 적용 |
+| `register/register.js` | 오픈 전: 폼 위에 잠금 배너 삽입(D-day·실시간 타이머), 폼에 `.is-locked`(반투명+클릭 차단), 제출 버튼 비활성화+문구 `8월 17일 접수 시작` |
+| `register/register.js` | `submitForm()`에 `isRegistrationOpen()` 서버 요청 전 가드 추가 — 버튼 비활성화를 우회해도(개발자도구 등) 실제 제출은 차단 |
+| `register/register.js` | 오픈 시각 도달 시 배너 자동 제거 + 폼 잠금 해제 + 원래 버튼 문구 복원 (페이지를 열어둔 채로 경계 시각을 넘겨도 자동 반영) |
+| `register/register.css` | `.reg-form-lock-banner`(네이비 배경+오렌지 강조, 허브 배너와 톤 일치) · `#reg-form.is-locked` 스타일 추가 |
+| — | VIP RSVP(`vip.html`)는 `register.js`를 쓰지 않는 별도 초청 플로우라 이번 게이팅 대상에서 제외 |
 
 ---
 
