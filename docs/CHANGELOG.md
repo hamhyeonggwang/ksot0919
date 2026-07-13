@@ -1,3 +1,21 @@
+## [2026-07-13] — 분류별 접수 일정 분리 (교육 신청 오픈 게이트 / 발표 신청 마감 게이트)
+
+교육 신청(보수교육·대학원생 워크숍)과 발표 신청(우수 학위논문·포스터구두발표·캡스톤)의 접수 일정이 서로 달라 게이팅 기준을 분리.
+
+| 변경 | 내용 |
+|------|------|
+| `register/index.html` | 배너·카드를 `data-gate="edu"` / `data-gate="pres"`로 분리. 섹션 라벨 아래 각각 독립 카운트다운 배치 |
+| `register/index.html` | `wireGate(gateKey, mode, tsIso, lockedGoText)` 공용 함수로 일반화 — `mode: 'open-at'`(교육, 8/17 00:00부터 오픈)와 `mode: 'close-at'`(발표, 7/31 23:59:59까지만 오픈) 모두 지원 |
+| `register/index.html` | 교육 신청 배너: 기존 그대로 8/17 00:00 오픈 대기(D-day+타이머, 잠김 → 오픈 시 초록 전환) |
+| `register/index.html` | 발표 신청 배너: 현재 접수 진행 중(초록, "접수 진행 중")으로 시작 → 마감까지 카운트다운 → 7/31 23:59:59 경과 시 잠김 + 어두운 `.is-closed`(navy-deep) 전환 |
+| `register/register.js` | `window.REG_GATE` 페이지별 설정으로 게이팅 기준 일반화 (`mode: 'open-at'|'close-at'`, `ts`, `label`). 미설정 시 기존 8/17 오픈 게이트가 기본값 — ceu.html·workshop.html은 무수정 |
+| `register/register.js` | `applyOpenGate()`(기존 오픈 대기 로직 리네임) + `applyCloseGate()` 신규(마감 임박 공지 배너 → 마감 후 잠김 전환) 분리 |
+| `register/register.js` | `submitForm()` 가드 메시지도 `REG_GATE.mode`에 따라 "접수 시작 예정" / "접수 마감" 문구로 분기 |
+| `register/register.css` | `.reg-form-lock-banner.is-closed`(navy-deep 배경, 마감 후 톤) 스타일 추가 |
+| `register/oral.html`, `poster.html`, `capstone.html` | `register.js` 포함 전 `window.REG_GATE = { mode:'close-at', ts:'2026-07-31T23:59:59+09:00', label:'2026년 7월 31일(금) 23:59' }` 인라인 설정 추가 |
+
+---
+
 ## [2026-07-10] — register/index.html 접수 오픈 게이팅 + D-day 카운트다운
 
 접수 시작일(8/17 00:00) 확정에 따라 허브 페이지에 오픈 전 잠김 상태 + 실시간 카운트다운 추가.

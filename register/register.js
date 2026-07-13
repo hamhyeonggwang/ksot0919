@@ -53,38 +53,75 @@ function validateFiles(form, formType) {
   }
 }
 
-/* ===== 접수 오픈 게이팅 (register/index.html 허브와 동일 기준시각) =====
- * 허브 링크를 거치지 않고 개별 폼 URL로 직접 들어와도 동일하게 잠기도록
- * register.js(공통 스크립트)에 둔다. */
-const REG_OPEN_TS = new Date('2026-08-17T00:00:00+09:00').getTime();
+/* ===== 접수 게이팅 (register/index.html 허브와 동일 기준시각) =====
+ * 허브 링크를 거치지 않고 개별 폼 URL로 직접 들어와도 동일하게 적용되도록
+ * register.js(공통 스크립트)에 둔다.
+ *
+ * 분류별 기준시각이 다르므로, 각 폼 페이지가 register.js를 불러오기 전에
+ * window.REG_GATE로 설정해야 한다:
+ *   교육 신청(ceu·workshop) — 오픈 게이트, 8/17 00:00부터 제출 가능
+ *     { mode: 'open-at',  ts: '2026-08-17T00:00:00+09:00', label: '2026년 8월 17일(월) 00:00' }
+ *   발표 신청(oral·poster·capstone) — 마감 게이트, 7/31 23:59:59까지만 제출 가능
+ *     { mode: 'close-at', ts: '2026-07-31T23:59:59+09:00', label: '2026년 7월 31일(금) 23:59' }
+ * 미설정 시 교육 신청 기준(open-at, 8/17)을 기본값으로 사용한다. */
+const REG_GATE = window.REG_GATE || {
+  mode: 'open-at',
+  ts: '2026-08-17T00:00:00+09:00',
+  label: '2026년 8월 17일(월) 00:00',
+};
+const REG_GATE_TS = new Date(REG_GATE.ts).getTime();
 
 function isRegistrationOpen() {
-  return Date.now() >= REG_OPEN_TS;
+  return REG_GATE.mode === 'close-at' ? Date.now() < REG_GATE_TS : Date.now() >= REG_GATE_TS;
 }
 
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 function kstDayNum(ts) { return Math.floor((ts + 9 * 3600000) / 86400000); }
 
-function applyRegistrationGate(form, btn) {
-  if (isRegistrationOpen()) return;
+function formatCountdown(diffMs) {
+  if (diffMs < 0) diffMs = 0;
+  const s = Math.floor(diffMs / 1000);
+  const days = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return (days > 0 ? days + '일 ' : '') + pad2(h) + ':' + pad2(m) + ':' + pad2(sec);
+}
 
+function makeGateBanner(badgeText, text, showTimer, closed) {
   const banner = document.createElement('div');
-  banner.className = 'reg-form-lock-banner';
+  banner.className = 'reg-form-lock-banner' + (closed ? ' is-closed' : '');
   banner.setAttribute('role', 'status');
   banner.setAttribute('aria-live', 'polite');
   banner.innerHTML =
-    '<span class="rlb-badge">접수 시작 예정</span>' +
-    '<span class="rlb-text">이 신청서는 <strong>2026년 8월 17일(월) 00:00</strong>부터 제출하실 수 있습니다.</span>' +
-    '<span class="rlb-timer"></span>';
-  form.parentNode.insertBefore(banner, form);
+    `<span class="rlb-badge">${badgeText}</span>` +
+    `<span class="rlb-text">${text}</span>` +
+    (showTimer ? '<span class="rlb-timer"></span>' : '');
+  return banner;
+}
 
+function lockForm(form, btn, label) {
   form.classList.add('is-locked');
   btn.disabled = true;
-  btn.textContent = '8월 17일 접수 시작';
+  btn.textContent = label;
+}
+
+function unlockForm(form, btn) {
+  form.classList.remove('is-locked');
+  btn.disabled = false;
+  btn.textContent = defaultBtnLabel(btn);
+}
+
+function applyOpenGate(form, btn) {
+  if (isRegistrationOpen()) return;
+
+  const banner = makeGateBanner('접수 시작 예정',
+    `이 신청서는 <strong>${REG_GATE.label}</strong>부터 제출하실 수 있습니다.`, true, false);
+  form.parentNode.insertBefore(banner, form);
+  lockForm(form, btn, '접수 시작 예정');
 
   const timerEl = banner.querySelector('.rlb-timer');
-
   const timer = setInterval(tick, 1000);
   tick();
 
@@ -92,26 +129,61 @@ function applyRegistrationGate(form, btn) {
     if (isRegistrationOpen()) {
       clearInterval(timer);
       banner.remove();
-      form.classList.remove('is-locked');
-      btn.disabled = false;
-      btn.textContent = defaultBtnLabel(btn);
+      unlockForm(form, btn);
       return;
     }
-    const diff = REG_OPEN_TS - Date.now();
-    const s = Math.floor(diff / 1000);
-    const days = Math.floor(s / 86400);
-    const h = Math.floor((s % 86400) / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    const sec = s % 60;
-    const dday = kstDayNum(REG_OPEN_TS) - kstDayNum(Date.now());
-    timerEl.textContent =
-      'D-' + dday + ' · ' + (days > 0 ? days + '일 ' : '') + pad2(h) + ':' + pad2(m) + ':' + pad2(sec) + ' 남음';
+    const dday = kstDayNum(REG_GATE_TS) - kstDayNum(Date.now());
+    timerEl.textContent = 'D-' + dday + ' · ' + formatCountdown(REG_GATE_TS - Date.now()) + ' 남음';
+  }
+}
+
+function applyCloseGate(form, btn) {
+  if (!isRegistrationOpen()) {
+    const banner = makeGateBanner('접수 마감',
+      `이 신청서는 <strong>${REG_GATE.label}</strong>에 접수가 마감되었습니다.`, false, true);
+    form.parentNode.insertBefore(banner, form);
+    lockForm(form, btn, '접수 마감');
+    return;
+  }
+
+  // 아직 접수 기간 — 마감 안내 배너(폼은 잠그지 않음)
+  const banner = makeGateBanner('접수 마감 임박',
+    `이 신청서는 <strong>${REG_GATE.label}</strong>에 접수가 마감됩니다.`, true, false);
+  form.parentNode.insertBefore(banner, form);
+
+  const timerEl = banner.querySelector('.rlb-timer');
+  const timer = setInterval(tick, 1000);
+  tick();
+
+  function tick() {
+    if (!isRegistrationOpen()) {
+      clearInterval(timer);
+      banner.remove();
+      const closedBanner = makeGateBanner('접수 마감',
+        `이 신청서는 <strong>${REG_GATE.label}</strong>에 접수가 마감되었습니다.`, false, true);
+      form.parentNode.insertBefore(closedBanner, form);
+      lockForm(form, btn, '접수 마감');
+      return;
+    }
+    const dday = kstDayNum(REG_GATE_TS) - kstDayNum(Date.now());
+    timerEl.textContent = (dday >= 0 ? 'D-' + dday + ' · ' : '') + formatCountdown(REG_GATE_TS - Date.now()) + ' 남음';
+  }
+}
+
+function applyRegistrationGate(form, btn) {
+  if (REG_GATE.mode === 'close-at') {
+    applyCloseGate(form, btn);
+  } else {
+    applyOpenGate(form, btn);
   }
 }
 
 async function submitForm(form) {
   if (!isRegistrationOpen()) {
-    throw new Error('접수는 2026년 8월 17일(월) 00:00부터 시작됩니다.');
+    const msg = REG_GATE.mode === 'close-at'
+      ? `접수가 마감되었습니다. (마감: ${REG_GATE.label})`
+      : `접수는 ${REG_GATE.label}부터 시작됩니다.`;
+    throw new Error(msg);
   }
   if (!isSubmitReady()) {
     throw new Error('현재 신청 시스템을 준비 중입니다.\n잠시 후 다시 시도해 주세요.');

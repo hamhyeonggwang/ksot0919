@@ -65,6 +65,10 @@
       box-shadow: var(--shadow);
     }
     .reg-countdown.is-open { background: var(--green); }
+    .reg-countdown.is-closed { background: var(--navy-deep); }
+    .reg-countdown.is-closed .rc-badge { color: rgba(255,255,255,0.5); }
+    .reg-countdown.is-closed .rc-badge::before { animation: none; }
+    .reg-countdown.is-closed .rc-dday { font-size: 28px; color: rgba(255,255,255,0.6); }
     .rc-left { display: flex; flex-direction: column; gap: 5px; }
     .rc-badge {
       display: inline-flex; align-items: center; gap: 7px;
@@ -158,27 +162,26 @@
     <h1 class="reg-page-title">참가 신청</h1>
     <p class="reg-page-desc">신청하실 항목을 선택하면 해당 신청서로 이동합니다.<br>여러 항목 신청 시 각 신청서를 따로 제출해 주세요.</p>
 
-    <!-- ✏️ 편집: 접수 오픈 카운트다운 (오픈일 8/17 00:00 이후 자동 해제) -->
-    <div class="reg-countdown" id="reg-countdown" role="status" aria-live="polite">
+    <div class="hub-section-label"><span>교육 신청</span></div>
+    <!-- ✏️ 편집: 교육 신청 접수 오픈 카운트다운 (오픈일 8/17 00:00 이후 자동 해제) -->
+    <div class="reg-countdown" data-gate="edu" role="status" aria-live="polite">
       <div class="rc-left">
-        <span class="rc-badge" id="rc-badge">접수 시작 예정</span>
+        <span class="rc-badge">접수 시작 예정</span>
         <span class="rc-date">2026년 8월 17일(월) 00:00 접수 시작</span>
       </div>
       <div class="rc-main">
-        <span class="rc-dday" id="rc-dday">D<span class="num">-00</span></span>
-        <span class="rc-timer" id="rc-timer">남은 시간을 계산 중…</span>
+        <span class="rc-dday">D<span class="num">-00</span></span>
+        <span class="rc-timer">남은 시간을 계산 중…</span>
       </div>
     </div>
-
-    <div class="hub-section-label"><span>교육 신청</span></div>
     <div class="hub-grid">
-      <a class="hub-card" href="ceu.html">
+      <a class="hub-card" data-gate="edu" href="ceu.html">
         <span class="hub-badge green">보수교육 접수</span>
         <div class="hub-title">보수교육 신청 (임상가 · 학생)</div>
         <div class="hub-meta">9.12 온라인 / 9.13 아동 / 9.20 성인 강좌<br>9.19(토) 학술대회 보수교육 — 한 신청서에서 선택</div>
         <span class="hub-go">신청서 작성 →</span>
       </a>
-      <a class="hub-card" href="workshop.html">
+      <a class="hub-card" data-gate="edu" href="workshop.html">
         <span class="hub-badge blue">대학원생 워크숍</span>
         <div class="hub-title">Next OT 톡톡 2026: Our Story &amp; Study</div>
         <div class="hub-meta">9.19(토) 10:00~13:00 · <span class="venue">8동 3층 일반강의실 8323-1호</span><br>약 50인 정원</div>
@@ -187,18 +190,29 @@
     </div>
 
     <div class="hub-section-label"><span>발표 신청</span></div>
+    <!-- ✏️ 편집: 발표 신청 접수 마감 카운트다운 (마감일 7/31 23:59:59 이후 자동 잠김) -->
+    <div class="reg-countdown" data-gate="pres" role="status" aria-live="polite">
+      <div class="rc-left">
+        <span class="rc-badge">접수 진행 중</span>
+        <span class="rc-date">2026년 7월 31일(금) 23:59 접수 마감</span>
+      </div>
+      <div class="rc-main">
+        <span class="rc-dday">D<span class="num">-00</span></span>
+        <span class="rc-timer">남은 시간을 계산 중…</span>
+      </div>
+    </div>
     <div class="hub-grid hub-grid--3">
-      <a class="hub-card" href="oral.html">
+      <a class="hub-card" data-gate="pres" href="oral.html">
         <span class="hub-badge orange">우수 학위논문</span>
         <div class="hub-title">우수 학위논문 접수</div>
         <span class="hub-go">신청서 작성 →</span>
       </a>
-      <a class="hub-card" href="poster.html">
+      <a class="hub-card" data-gate="pres" href="poster.html">
         <span class="hub-badge orange">포스터 · 구두발표</span>
         <div class="hub-title">포스터 및 구두발표 접수</div>
         <span class="hub-go">신청서 작성 →</span>
       </a>
-      <a class="hub-card" href="capstone.html">
+      <a class="hub-card" data-gate="pres" href="capstone.html">
         <span class="hub-badge teal">캡스톤 디자인</span>
         <div class="hub-title">캡스톤 디자인 접수</div>
         <span class="hub-go">신청서 작성 →</span>
@@ -206,86 +220,111 @@
     </div>
   </main>
 
-  <!-- ✏️ 편집: 접수 오픈 게이팅 + D-day 카운트다운 -->
+  <!-- ✏️ 편집: 분류별 접수 게이팅 + D-day/마감 카운트다운
+       교육 신청(edu) = 오픈 게이트(8/17 00:00부터), 발표 신청(pres) = 마감 게이트(7/31 23:59:59까지) -->
   <script>
     (function () {
-      // 접수 오픈 시각 (KST 고정 — 접속자 시간대와 무관)
-      var OPEN_TS = new Date('2026-08-17T00:00:00+09:00').getTime();
-
-      var banner = document.getElementById('reg-countdown');
-      var elBadge = document.getElementById('rc-badge');
-      var elDday = document.getElementById('rc-dday');
-      var elTimer = document.getElementById('rc-timer');
-      var cards = document.querySelectorAll('.hub-card');
-      if (!banner) return;
-
-      var opened = false;
-
       function pad(n) { return (n < 10 ? '0' : '') + n; }
-
       // KST 기준 '달력 날짜 번호' (자정 경계로 D-day 계산)
-      function kstDayNum(ts) {
-        return Math.floor((ts + 9 * 3600000) / 86400000);
-      }
+      function kstDayNum(ts) { return Math.floor((ts + 9 * 3600000) / 86400000); }
 
-      function setLocked() {
-        cards.forEach(function (c) {
-          c.classList.add('is-locked');
-          c.setAttribute('aria-disabled', 'true');
-          c.setAttribute('tabindex', '-1');
-          var go = c.querySelector('.hub-go');
-          if (go) {
-            if (!go.dataset.orig) go.dataset.orig = go.textContent;
-            go.textContent = '8월 17일 접수 시작';
-          }
-        });
-      }
-
-      function setOpen() {
-        if (opened) return;
-        opened = true;
-        banner.classList.add('is-open');
-        elBadge.textContent = '접수 진행 중';
-        elDday.textContent = 'OPEN';
-        elTimer.textContent = '지금 신청하실 수 있습니다';
-        cards.forEach(function (c) {
-          c.classList.remove('is-locked');
-          c.removeAttribute('aria-disabled');
-          c.removeAttribute('tabindex');
-          var go = c.querySelector('.hub-go');
-          if (go && go.dataset.orig) go.textContent = go.dataset.orig;
-        });
-      }
-
-      // 잠김 상태에서 카드 클릭 차단 (pointer-events 보조 안전장치)
-      cards.forEach(function (c) {
-        c.addEventListener('click', function (e) {
-          if (c.classList.contains('is-locked')) e.preventDefault();
-        });
-      });
-
-      function tick() {
-        var diff = OPEN_TS - Date.now();
-        if (diff <= 0) { setOpen(); return; }
-
-        var dday = kstDayNum(OPEN_TS) - kstDayNum(Date.now());
-        elDday.innerHTML = 'D<span class="num">-' + dday + '</span>';
-
-        var s = Math.floor(diff / 1000);
+      function formatCountdown(diffMs) {
+        if (diffMs < 0) diffMs = 0;
+        var s = Math.floor(diffMs / 1000);
         var days = Math.floor(s / 86400);
         var h = Math.floor((s % 86400) / 3600);
         var m = Math.floor((s % 3600) / 60);
         var sec = s % 60;
-        elTimer.textContent =
-          (days > 0 ? days + '일 ' : '') + pad(h) + ':' + pad(m) + ':' + pad(sec) + ' 남음';
+        return (days > 0 ? days + '일 ' : '') + pad(h) + ':' + pad(m) + ':' + pad(sec);
       }
 
-      setLocked();          // 기본 잠김 (fail-closed)
-      tick();
-      var timer = setInterval(function () {
+      function wireGate(gateKey, mode, tsIso, lockedGoText) {
+        var banner = document.querySelector('.reg-countdown[data-gate="' + gateKey + '"]');
+        var cards = document.querySelectorAll('.hub-card[data-gate="' + gateKey + '"]');
+        if (!banner || !cards.length) return;
+
+        var ts = new Date(tsIso).getTime();
+        var elBadge = banner.querySelector('.rc-badge');
+        var elDday = banner.querySelector('.rc-dday');
+        var elTimer = banner.querySelector('.rc-timer');
+
+        function isOpenNow() {
+          return mode === 'close-at' ? Date.now() < ts : Date.now() >= ts;
+        }
+
+        function lockCards() {
+          cards.forEach(function (c) {
+            c.classList.add('is-locked');
+            c.setAttribute('aria-disabled', 'true');
+            c.setAttribute('tabindex', '-1');
+            var go = c.querySelector('.hub-go');
+            if (go) {
+              if (!go.dataset.orig) go.dataset.orig = go.textContent;
+              go.textContent = lockedGoText;
+            }
+          });
+        }
+        function unlockCards() {
+          cards.forEach(function (c) {
+            c.classList.remove('is-locked');
+            c.removeAttribute('aria-disabled');
+            c.removeAttribute('tabindex');
+            var go = c.querySelector('.hub-go');
+            if (go && go.dataset.orig) go.textContent = go.dataset.orig;
+          });
+        }
+        cards.forEach(function (c) {
+          c.addEventListener('click', function (e) {
+            if (c.classList.contains('is-locked')) e.preventDefault();
+          });
+        });
+
+        var finished = false;
+
+        function renderOpenFinal() {
+          banner.classList.add('is-open');
+          banner.classList.remove('is-closed');
+          elBadge.textContent = '접수 진행 중';
+          elDday.textContent = 'OPEN';
+          elTimer.textContent = '지금 신청하실 수 있습니다';
+          unlockCards();
+        }
+        function renderClosedFinal() {
+          banner.classList.add('is-closed');
+          banner.classList.remove('is-open');
+          elBadge.textContent = '접수 마감';
+          elDday.textContent = 'CLOSED';
+          elTimer.textContent = '접수가 마감되었습니다';
+          lockCards();
+        }
+
+        function tick() {
+          if (mode === 'open-at') {
+            if (isOpenNow()) { if (!finished) { finished = true; renderOpenFinal(); } return; }
+            var dday = kstDayNum(ts) - kstDayNum(Date.now());
+            elDday.innerHTML = 'D<span class="num">-' + dday + '</span>';
+            elTimer.textContent = formatCountdown(ts - Date.now()) + ' 남음';
+          } else {
+            if (!isOpenNow()) { if (!finished) { finished = true; renderClosedFinal(); } return; }
+            banner.classList.add('is-open');
+            var dday2 = kstDayNum(ts) - kstDayNum(Date.now());
+            elDday.innerHTML = 'D<span class="num">-' + Math.max(dday2, 0) + '</span>';
+            elTimer.textContent = formatCountdown(ts - Date.now()) + ' 남음 (마감까지)';
+          }
+        }
+
+        if (mode === 'open-at' && !isOpenNow()) lockCards(); // 기본 잠김 (fail-closed)
+        if (mode === 'close-at' && isOpenNow()) banner.classList.add('is-open'); // 초기 렌더부터 진행중 표시
+
         tick();
-        if (opened) clearInterval(timer);
-      }, 1000);
+        var timer = setInterval(function () {
+          tick();
+          if (finished) clearInterval(timer);
+        }, 1000);
+      }
+
+      wireGate('edu', 'open-at', '2026-08-17T00:00:00+09:00', '8월 17일 접수 시작');
+      wireGate('pres', 'close-at', '2026-07-31T23:59:59+09:00', '접수 마감');
     })();
   </script>
 </body>
