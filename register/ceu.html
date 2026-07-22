@@ -391,6 +391,10 @@
         '정회원': 60000, '평생회원': 60000,
         '준회원': 76000, '인증완료회원': 76000,
       };
+      // ✏️ 편집: 특정 강좌의 역할별 예외 단가 (미지정 시 위 기본 단가 적용)
+      const COURSE_FEE_OVERRIDE = {
+        '9.19(토) AI와 함께 하는 작업치료 임상과 전문역량': { '학생': 30000 },
+      };
 
       const formBody = document.getElementById('form-body');
       const clinicianSections = document.querySelectorAll('.clinician-only');
@@ -427,28 +431,37 @@
         return { fee: 0, ready: false };
       }
 
+      // 강좌별 예외 단가가 있으면 그 값을, 없으면 역할 기본 단가(baseFee)를 반환
+      function getCourseFee(courseValue, role, baseFee) {
+        const override = COURSE_FEE_OVERRIDE[courseValue];
+        return (override && override[role] != null) ? override[role] : baseFee;
+      }
+
       function recalcCart() {
         if (!cart) return;
         const checked = [...document.querySelectorAll('.course-check:checked')];
         const { fee, ready } = getUnitFee();
+        const role = getRole();
+        const courseFees = checked.map(cb => getCourseFee(cb.value, role, fee));
+        const uniform = new Set(courseFees).size <= 1;
 
-        // 단가 라벨
-        unitLabel.textContent = ready ? `1강좌당 ${won(fee)}`
-          : (getRole() === '작업치료사' ? '회원등급 선택 필요' : '');
+        // 단가 라벨 (단일 강좌·동일 금액일 때만 실제 적용 단가를 표시)
+        unitLabel.textContent = !ready ? (role === '작업치료사' ? '회원등급 선택 필요' : '')
+          : (uniform ? `1강좌당 ${won(courseFees[0] ?? fee)}` : '강좌별 금액 상이 (아래 목록 참고)');
 
         // 목록
         cartList.innerHTML = '';
         if (checked.length === 0) {
           cartList.innerHTML = '<li class="fee-cart-empty">강좌를 선택하면 합계가 표시됩니다.</li>';
         } else {
-          checked.forEach(cb => {
+          checked.forEach((cb, i) => {
             const li = document.createElement('li');
             const name = document.createElement('span');
             name.className = 'fee-item-name';
             name.textContent = cb.value;
             const price = document.createElement('span');
             price.className = 'fee-item-price';
-            price.textContent = ready ? won(fee) : '—';
+            price.textContent = ready ? won(courseFees[i]) : '—';
             li.append(name, price);
             cartList.append(li);
           });
@@ -456,7 +469,7 @@
 
         // 합계
         if (ready) {
-          const total = fee * checked.length;
+          const total = courseFees.reduce((a, b) => a + b, 0);
           totalEl.textContent = won(total);
           totalInput.value = checked.length ? won(total) : '';
         } else {
