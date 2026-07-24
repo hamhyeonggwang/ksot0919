@@ -1,3 +1,16 @@
+## [2026-07-24] — fix: 발표 신청 3종 제출 실패 (DB 컬럼 누락) 긴급 수정
+
+포스터·구두발표 접수 시 `Could not find the 'dup_selection_notice_confirm' column of 'submissions_poster' in the schema cache` 오류로 접수 자체가 불가능했던 문제. "유의사항 확인" 체크박스를 폼에 추가할 때(7/22) 라이브 DB 테이블 마이그레이션을 빠뜨려서 발생.
+
+| 변경 | 내용 |
+|------|------|
+| Supabase(`ksot` 프로젝트) 라이브 DB | `submissions_poster`에 `originality_confirm`, `dup_selection_notice_confirm` 컬럼 추가 |
+| Supabase(`ksot` 프로젝트) 라이브 DB | `submissions_oral`, `submissions_capstone`에 `dup_selection_notice_confirm` 컬럼 추가 |
+| `supabase/migrations/006_notice_confirm_fields.sql` | 위 변경사항 마이그레이션 파일로 기록 (재현·롤백 대비) |
+| — | Edge Function `submit`은 폼 필드를 그대로 DB에 insert하는 구조라, 폼에 필드 추가 시 **반드시 대응 컬럼을 먼저 DB에 추가**해야 함 — 향후 동일 실수 방지용 메모 |
+
+---
+
 ## [2026-07-24] — 캡스톤 디자인 접수 학년 선택에 1학년 추가
 
 기존 2~4학년만 선택 가능했던 대표자 학년 드롭다운에 1학년 항목 신설.
