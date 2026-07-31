@@ -6,8 +6,9 @@ const corsHeaders = {
 };
 
 const FORM_TABLE: Record<string, string> = {
-  '임상가': 'submissions_ceu_clinician',
+  '작업치료사': 'submissions_ceu_clinician',
   '학생': 'submissions_ceu_student',
+  '일반참가자': 'submissions_ceu_student',
   '대학원생 워크숍': 'submissions_workshop',
   '포스터 및 구두발표 접수': 'submissions_poster',
   '우수 학위논문 접수': 'submissions_oral',
@@ -15,8 +16,12 @@ const FORM_TABLE: Record<string, string> = {
   'VIP 참석 확인': 'submissions_vip',
 };
 
+// submissions_ceu_student 는 '학생'·'일반참가자' 두 form_type이 공유하므로
+// 구분을 위해 role 컬럼에 원래 form_type 값을 저장한다.
+const ROLE_TABLES = new Set(['submissions_ceu_student']);
+
 // Google Sheets 동기화를 건너뛰고 Supabase에만 저장하는 폼
-const SHEETS_SKIP = new Set(['VIP 참석 확인']);
+const SHEETS_SKIP = new Set<string>([]);
 
 const REQUIRED_FILES: Record<string, string[]> = {
   '포스터 및 구두발표 접수': ['abstract_file'],
@@ -102,6 +107,9 @@ Deno.serve(async (req) => {
     for (const [key, value] of Object.entries(fields)) {
       if (SKIP_FIELDS.has(key) || META_FIELDS.has(key)) continue;
       row[key] = value;
+    }
+    if (ROLE_TABLES.has(table)) {
+      row.role = formType;
     }
 
     const sheetRecord: Record<string, string> = { ...row };
