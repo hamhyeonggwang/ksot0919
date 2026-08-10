@@ -150,6 +150,7 @@ body {
   font-size: 12px; color: var(--text-sub);
   margin-top: 3px;
 }
+.check-group label[hidden] { display: none; }
 
 /* 강의 장소 강조 칩 — 회색 메타 줄에서 장소만 튀어 보이도록 */
 .venue {
