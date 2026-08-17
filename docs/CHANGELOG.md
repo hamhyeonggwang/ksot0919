@@ -1,3 +1,16 @@
+## [2026-08-17] — fix: 보수교육(작업치료사) 접수 실패 — pay_method_primary 컬럼 누락
+
+접수 제출 시 `Could not find the 'pay_method_primary' column of 'submissions_ceu_clinician' in the schema cache` 오류로 접수 불가. 결제방법 2단 라디오(`pay_method_primary`·`pay_method_sub`)의 원본 필드가 그대로 DB insert에 포함됐는데, 이미 합쳐진 결과를 담는 hidden input `pay_method`만 실제 컬럼으로 존재해서 발생.
+
+| 변경 | 내용 |
+|------|------|
+| `supabase/functions/submit/index.ts` | `SKIP_FIELDS`에 `pay_method_primary`, `pay_method_sub` 추가 — 원본 라디오 필드는 DB에 저장하지 않고, 이미 집계된 `pay_method` 필드만 저장 |
+| Supabase Edge Function `submit` | v3 → v4 재배포 |
+| — | 실제 제출 경로로 재현 검증(작업치료사, 계좌이체〉개인납부) — 정상 저장·Sheets 동기화(`status: synced`) 확인 후 테스트 row 삭제 |
+| — | DB 컬럼을 추가하는 대신 원본 필드를 스킵하는 방향으로 수정 — `pay_method`가 이미 의미 있는 값을 담고 있어 중복 저장 불필요 |
+
+---
+
 ## [2026-08-10] — fix: 9.19 항목 역할별 숨김 처리가 CSS에 의해 무시되던 버그 수정
 
 바로 전 커밋에서 학생 역할일 때 9.19 항목이 (기존 강좌 1개 + 신규 일반참가/강좌수강 2개) 총 3개로 함께 노출되는 문제 발견.

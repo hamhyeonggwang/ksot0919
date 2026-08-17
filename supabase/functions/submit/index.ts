@@ -43,7 +43,9 @@ const FILE_FIELDS: Record<string, { path: string; url: string }> = {
   capstone_file: { path: 'capstone_file_path', url: 'capstone_file_url' },
 };
 
-const SKIP_FIELDS = new Set(['form_type']);
+// pay_method_primary/sub: ceu.html 결제방법 2단 라디오 원본 필드 — 합쳐진 결과가
+// 이미 hidden input `pay_method`로 전송되므로 원본은 DB에 저장하지 않음(컬럼 없음).
+const SKIP_FIELDS = new Set(['form_type', 'pay_method_primary', 'pay_method_sub']);
 const META_FIELDS = new Set(['id', 'status', 'synced_at', 'sync_error', 'created_at']);
 
 const MAX_BYTES = 10 * 1024 * 1024;
