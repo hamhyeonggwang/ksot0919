@@ -1,3 +1,14 @@
+## [2026-08-17] — 교육비 납부방법 "기관 납부" 안내 문구 수정 (계좌번호 → 개별 문의)
+
+계좌이체 > 기관 납부 선택 시 고정 계좌번호가 노출되어 개인납부자들이 혼란을 겪는다는 피드백 반영.
+
+| 변경 | 내용 |
+|------|------|
+| `register/ceu.html` | "기관 납부" 옵션 설명을 `하나은행 907-910328-84207 대한작업치료학회` → `접수 완료 후 ksotoffice@naver.com로 입금 계좌 개별 문의`로 변경 |
+| `register/ceu.html` | 제출 시 내부 기록용 `pay_method` 값도 `계좌이체 > 기관납부 (하나은행 907-910328-84207)` → `계좌이체 > 기관납부 (계좌 개별 문의)`로 동일하게 수정 — 화면 문구와 DB·Sheets 기록 불일치 방지 |
+
+---
+
 ## [2026-08-17] — fix: 보수교육(작업치료사) 접수 실패 — pay_method_primary 컬럼 누락
 
 접수 제출 시 `Could not find the 'pay_method_primary' column of 'submissions_ceu_clinician' in the schema cache` 오류로 접수 불가. 결제방법 2단 라디오(`pay_method_primary`·`pay_method_sub`)의 원본 필드가 그대로 DB insert에 포함됐는데, 이미 합쳐진 결과를 담는 hidden input `pay_method`만 실제 컬럼으로 존재해서 발생.

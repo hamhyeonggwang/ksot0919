@@ -307,7 +307,7 @@
                 <input type="radio" name="pay_method_sub" value="기관납부" disabled>
                 <span class="pay-method-body">
                   <span class="pay-method-name">기관 납부</span>
-                  <span class="pay-method-desc">하나은행 <strong>907-910328-84207</strong> 대한작업치료학회</span>
+                  <span class="pay-method-desc">접수 완료 후 <strong>ksotoffice@naver.com</strong>로 입금 계좌 개별 문의</span>
                 </span>
               </label>
             </div>
@@ -573,7 +573,7 @@
         else if (primary === '계좌이체') {
           const subVal = document.querySelector('input[name="pay_method_sub"]:checked')?.value;
           if (subVal === '개인납부') value = '계좌이체 > 개인납부 (결재선생)';
-          else if (subVal === '기관납부') value = '계좌이체 > 기관납부 (하나은행 907-910328-84207)';
+          else if (subVal === '기관납부') value = '계좌이체 > 기관납부 (계좌 개별 문의)';
         }
         if (payMethodHidden) payMethodHidden.value = value;
       }
