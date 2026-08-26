@@ -152,6 +152,24 @@ body {
 }
 .check-group label[hidden] { display: none; }
 
+/* 강좌별 접수 마감 — disabled 체크박스가 있는 항목을 흐리게 처리 + "마감" 배지 */
+.check-group label:has(.course-check:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--ivory-2);
+}
+.check-group label:has(.course-check:disabled)::after {
+  content: '마감';
+  align-self: center;
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 700;
+  color: var(--text-dim);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 3px 10px;
+}
+
 /* 강의 장소 강조 칩 — 회색 메타 줄에서 장소만 튀어 보이도록 */
 .venue {
   display: inline-flex;

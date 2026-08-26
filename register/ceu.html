@@ -415,6 +415,25 @@
         '9.19(토) AI와 함께 하는 작업치료 임상과 전문역량 (강좌수강)': { '학생': 30000 },
       };
 
+      // ✏️ 편집: 접수 마감일 — 기본 8/31, 일부 건만 9/7로 연장
+      const DEFAULT_CLOSE_TS = new Date('2026-08-31T23:59:59+09:00').getTime();
+      const EXTENDED_CLOSE_TS = new Date('2026-09-07T23:59:59+09:00').getTime();
+      // 학생은 선택 강좌와 무관하게 전체 연장. 작업치료사는 아래 9.20 두 강좌만 연장.
+      // (일반참가자는 연장 대상 아님 — 항상 기본 마감)
+      const EXTENDED_COURSES_CLINICIAN = new Set([
+        '9.20(일) 회복기 재활·재택의료',
+        '9.20(일) 지역사회 통합돌봄과 작업치료',
+      ]);
+
+      function courseCloseTs(courseValue, role) {
+        if (role === '학생') return EXTENDED_CLOSE_TS;
+        if (role === '작업치료사' && EXTENDED_COURSES_CLINICIAN.has(courseValue)) return EXTENDED_CLOSE_TS;
+        return DEFAULT_CLOSE_TS;
+      }
+      function isCourseClosed(courseValue, role) {
+        return Date.now() > courseCloseTs(courseValue, role);
+      }
+
       const formBody = document.getElementById('form-body');
       const clinicianSections = document.querySelectorAll('.clinician-only');
       const noncertSections = document.querySelectorAll('.noncert-only');
@@ -515,6 +534,15 @@
         });
       }
 
+      // 강좌별 접수 마감 판정 — 마감된 강좌는 선택 불가 처리(disabled인 입력은 제출 시 자동 제외됨)
+      function applyCourseAvailability(role) {
+        document.querySelectorAll('.course-check').forEach(cb => {
+          const closed = isCourseClosed(cb.value, role);
+          cb.disabled = closed;
+          if (closed && cb.checked) cb.checked = false;
+        });
+      }
+
       // 일반참가/강좌수강은 상호 배타 — 하나 체크 시 다른 하나 자동 해제
       const student919Checks = document.querySelectorAll('.course-919-student-check');
       student919Checks.forEach(cb => {
@@ -533,6 +561,7 @@
           setSections(clinicianSections, isClinician);
           setSections(noncertSections, !isClinician);
           toggle919(radio.value);
+          applyCourseAvailability(radio.value);
           recalcCart();
         });
       });
@@ -582,6 +611,24 @@
       document.querySelectorAll('input[name="pay_method_primary"]').forEach(r => r.addEventListener('change', syncPayMethod));
       subRadios.forEach(r => r.addEventListener('change', syncPayMethod));
       syncPayMethod();
+
+      // 강좌별 마감 최종 방어 — register.js의 공통 제출 처리보다 먼저 실행되도록
+      // (아래 리스너는 스크립트 로드 시점에 즉시 등록되고, register.js의 제출 리스너는
+      // DOMContentLoaded 이후에 등록되므로 항상 이 리스너가 먼저 실행된다)
+      const form = document.getElementById('reg-form');
+      form?.addEventListener('submit', (e) => {
+        const role = getRole();
+        const beforeChecked = [...document.querySelectorAll('.course-check:checked')].map(cb => cb.value);
+        applyCourseAvailability(role); // 화면 상태를 최신으로 재동기화(창을 오래 열어둔 경우 대비)
+        const afterChecked = [...document.querySelectorAll('.course-check:checked')].map(cb => cb.value);
+        const dropped = beforeChecked.filter(v => !afterChecked.includes(v));
+        if (dropped.length) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          recalcCart();
+          alert('다음 강좌는 접수가 마감되어 선택이 해제되었습니다:\n' + dropped.join('\n') + '\n\n남은 항목을 확인한 뒤 다시 제출해 주세요.');
+        }
+      });
     })();
   </script>
 </body>
