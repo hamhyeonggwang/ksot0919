@@ -185,6 +185,7 @@
                   <span class="course-meta">학술강좌 수강(AI와 함께 하는 작업치료 임상과 전문역량) + 포스터 관람, 명사초청특강, 세리머니 참관, 부스 체험</span>
                 </span>
               </label>
+              <p class="hint course-919-student" hidden>일반참가·강좌수강 모두 교육 시간(10:00~13:00) 외에는 9.19(토) 학술대회의 모든 일정에 참여하실 수 있습니다.</p>
               <label>
                 <input type="checkbox" name="courses" class="course-check" value="9.20(일) 회복기 재활·재택의료">
                 <span>9.20(일) 회복기 재활·재택의료
@@ -510,7 +511,7 @@
         course919Student.forEach(el => {
           el.hidden = !isStudent;
           const cb = el.querySelector('.course-check');
-          if (!isStudent && cb.checked) cb.checked = false;
+          if (cb && !isStudent && cb.checked) cb.checked = false;
         });
       }
 
