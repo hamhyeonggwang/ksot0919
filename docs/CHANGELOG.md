@@ -1,3 +1,18 @@
+## [2026-08-27] — 대학원생 워크숍 정원 마감 처리
+
+정원(약 50인) 마감으로 대학원생 워크숍 접수 종료. 기존 게이트(register.js REG_GATE)는 날짜 기반(open-at/close-at)뿐이라 "정원 마감"처럼 날짜와 무관한 상시 마감 사유를 표현할 방법이 없어, 새 모드를 추가.
+
+| 변경 | 내용 |
+|------|------|
+| `register/register.js` | `REG_GATE.mode: 'closed'` 신규 — `ts` 없이 `label`을 완결된 문장으로 받아 그대로 배너 문구로 사용(날짜 템플릿 문구에 끼워 넣지 않음) |
+| `register/register.js` | `isRegistrationOpen()`에 `closed` 분기 추가(항상 false), `applyClosedGate()` 신규(배너 즉시 잠금, 카운트다운 없음), `applyRegistrationGate()`·`submitForm()` 가드 메시지에 분기 반영 |
+| `register/workshop.html` | `register.js` 포함 전 `window.REG_GATE = { mode: 'closed', label: '정원이 마감되어 접수가 종료되었습니다.' }` 설정 |
+| `register/index.html` | 허브의 워크숍 카드를 `data-gate="edu"` 그룹에서 제외하고 정적으로 `is-locked` 처리(날짜 기반 오픈/마감 게이트와 무관하게 항상 잠김) — CTA를 "정원 마감"으로, 안내문에 마감 사유 명시. 같은 그룹의 보수교육(ceu) 카드는 영향 없음 |
+| — | close-at(oral 등)·open-at(ceu) 기존 동작 회귀 없음, 신규 closed 모드(workshop) 정상 동작을 실제 페이지에서 확인. 허브에서 워크숍 카드만 잠기고 보수교육 카드는 정상 노출되는 것도 확인 |
+| — | DB·Edge Function 변경 없음 |
+
+---
+
 ## [2026-08-26] — 보수교육 일부 건만 접수 마감 연장 (기본 8/31, 일부 9/7)
 
 일부 교육만 접수 기한을 연장해 달라는 요청 반영. 기존엔 ceu.html에 마감일 자체가 코드로 구현되어 있지 않았음(오픈일 8/17만 존재) — 이번에 기본 마감(8/31)을 신규 구현하면서 동시에 일부 건 연장(9/7)도 함께 적용.

@@ -63,15 +63,18 @@ function validateFiles(form, formType) {
  *     { mode: 'open-at',  ts: '2026-08-17T00:00:00+09:00', label: '2026년 8월 17일(월) 00:00' }
  *   발표 신청(oral·poster·capstone) — 마감 게이트, 7/31 23:59:59까지만 제출 가능
  *     { mode: 'close-at', ts: '2026-07-31T23:59:59+09:00', label: '2026년 7월 31일(금) 23:59' }
+ *   정원 마감 등 날짜와 무관한 상시 마감 — label을 완결된 문장으로 작성
+ *     { mode: 'closed', label: '정원이 마감되어 접수가 종료되었습니다.' }
  * 미설정 시 교육 신청 기준(open-at, 8/17)을 기본값으로 사용한다. */
 const REG_GATE = window.REG_GATE || {
   mode: 'open-at',
   ts: '2026-08-17T00:00:00+09:00',
   label: '2026년 8월 17일(월) 00:00',
 };
-const REG_GATE_TS = new Date(REG_GATE.ts).getTime();
+const REG_GATE_TS = REG_GATE.ts ? new Date(REG_GATE.ts).getTime() : NaN;
 
 function isRegistrationOpen() {
+  if (REG_GATE.mode === 'closed') return false;
   return REG_GATE.mode === 'close-at' ? Date.now() < REG_GATE_TS : Date.now() >= REG_GATE_TS;
 }
 
@@ -170,8 +173,16 @@ function applyCloseGate(form, btn) {
   }
 }
 
+function applyClosedGate(form, btn) {
+  const banner = makeGateBanner('접수 마감', REG_GATE.label, false, true);
+  form.parentNode.insertBefore(banner, form);
+  lockForm(form, btn, '접수 마감');
+}
+
 function applyRegistrationGate(form, btn) {
-  if (REG_GATE.mode === 'close-at') {
+  if (REG_GATE.mode === 'closed') {
+    applyClosedGate(form, btn);
+  } else if (REG_GATE.mode === 'close-at') {
     applyCloseGate(form, btn);
   } else {
     applyOpenGate(form, btn);
@@ -180,9 +191,11 @@ function applyRegistrationGate(form, btn) {
 
 async function submitForm(form) {
   if (!isRegistrationOpen()) {
-    const msg = REG_GATE.mode === 'close-at'
-      ? `접수가 마감되었습니다. (마감: ${REG_GATE.label})`
-      : `접수는 ${REG_GATE.label}부터 시작됩니다.`;
+    const msg = REG_GATE.mode === 'closed'
+      ? REG_GATE.label
+      : REG_GATE.mode === 'close-at'
+        ? `접수가 마감되었습니다. (마감: ${REG_GATE.label})`
+        : `접수는 ${REG_GATE.label}부터 시작됩니다.`;
     throw new Error(msg);
   }
   if (!isSubmitReady()) {

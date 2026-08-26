@@ -193,6 +193,13 @@
   </main>
 
   <script src="supabase-config.js"></script>
+  <!-- ✏️ 편집: 정원 마감 — 재오픈 시 이 스크립트 블록을 삭제할 것 -->
+  <script>
+    window.REG_GATE = {
+      mode: 'closed',
+      label: '정원이 마감되어 접수가 종료되었습니다.',
+    };
+  </script>
   <script src="register.js"></script>
   <script>
     // 학위과정 "기타" 선택 시 직접입력 칸 표시
