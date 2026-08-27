@@ -606,6 +606,14 @@ section { padding: 90px 0; }
 }
 .prog-tag.green { background: var(--green); }
 .prog-tag.purple { background: var(--purple); }
+/* ✏️ 편집: 접수 마감 연장 안내 배지 — 대상 강좌 옆에 붙여 사용 */
+.extend-badge {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700; color: #fff;
+  background: var(--orange);
+  padding: 2px 10px; border-radius: 100px;
+  margin-left: 4px;
+}
 .prog-time { font-size: 13px; color: var(--text-sub); font-weight: 600; margin-left: 8px; }
 
 .workshop-apply-btn {

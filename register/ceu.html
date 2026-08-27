@@ -173,14 +173,14 @@
               <!-- 9.19(토) 학술대회 — 학생: 일반참가 / 강좌수강 2단 선택 (상호 배타) -->
               <label class="course-919-student" hidden>
                 <input type="checkbox" name="courses" class="course-check course-919-student-check" value="9.19(토) 학술대회 일반참가">
-                <span>9.19(토) 학술대회 일반참가
+                <span>9.19(토) 학술대회 일반참가 <span class="course-extend-badge">접수연장(~9/7월까지)</span>
                   <span class="course-meta">10:00~13:00 · <span class="venue">대전보건대학교 8동 4층 대강당</span></span>
                   <span class="course-meta">캡스톤·학위논문·학술논문 발표 참관, 포스터 관람, 명사초청특강, 세리머니 참관, 부스 체험</span>
                 </span>
               </label>
               <label class="course-919-student" hidden>
                 <input type="checkbox" name="courses" class="course-check course-919-student-check" value="9.19(토) AI와 함께 하는 작업치료 임상과 전문역량 (강좌수강)">
-                <span>9.19(토) AI와 함께 하는 작업치료 임상과 전문역량 (강좌수강)
+                <span>9.19(토) AI와 함께 하는 작업치료 임상과 전문역량 (강좌수강) <span class="course-extend-badge">접수연장(~9/7월까지)</span>
                   <span class="course-meta">10:00~13:00 (3시간) · <span class="venue">대전보건대학교 8동 4층 대강당</span></span>
                   <span class="course-meta">학술강좌 수강(AI와 함께 하는 작업치료 임상과 전문역량) + 포스터 관람, 명사초청특강, 세리머니 참관, 부스 체험</span>
                 </span>
@@ -188,13 +188,13 @@
               <p class="hint course-919-student" hidden>일반참가·강좌수강 모두 교육 시간(10:00~13:00) 외에는 9.19(토) 학술대회의 모든 일정에 참여하실 수 있습니다.</p>
               <label>
                 <input type="checkbox" name="courses" class="course-check" value="9.20(일) 회복기 재활·재택의료">
-                <span>9.20(일) 회복기 재활·재택의료
+                <span>9.20(일) 회복기 재활·재택의료 <span class="course-extend-badge" hidden>접수연장(~9/7월까지)</span>
                   <span class="course-meta">09:00~13:00 (4시간) · <span class="venue">국립정신건강센터 열린강당(서울)</span></span>
                 </span>
               </label>
               <label>
                 <input type="checkbox" name="courses" class="course-check" value="9.20(일) 지역사회 통합돌봄과 작업치료">
-                <span>9.20(일) 지역사회 통합돌봄과 작업치료
+                <span>9.20(일) 지역사회 통합돌봄과 작업치료 <span class="course-extend-badge" hidden>접수연장(~9/7월까지)</span>
                   <span class="course-meta">14:00~18:00 (4시간) · <span class="venue">국립정신건강센터 열린강당(서울)</span></span>
                 </span>
               </label>
@@ -540,6 +540,10 @@
           const closed = isCourseClosed(cb.value, role);
           cb.disabled = closed;
           if (closed && cb.checked) cb.checked = false;
+
+          // 연장 대상 강좌에는 "접수연장" 배지 표시(있는 항목만 — 9.19 학생 옵션·9.20 두 강좌)
+          const badge = cb.closest('label')?.querySelector('.course-extend-badge');
+          if (badge) badge.hidden = courseCloseTs(cb.value, role) !== EXTENDED_CLOSE_TS;
         });
       }
 
