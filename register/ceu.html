@@ -166,7 +166,7 @@
               <!-- 9.19(토) 학술대회 — 작업치료사·일반참가자: 강좌 단일 체크 -->
               <label class="course-919-standard">
                 <input type="checkbox" name="courses" class="course-check" value="9.19(토) AI와 함께 하는 작업치료 임상과 전문역량">
-                <span>9.19(토) AI와 함께 하는 작업치료 임상과 전문역량
+                <span>9.19(토) AI와 함께 하는 작업치료 임상과 전문역량 <span class="course-extend-badge" hidden>접수연장(~9/7월까지)</span>
                   <span class="course-meta">10:00~13:00 (3시간) · <span class="venue">대전보건대학교 8동 4층 대강당</span></span>
                 </span>
               </label>
@@ -418,9 +418,10 @@
       // ✏️ 편집: 접수 마감일 — 기본 8/31, 일부 건만 9/7로 연장
       const DEFAULT_CLOSE_TS = new Date('2026-08-31T23:59:59+09:00').getTime();
       const EXTENDED_CLOSE_TS = new Date('2026-09-07T23:59:59+09:00').getTime();
-      // 학생은 선택 강좌와 무관하게 전체 연장. 작업치료사는 아래 9.20 두 강좌만 연장.
+      // 학생은 선택 강좌와 무관하게 전체 연장. 작업치료사는 아래 9.19·9.20 강좌만 연장.
       // (일반참가자는 연장 대상 아님 — 항상 기본 마감)
       const EXTENDED_COURSES_CLINICIAN = new Set([
+        '9.19(토) AI와 함께 하는 작업치료 임상과 전문역량',
         '9.20(일) 회복기 재활·재택의료',
         '9.20(일) 지역사회 통합돌봄과 작업치료',
       ]);
@@ -541,7 +542,7 @@
           cb.disabled = closed;
           if (closed && cb.checked) cb.checked = false;
 
-          // 연장 대상 강좌에는 "접수연장" 배지 표시(있는 항목만 — 9.19 학생 옵션·9.20 두 강좌)
+          // 연장 대상 강좌에는 "접수연장" 배지 표시(배지 요소가 있는 항목만 대상)
           const badge = cb.closest('label')?.querySelector('.course-extend-badge');
           if (badge) badge.hidden = courseCloseTs(cb.value, role) !== EXTENDED_CLOSE_TS;
         });
