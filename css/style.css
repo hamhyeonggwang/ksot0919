@@ -644,6 +644,16 @@ section { padding: 90px 0; }
   background: #0B42C8;
   transform: translateY(-2px);
 }
+/* ✏️ 편집: 접수 마감 — 재오픈 시 is-closed 클래스 제거 */
+.workshop-apply-btn.is-closed {
+  background: var(--ivory-2);
+  color: var(--text-dim);
+  cursor: default;
+}
+.workshop-apply-btn.is-closed:hover {
+  background: var(--ivory-2);
+  transform: none;
+}
 
 .edu-main-title {
   font-size: 17px;
@@ -1354,6 +1364,9 @@ section { padding: 90px 0; }
   transition: opacity 0.2s;
 }
 .tt-apply-link:hover { opacity: 1; text-decoration: underline; }
+/* ✏️ 편집: 접수 마감 — 재오픈 시 is-closed 클래스 제거 */
+.tt-apply-link.is-closed { color: var(--text-dim); }
+.tt-apply-link.is-closed:hover { text-decoration: none; }
 
 /* ===== 플로팅 CTA 바 ===== */
 .floating-cta {
