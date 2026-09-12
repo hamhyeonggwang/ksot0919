@@ -398,6 +398,13 @@
   </main>
 
   <script src="supabase-config.js"></script>
+  <!-- ✏️ 편집: 전체 접수 마감 — 재오픈 시 이 스크립트 블록을 삭제할 것 -->
+  <script>
+    window.REG_GATE = {
+      mode: 'closed',
+      label: '작업치료사·학생·일반참가자 모두 보수교육 접수가 마감되었습니다.',
+    };
+  </script>
   <script src="register.js"></script>
   <script>
     (function () {

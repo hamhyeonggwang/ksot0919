@@ -163,23 +163,23 @@
     <p class="reg-page-desc">신청하실 항목을 선택하면 해당 신청서로 이동합니다.<br>여러 항목 신청 시 각 신청서를 따로 제출해 주세요.</p>
 
     <div class="hub-section-label"><span>교육 신청</span></div>
-    <!-- ✏️ 편집: 교육 신청 접수 오픈 카운트다운 (오픈일 8/17 00:00 이후 자동 해제) -->
-    <div class="reg-countdown" data-gate="edu" role="status" aria-live="polite">
+    <!-- ✏️ 편집: 전체 접수 마감 — 재오픈 시 is-closed 제거하고 문구를 오픈 안내로 되돌릴 것 -->
+    <div class="reg-countdown is-closed" role="status" aria-live="polite">
       <div class="rc-left">
-        <span class="rc-badge">접수 시작 예정</span>
-        <span class="rc-date">2026년 8월 17일(월) 00:00 접수 시작</span>
+        <span class="rc-badge">접수 마감</span>
+        <span class="rc-date">보수교육(작업치료사·학생·일반참가자)·대학원생 워크숍 접수가 모두 마감되었습니다.</span>
       </div>
       <div class="rc-main">
-        <span class="rc-dday">D<span class="num">-00</span></span>
-        <span class="rc-timer">남은 시간을 계산 중…</span>
+        <span class="rc-dday">CLOSED</span>
       </div>
     </div>
     <div class="hub-grid">
-      <a class="hub-card" data-gate="edu" href="ceu.html">
+      <!-- ✏️ 편집: 전체 접수 마감 — 재오픈 시 is-locked 클래스·aria-disabled·tabindex 제거하고 hub-go 문구를 "신청서 작성 →"로 되돌릴 것 -->
+      <a class="hub-card is-locked" href="ceu.html" aria-disabled="true" tabindex="-1">
         <span class="hub-badge green">보수교육 접수</span>
         <div class="hub-title">보수교육 신청 (임상가 · 학생)</div>
-        <div class="hub-meta">9.12 온라인 / 9.13 아동 / 9.20 성인 강좌<br>9.19(토) 학술대회 보수교육 — 한 신청서에서 선택</div>
-        <span class="hub-go">신청서 작성 →</span>
+        <div class="hub-meta">9.12 온라인 / 9.13 아동 / 9.20 성인 강좌<br>접수가 마감되었습니다.</div>
+        <span class="hub-go">접수 마감</span>
       </a>
       <!-- ✏️ 편집: 정원 마감 — 날짜 게이트(edu)와 무관하게 정적으로 잠금 처리. 정원 재오픈 시 is-locked 클래스·aria-disabled·tabindex 제거하고 hub-go 문구를 "신청서 작성 →"로 되돌릴 것 -->
       <a class="hub-card is-locked" href="workshop.html" aria-disabled="true" tabindex="-1">
@@ -222,7 +222,8 @@
   </main>
 
   <!-- ✏️ 편집: 분류별 접수 게이팅 + D-day/마감 카운트다운
-       교육 신청(edu) = 오픈 게이트(8/17 00:00부터), 발표 신청(pres) = 마감 게이트(7/31 23:59:59까지) -->
+       교육 신청(edu)은 전체 마감으로 정적 처리해 더 이상 이 스크립트가 관리하지 않음(위 배너·카드 참고).
+       발표 신청(pres) = 마감 게이트(7/31 23:59:59까지, 오늘 기준 이미 지나 자동 마감 표시됨) -->
   <script>
     (function () {
       function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -324,7 +325,6 @@
         }, 1000);
       }
 
-      wireGate('edu', 'open-at', '2026-08-17T00:00:00+09:00', '8월 17일 접수 시작');
       wireGate('pres', 'close-at', '2026-07-31T23:59:59+09:00', '접수 마감');
     })();
   </script>
